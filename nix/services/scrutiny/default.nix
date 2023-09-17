@@ -22,6 +22,8 @@ in
         "--device=/dev/nvme1"
         "--device=/dev/nvme2"
         "--device=/dev/sda"
+        "--device=/dev/sdb"
+        "--device=/dev/sdc"
         "--network=services"
         "--ip=${vars.services.ips.scrutiny}"
         "--privileged"

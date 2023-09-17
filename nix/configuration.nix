@@ -125,27 +125,33 @@
     };
 
     "/mnt/parity0" = {
-      device  = "/dev/disk/by-id/ata-ST10000NM0016-1TT101_ZA21BXT1";
-      fsType = "xfs";
+      device  = "/dev/disk/by-id/ata-ST10000NM0016-1TT101_ZA218QZ0";
+      fsType = "ext4";
       label  = "parity0";
     };
 
-    /* TODO: More disks
-    "/mnt/media" = {
+    "/mnt/parity1" = {
+      device  = "/dev/disk/by-id/ata-ST10000NM0016-1TT101_ZA21BXT1";
+      fsType = "ext4";
+      label  = "parity1";
+    };
+
+    "/mnt/data0" = {
+      device  = "/dev/disk/by-id/ata-ST10000NM0016-1TT101_ZA20WPHN";
+      fsType = "ext4";
+      label  = "data0";
+    };
+
+    "/mnt/tank" = {
       device  = "/mnt/data*";
       fsType  = "fuse.mergerfs";
       options = [
         "defaults"
-        "allow_other"
-        "moveonenospc=1"
-        "minfreespace=1M"
+        "minfreespace=10G"
         "func.getattr=newest"
-        "fsname=media"
-        "umask=002"
-        "x-mount.mkdir"
+        "fsname=tank"
       ];
     };
-    */
   };
 
   # This value determines the NixOS release from which the default

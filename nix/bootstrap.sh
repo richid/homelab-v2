@@ -15,8 +15,9 @@ zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/jellyfin app-data/jellyfin
 
 ##### MergerFS / Snapraid ####
-# Format parity disks with XFS
-mkfs.xfs /dev/disk/by-id/ata-ST10000NM0016-1TT101_ZA21BXT1
+mkfs.ext4 -m 0 -T largefile4 -L parity0 /dev/disk/by-id/ata-ST10000NM0016-1TT101_ZA218QZ0
+mkfs.ext4 -m 0 -T largefile4 -L parity1 /dev/disk/by-id/ata-ST10000NM0016-1TT101_ZA21BXT1
+mkfs.ext4 -m 1 -T largefile4 -L data0   /dev/disk/by-id/ata-ST10000NM0016-1TT101_ZA20WPHN
 
 ##### Docker #####
 # Create macvlan network that uses bonded/LAG interface
