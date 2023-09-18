@@ -5,8 +5,8 @@ let
 in
 {
   virtualisation.oci-containers.containers = {
-    scrutiny = {
-      image = "lscr.io/linuxserver/smokeping:latest";
+    smokeping = {
+      image = "lscr.io/linuxserver/smokeping:${vars.services.smokeping.version}";
       environment = {
         PUID = "1000";
         PGID = "100";
@@ -21,7 +21,7 @@ in
       ];
       extraOptions = [
         "--network=services"
-        "--ip=${vars.services.ips.smokeping}"
+        "--ip=${vars.services.smokeping.ip}"
       ];
     };
   };

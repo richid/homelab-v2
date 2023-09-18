@@ -5,8 +5,8 @@ let
 in
 {
   virtualisation.oci-containers.containers = {
-    smokeping = {
-      image = "ghcr.io/analogj/scrutiny:master-omnibus";
+    scrutiny = {
+      image = "ghcr.io/analogj/scrutiny:${vars.services.scrutiny.version}";
       ports = [
         "1080:1080"
         "80:8080"
@@ -25,7 +25,7 @@ in
         "--device=/dev/sdb"
         "--device=/dev/sdc"
         "--network=services"
-        "--ip=${vars.services.ips.scrutiny}"
+        "--ip=${vars.services.scrutiny.ip}"
         "--privileged"
       ];
     };

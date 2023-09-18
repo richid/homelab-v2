@@ -8,6 +8,7 @@
   imports =
     [
       ./hardware-configuration.nix
+      ./services/mosquitto/default.nix
       ./services/scrutiny/default.nix
       ./services/smokeping/default.nix
     ];
@@ -65,7 +66,6 @@
     snapraid
     vim
     wget
-    xfsprogs
   ];
 
   programs.zsh.enable = true;
@@ -107,7 +107,7 @@
 
   virtualisation.oci-containers.backend = "docker";
 
-  # filesystems.nix
+  # Filesystems TODO: move to filesystems.nix
   services.zfs = {
     autoScrub.enable = true;
     zed.settings = {
