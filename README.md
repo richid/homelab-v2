@@ -9,7 +9,7 @@ Infrastructure, configuration, and documentation for v2 of the homelab.
 
 | Name         | Running | Stable | Production | Monitoring | Notes                             |
 |--------------|:-------:|:------:|:----------:|:----------:|-----------------------------------|
-| Emby         |         |        |            |            | Will not migrate                  |
+| Emby         |   🚫    |   🚫   |     🚫     |     🚫     | Will not migrate                  |
 | Gotify       |    ✅    |   ✅    |     ✅      |    N/A     |                                   |
 | HDBGo        |         |        |            |            |                                   |
 | Homer        |         |        |            |            |                                   |
@@ -19,7 +19,7 @@ Infrastructure, configuration, and documentation for v2 of the homelab.
 | Netatalk     |         |        |            |            |                                   |
 | Plex         |         |        |            |            |                                   |
 | Postgres     |         |        |            |            |                                   |
-| Prowlarr     |         |        |            |            |                                   |
+| Prowlarr     |    ✅    |   ✅    |            |     ✅      |                                   |
 | Radarr       |         |        |            |            |                                   |
 | Scrutiny     |    ✅    |   ✅    |     ✅      |     ✅      |                                   |
 | Smokeping    |    ✅    |   ✅    |     ✅      |     ✅      |                                   |

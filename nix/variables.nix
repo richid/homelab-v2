@@ -16,6 +16,11 @@
       version = "2.0.17";
     };
 
+    prowlarr = {
+      ip      = "192.168.20.217";
+      version = "1.9.1-nightly";
+    };
+
     scrutiny = {
       ip      = "192.168.20.210";
       version = "v0.7.1-omnibus";
