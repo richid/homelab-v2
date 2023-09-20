@@ -7,10 +7,6 @@ in
   virtualisation.oci-containers.containers = {
     mosquitto = {
       image = "eclipse-mosquitto:${vars.services.mosquitto.version}";
-      ports = [
-        "1883:1883"
-        "9001:9001"
-      ];
       volumes = [
         "${app_path}/config/mosquitto.conf:/mosquitto/config/mosquitto.conf"
         "${app_path}/data:/mosquitto/data"

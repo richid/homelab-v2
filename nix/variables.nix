@@ -26,6 +26,11 @@
       version = "2.8.2";
     };
 
+    transmission = {
+      ip      = "192.168.20.216";
+      version = "4.0.4";
+    };
+
     uptime-kuma = {
       ip      = "192.168.20.215";
       version = "1";

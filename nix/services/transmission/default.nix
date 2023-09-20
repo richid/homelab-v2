@@ -1,29 +1,31 @@
 { config, pkgs, lib, ... }:
 let
   vars     = import ../../variables.nix;
-  app_path = "${vars.paths.services}/smokeping";
+  app_path = "${vars.paths.services}/transmission";
 in
 {
   virtualisation.oci-containers.containers = {
-    smokeping = {
-      image = "lscr.io/linuxserver/smokeping:${vars.services.smokeping.version}";
+    transmission = {
+      image = "linuxserver/transmission:${vars.services.transmission.version}";
       environment = {
         PUID = "1000";
         PGID = "100";
+        TRANSMISSION_WEB_HOME = "/config/ui/flood-for-transmission";
         TZ = "America/New_York";
       };
       volumes = [
         "${app_path}/config:/config"
-        "${app_path}/data:/data"
+        "${app_path}/torrents:/watch"
+        "/mnt/tank/downloads/:/downloads"
       ];
       extraOptions = [
         "--network=services"
-        "--ip=${vars.services.smokeping.ip}"
+        "--ip=${vars.services.transmission.ip}"
       ];
     };
   };
 
-  systemd.services.docker-smokeping = {
+  systemd.services.docker-transmission = {
     unitConfig = {
       RequiresMountsFor = app_path;
     };

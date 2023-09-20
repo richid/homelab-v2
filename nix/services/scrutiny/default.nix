@@ -7,10 +7,6 @@ in
   virtualisation.oci-containers.containers = {
     scrutiny = {
       image = "ghcr.io/analogj/scrutiny:${vars.services.scrutiny.version}";
-      ports = [
-        "1080:1080"
-        "80:8080"
-      ];
       volumes = [
         "${app_path}/config:/opt/scrutiny/config"
         "${app_path}/influxdb:/opt/scrutiny/influxdb"

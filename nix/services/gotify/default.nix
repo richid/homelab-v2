@@ -10,9 +10,6 @@ in
       environment = {
         TZ = "America/New_York";
       };
-      ports = [
-        "80:80"
-      ];
       volumes = [
         "${app_path}/data:/app/data"
       ];

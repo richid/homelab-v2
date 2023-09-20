@@ -12,11 +12,8 @@ in
         WATCHTOWER_MONITOR_ONLY              = "true";
         WATCHTOWER_NOTIFICATIONS             = "gotify";
         WATCHTOWER_NOTIFICATION_GOTIFY_URL   = "http://${vars.services.gotify.ip}";
-        WATCHTOWER_NOTIFICATION_GOTIFY_TOKEN = "ArX72kXzIz0rVcF";
+        WATCHTOWER_NOTIFICATION_GOTIFY_TOKEN = "ArX72kXzIz0rVcF"; # Regenerate and encrypt this token
       };
-      ports = [
-        "80:80"
-      ];
       volumes = [
         "/var/run/docker.sock:/var/run/docker.sock"
       ];
@@ -27,6 +24,7 @@ in
     };
   };
 
+  # TODO: I don't think this needs any volumes, so delete the ZFS dataset and remove this dep
   systemd.services.docker-watchtower = {
     unitConfig = {
       RequiresMountsFor = app_path;

@@ -12,6 +12,7 @@
       ./services/mosquitto/default.nix
       ./services/scrutiny/default.nix
       ./services/smokeping/default.nix
+      ./services/transmission/default.nix
       ./services/uptime-kuma/default.nix
       ./services/watchtower/default.nix
     ];

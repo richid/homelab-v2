@@ -24,6 +24,6 @@ Infrastructure, configuration, and documentation for v2 of the homelab.
 | Scrutiny     |    ✅    |   ✅    |     ✅      |     ✅      |                                   |
 | Smokeping    |    ✅    |   ✅    |     ✅      |     ✅      |                                   |
 | Sonarr       |         |        |            |            |                                   |
-| Transmission |         |        |            |            |                                   |
+| Transmission |    ✅    |   ✅    |            |     ✅      |                                   |
 | Uptime Kuma  |    ✅    |   ✅    |     ✅      |     ✅      |                                   |
 | Watchtower   |    ✅    |   ✅    |     ✅      |     ✅      |                                   |
