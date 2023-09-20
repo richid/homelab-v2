@@ -159,6 +159,31 @@
     };
   };
 
+  snapraid = {
+    enable = true;
+    extraConfig = ''
+      autosave 500
+    '';
+    parityFiles = [
+      "/mnt/parity0/snapraid.parity"
+      "/mnt/parity1/snapraid.parity"
+    ];
+    contentFiles = [
+      "/mnt/parity0/snapraid.content" # Temp to get around the N+1 req for content files
+      "/mnt/parity1/snapraid.content" # Temp to get around the N+1 req for content files
+      "/mnt/data0/snapraid.content"
+    ];
+    dataDisks = {
+      d1 = "/mnt/data0";
+    };
+    exclude = [
+      "*.part"
+      "*.unrecoverable"
+      "/tmp/"
+      "/lost+found/"
+    ];
+  };
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
