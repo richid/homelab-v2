@@ -15,8 +15,7 @@ in
         #UMASK = "002";
       };
       volumes = [
-        "/mnt/tank/media/tv:/media/tv:ro"
-        "/mnt/tank/media/movies:/media/movies:ro"
+        "/mnt/tank/media:/media:ro"
         "/mnt/app-data/jellyfin/config:/config"
       ];
       extraOptions = [

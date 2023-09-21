@@ -16,6 +16,7 @@
       ./services/smokeping/default.nix
       ./services/transmission/default.nix
       ./services/uptime-kuma/default.nix
+      ./services/watchstate/default.nix
       ./services/watchtower/default.nix
     ];
 

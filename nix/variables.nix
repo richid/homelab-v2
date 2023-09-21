@@ -46,6 +46,11 @@
       version = "1";
     };
 
+    watchstate = {
+      ip      = "192.168.20.219";
+      version = "master-20230915-063bdf4";
+    };
+
     watchtower = {
       ip      = "192.168.20.214";
       version = "1.5.3";
