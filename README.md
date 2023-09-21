@@ -9,10 +9,11 @@ Infrastructure, configuration, and documentation for v2 of the homelab.
 
 | Name         | Running | Stable | Production | Monitoring | Notes                             |
 |--------------|:-------:|:------:|:----------:|:----------:|-----------------------------------|
-| Emby         |   🚫    |   🚫   |     🚫     |     🚫     | Will not migrate                  |
+| Emby         |   🚫    |   🚫   |     🚫     |     🚫     | Will not migrate -> Jellyfin      |
 | Gotify       |    ✅    |   ✅    |     ✅      |    N/A     |                                   |
-| HDBGo        |         |        |            |            |                                   |
+| HDBGo        |   🚫    |   🚫   |     🚫     |     🚫     | Will not migrate -> Prowlarr      |
 | Homer        |         |        |            |            |                                   |
+| Jellyfin     |    ✅    |        |            |            |                                   |
 | Minecraft    |         |        |            |            |                                   |
 | Mongo        |         |        |            |            |                                   |
 | Mosquitto    |    ✅    |   ✅    |            |     ✅      | Need to point mqtt.schu to new IP |

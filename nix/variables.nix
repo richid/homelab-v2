@@ -11,6 +11,11 @@
       version = "2.4.0";
     };
 
+    jellyfin = {
+      ip      = "192.168.20.218";
+      version = "10.8.10";
+    };
+
     mosquitto = {
       ip      = "192.168.20.212";
       version = "2.0.17";
