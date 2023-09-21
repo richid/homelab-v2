@@ -77,6 +77,7 @@
 
   programs.zsh.enable = true;
   users.groups.family = {};
+  users.groups.media  = {};
 
   users.users =
     let commonCfg =

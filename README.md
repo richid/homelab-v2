@@ -13,8 +13,8 @@ Infrastructure, configuration, and documentation for v2 of the homelab.
 | Gotify       |    ✅    |   ✅    |     ✅      |    N/A     |                                   |
 | HDBGo        |   🚫    |   🚫   |     🚫     |     🚫     | Will not migrate -> Prowlarr      |
 | Homer        |         |        |            |            |                                   |
-| Jellyfin     |    ✅    |        |            |            |                                   |
-| Minecraft    |         |        |            |            |                                   |
+| Jellyfin     |    ✅    |   ✅    |            |     ✅      |                                   |
+| Minecraft    |   🚫    |   🚫   |     🚫     |     🚫     |                                   |
 | Mongo        |         |        |            |            |                                   |
 | Mosquitto    |    ✅    |   ✅    |            |     ✅      | Need to point mqtt.schu to new IP |
 | Netatalk     |         |        |            |            |                                   |
@@ -27,4 +27,5 @@ Infrastructure, configuration, and documentation for v2 of the homelab.
 | Sonarr       |         |        |            |            |                                   |
 | Transmission |    ✅    |   ✅    |            |     ✅      |                                   |
 | Uptime Kuma  |    ✅    |   ✅    |     ✅      |     ✅      |                                   |
+| Watchstate   |    ✅    |   ✅    |     ✅      |     ✅      |                                   |
 | Watchtower   |    ✅    |   ✅    |     ✅      |     ✅      |                                   |
