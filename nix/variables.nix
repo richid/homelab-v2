@@ -8,6 +8,7 @@
     gotify = {
       ip      = "192.168.20.213";
       version = "2.4.0";
+      uid     = 987;
     };
 
     jellyfin = {

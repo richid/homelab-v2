@@ -10,7 +10,7 @@ Infrastructure, configuration, and documentation for v2 of the homelab.
 | Name         | Running | Stable | Production | Monitoring | Rootless | Notes                                                   |
 |--------------|:-------:|:------:|:----------:|:----------:|:--------:|---------------------------------------------------------|
 | Emby         |   🚫    |   🚫   |     🚫     |     🚫     |    🚫    | Will not migrate -> Jellyfin                            |
-| Gotify       |    ✅    |   ✅    |     ✅      |    N/A     |          |                                                         |
+| Gotify       |    ✅    |   ✅    |     ✅      |    N/A     |   ✅       |                                                         |
 | HDBGo        |   🚫    |   🚫   |     🚫     |     🚫     |    🚫    | Will not migrate -> Prowlarr                            |
 | Homer        |         |        |            |            |          |                                                         |
 | Jellyfin     |    ✅    |   ✅    |            |     ✅      |    ✅     |                                                         |

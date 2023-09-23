@@ -33,6 +33,7 @@ docker network create -d macvlan --subnet=192.168.20.0/24 --gateway=192.168.20.1
 chown -R rich:media /mnt/tank/media/
 chmod -R 775 /mnt/tank/media/
 
+chown -R gotify:services /mnt/app-data/gotify/
 chown -R jellyfin:media /mnt/app-data/jellyfin/
 chown -R mosquitto:services /mnt/app-data/mosquitto/
 chown -R prowlarr:services /mnt/app-data/prowlarr/

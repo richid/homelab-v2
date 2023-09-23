@@ -7,6 +7,7 @@ in
   virtualisation.oci-containers.containers = {
     gotify = {
       image = "ghcr.io/gotify/server:${vars.services.gotify.version}";
+      user = "${toString vars.services.gotify.uid}:${toString vars.services.base_gid}";
       environment = {
         TZ = "America/New_York";
       };
