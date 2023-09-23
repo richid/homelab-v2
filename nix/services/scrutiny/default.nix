@@ -1,15 +1,15 @@
 { config, pkgs, lib, ... }:
 let
   vars     = import ../../variables.nix;
-  app_path = "${vars.paths.services}/scrutiny";
+  appPath = "${vars.services.rootPath}/scrutiny";
 in
 {
   virtualisation.oci-containers.containers = {
     scrutiny = {
       image = "ghcr.io/analogj/scrutiny:${vars.services.scrutiny.version}";
       volumes = [
-        "${app_path}/config:/opt/scrutiny/config"
-        "${app_path}/influxdb:/opt/scrutiny/influxdb"
+        "${appPath}/config:/opt/scrutiny/config"
+        "${appPath}/influxdb:/opt/scrutiny/influxdb"
         "/run/udev:/run/udev:ro"
       ];
       extraOptions = [
@@ -29,7 +29,7 @@ in
 
   systemd.services.docker-scrutiny= {
     unitConfig = {
-      RequiresMountsFor = app_path;
+      RequiresMountsFor = appPath;
     };
   };
 }

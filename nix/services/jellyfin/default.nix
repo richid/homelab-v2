@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 let
   vars     = import ../../variables.nix;
-  app_path = "${vars.paths.services}/jellyfin";
+  appPath = "${vars.services.rootPath}/jellyfin";
 in
 {
   virtualisation.oci-containers.containers = {
@@ -9,14 +9,13 @@ in
       image = "linuxserver/jellyfin:${vars.services.jellyfin.version}";
       environment = {
         DOCKER_MODS = "linuxserver/mods:jellyfin-opencl-intel";
-        PUID = "1000";
-        PGID = "100";
+        PUID = toString vars.services.jellyfin.uid;
+        PGID = toString vars.services.media_gid;
         TZ = "America/New_York";
-        #UMASK = "002";
       };
       volumes = [
         "/mnt/tank/media:/media:ro"
-        "/mnt/app-data/jellyfin/config:/config"
+        "${appPath}/config:/config"
       ];
       extraOptions = [
         "--device=/dev/dri:/dev/dri"
@@ -28,7 +27,7 @@ in
 
   systemd.services.docker-jellyfin = {
     unitConfig = {
-      RequiresMountsFor = app_path;
+      RequiresMountsFor = appPath;
     };
   };
 }

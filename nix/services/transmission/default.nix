@@ -1,21 +1,21 @@
 { config, pkgs, lib, ... }:
 let
   vars     = import ../../variables.nix;
-  app_path = "${vars.paths.services}/transmission";
+  appPath = "${vars.services.rootPath}/transmission";
 in
 {
   virtualisation.oci-containers.containers = {
     transmission = {
       image = "linuxserver/transmission:${vars.services.transmission.version}";
       environment = {
-        PUID = "1000";
-        PGID = "100";
+        PUID = toString vars.services.transmission.uid;
+        PGID = toString vars.services.media_gid;
         TRANSMISSION_WEB_HOME = "/config/ui/flood-for-transmission";
         TZ = "America/New_York";
       };
       volumes = [
-        "${app_path}/config:/config"
-        "${app_path}/torrents:/watch"
+        "${appPath}/config:/config"
+        "${appPath}/torrents:/watch"
         "/mnt/tank/downloads/:/downloads"
       ];
       extraOptions = [
@@ -27,7 +27,7 @@ in
 
   systemd.services.docker-transmission = {
     unitConfig = {
-      RequiresMountsFor = app_path;
+      RequiresMountsFor = appPath;
     };
   };
 }

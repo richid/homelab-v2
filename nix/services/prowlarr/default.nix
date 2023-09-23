@@ -1,19 +1,19 @@
 { config, pkgs, lib, ... }:
 let
   vars     = import ../../variables.nix;
-  app_path = "${vars.paths.services}/prowlarr";
+  appPath = "${vars.services.rootPath}/prowlarr";
 in
 {
   virtualisation.oci-containers.containers = {
     prowlarr = {
       image = "linuxserver/prowlarr:${vars.services.prowlarr.version}";
       environment = {
-        PUID = "1000";
-        PGID = "100";
-        TZ = "America/New_York";
+        PUID = toString vars.services.prowlarr.uid;
+        PGID = toString vars.services.base_gid;
+        TZ   = "America/New_York";
       };
       volumes = [
-        "${app_path}/config:/config"
+        "${appPath}/config:/config"
       ];
       extraOptions = [
         "--network=services"
@@ -24,7 +24,7 @@ in
 
   systemd.services.docker-prowlarr = {
     unitConfig = {
-      RequiresMountsFor = app_path;
+      RequiresMountsFor = appPath;
     };
   };
 }

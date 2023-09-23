@@ -1,20 +1,20 @@
 { config, pkgs, lib, ... }:
 let
-  vars     = import ../../variables.nix;
-  app_path = "${vars.paths.services}/smokeping";
+  vars    = import ../../variables.nix;
+  appPath = "${vars.services.rootPath}/smokeping";
 in
 {
   virtualisation.oci-containers.containers = {
     smokeping = {
       image = "lscr.io/linuxserver/smokeping:${vars.services.smokeping.version}";
       environment = {
-        PUID = "1000";
-        PGID = "100";
-        TZ = "America/New_York";
+        PUID = toString vars.services.smokeping.uid;
+        PGID = toString vars.services.base_gid;
+        TZ   = "America/New_York";
       };
       volumes = [
-        "${app_path}/config:/config"
-        "${app_path}/data:/data"
+        "${appPath}/config:/config"
+        "${appPath}/data:/data"
       ];
       extraOptions = [
         "--network=services"
@@ -25,7 +25,7 @@ in
 
   systemd.services.docker-smokeping = {
     unitConfig = {
-      RequiresMountsFor = app_path;
+      RequiresMountsFor = appPath;
     };
   };
 }

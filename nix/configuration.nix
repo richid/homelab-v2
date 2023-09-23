@@ -76,8 +76,10 @@
   ];
 
   programs.zsh.enable = true;
-  users.groups.family = {};
-  users.groups.media  = {};
+
+  users.groups.family   = {};
+  users.groups.media    = {};
+  users.groups.services = {};
 
   users.users =
     let commonCfg =
@@ -86,12 +88,30 @@
         isNormalUser = true;
         shell        = pkgs.zsh;
       };
+      commonSvcCfg =
+      { createHome   = false;
+        group        = "services";
+        isSystemUser = true;
+      };
     in
-      { "rich"   = (commonCfg // { createHome = true; extraGroups = [ "family" "wheel" ]; });
+      { "rich"   = (commonCfg // { createHome = true; extraGroups = [ "family" "media" "wheel" ]; });
         "kate"   = commonCfg;
         "calvin" = commonCfg;
         "emma"   = commonCfg;
         "lucas"  = commonCfg;
+
+        "gotify"       = commonSvcCfg;
+        "homer"        = commonSvcCfg;
+        "jellyfin"     = commonSvcCfg // { group = "media"; extraGroups = [ "services" ]; };
+        "mongo"        = commonSvcCfg;
+        "mosquitto"    = commonSvcCfg;
+        "postgres"     = commonSvcCfg;
+        "prowlarr"     = commonSvcCfg;
+        "radarr"       = commonSvcCfg // { group = "media"; extraGroups = [ "services" ]; };
+        "smokeping"    = commonSvcCfg;
+        "sonarr"       = commonSvcCfg // { group = "media"; extraGroups = [ "services" ]; };
+        "transmission" = commonSvcCfg // { group = "media"; extraGroups = [ "services" ]; };
+        "watchstate"   = commonSvcCfg;
       };
 
   services.openssh = {

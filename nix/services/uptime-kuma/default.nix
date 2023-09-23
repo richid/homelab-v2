@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 let
   vars     = import ../../variables.nix;
-  app_path = "${vars.paths.services}/uptime-kuma";
+  appPath = "${vars.services.rootPath}/uptime-kuma";
 in
 {
   virtualisation.oci-containers.containers = {
@@ -11,7 +11,7 @@ in
         PORT = "80";
       };
       volumes = [
-        "${app_path}/data:/app/data"
+        "${appPath}/data:/app/data"
         "/var/run/docker.sock:/var/run/docker.sock"
       ];
       extraOptions = [
@@ -23,7 +23,7 @@ in
 
   systemd.services.docker-uptime-kuma = {
     unitConfig = {
-      RequiresMountsFor = app_path;
+      RequiresMountsFor = appPath;
     };
   };
 }

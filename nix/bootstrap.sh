@@ -19,9 +19,8 @@ zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/transmission app-data/transmission
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/uptime-kuma app-data/uptime-kuma
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/watchstate app-data/watchstate
-zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/watchtower app-data/watchtower
 
-##### MergerFS / Snapraid ####
+##### MergerFS / Snapraid #####
 mkfs.ext4 -m 0 -T largefile4 -L parity0 /dev/disk/by-id/ata-ST10000NM0016-1TT101_ZA218QZ0
 mkfs.ext4 -m 0 -T largefile4 -L parity1 /dev/disk/by-id/ata-ST10000NM0016-1TT101_ZA21BXT1
 mkfs.ext4 -m 1 -T largefile4 -L data0   /dev/disk/by-id/ata-ST10000NM0016-1TT101_ZA20WPHN
@@ -29,3 +28,14 @@ mkfs.ext4 -m 1 -T largefile4 -L data0   /dev/disk/by-id/ata-ST10000NM0016-1TT101
 ##### Docker #####
 # Create macvlan network that uses bonded/LAG interface
 docker network create -d macvlan --subnet=192.168.20.0/24 --gateway=192.168.20.1 -o parent=bond0 services
+
+##### Permissions #####
+chown -R rich:media /mnt/tank/media/
+chmod -R 775 /mnt/tank/media/
+
+chown -R jellyfin:media /mnt/app-data/jellyfin/
+chown -R mosquitto:services /mnt/app-data/mosquitto/
+chown -R prowlarr:services /mnt/app-data/prowlarr/
+chown -R smokeping:services /mnt/app-data/smokeping/
+chown -R transmission:media /mnt/app-data/transmission/
+chown -R watchstate:services /mnt/app-data/watchstate/

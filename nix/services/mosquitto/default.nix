@@ -1,16 +1,17 @@
 { config, pkgs, lib, ... }:
 let
   vars     = import ../../variables.nix;
-  app_path = "${vars.paths.services}/mosquitto";
+  appPath = "${vars.services.rootPath}/mosquitto";
 in
 {
   virtualisation.oci-containers.containers = {
     mosquitto = {
       image = "eclipse-mosquitto:${vars.services.mosquitto.version}";
+      user = "${toString vars.services.mosquitto.uid}:${toString vars.services.base_gid}";
       volumes = [
-        "${app_path}/config/mosquitto.conf:/mosquitto/config/mosquitto.conf"
-        "${app_path}/data:/mosquitto/data"
-        "${app_path}/log:/mosquitto/log"
+        "${appPath}/config/mosquitto.conf:/mosquitto/config/mosquitto.conf"
+        "${appPath}/data:/mosquitto/data"
+        "${appPath}/log:/mosquitto/log"
       ];
       extraOptions = [
         "--network=services"
@@ -21,7 +22,7 @@ in
 
   systemd.services.docker-mosquitto = {
     unitConfig = {
-      RequiresMountsFor = app_path;
+      RequiresMountsFor = appPath;
     };
   };
 }

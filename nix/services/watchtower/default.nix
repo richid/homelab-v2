@@ -1,7 +1,6 @@
 { config, pkgs, lib, ... }:
 let
-  vars     = import ../../variables.nix;
-  app_path = "${vars.paths.services}/watchtower";
+  vars = import ../../variables.nix;
 in
 {
   virtualisation.oci-containers.containers = {
@@ -21,13 +20,6 @@ in
         "--network=services"
         "--ip=${vars.services.watchtower.ip}"
       ];
-    };
-  };
-
-  # TODO: I don't think this needs any volumes, so delete the ZFS dataset and remove this dep
-  systemd.services.docker-watchtower = {
-    unitConfig = {
-      RequiresMountsFor = app_path;
     };
   };
 }

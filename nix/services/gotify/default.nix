@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 let
-  vars     = import ../../variables.nix;
-  app_path = "${vars.paths.services}/gotify";
+  vars    = import ../../variables.nix;
+  appPath = "${vars.services.rootPath}/gotify";
 in
 {
   virtualisation.oci-containers.containers = {
@@ -11,7 +11,7 @@ in
         TZ = "America/New_York";
       };
       volumes = [
-        "${app_path}/data:/app/data"
+        "${appPath}/data:/app/data"
       ];
       extraOptions = [
         "--network=services"
@@ -22,7 +22,7 @@ in
 
   systemd.services.docker-gotify = {
     unitConfig = {
-      RequiresMountsFor = app_path;
+      RequiresMountsFor = appPath;
     };
   };
 }
