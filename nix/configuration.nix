@@ -12,8 +12,10 @@
       ./services/jellyfin/default.nix
       ./services/mosquitto/default.nix
       ./services/prowlarr/default.nix
+      ./services/radarr/default.nix
       ./services/scrutiny/default.nix
       ./services/smokeping/default.nix
+      ./services/sonarr/default.nix
       ./services/transmission/default.nix
       ./services/uptime-kuma/default.nix
       ./services/watchstate/default.nix

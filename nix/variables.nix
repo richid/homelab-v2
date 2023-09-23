@@ -29,6 +29,12 @@
       uid     = 989;
     };
 
+    radarr = {
+      ip      = "192.168.20.220";
+      version = "4.7.5";
+      uid     = 982;
+    };
+
     scrutiny = {
       ip      = "192.168.20.210";
       version = "v0.7.1-omnibus";
@@ -38,6 +44,12 @@
       ip      = "192.168.20.211";
       version = "2.8.2";
       uid     = 993;
+    };
+
+    sonarr = {
+      ip      = "192.168.20.221";
+      version = "3.0.10";
+      uid     = 981;
     };
 
     transmission = {

@@ -13,9 +13,12 @@ zpool create -o ashift=12 -m legacy app-data mirror \
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/gotify app-data/gotify
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/jellyfin app-data/jellyfin
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/mosquitto app-data/mosquitto
+zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/overseer app-data/overseer
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/prowlarr app-data/prowlarr
+zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/radarr app-data/radarr
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/scrutiny app-data/scrutiny
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/smokeping app-data/smokeping
+zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/sonarr app-data/sonarr
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/transmission app-data/transmission
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/uptime-kuma app-data/uptime-kuma
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/watchstate app-data/watchstate
@@ -36,7 +39,10 @@ chmod -R 775 /mnt/tank/media/
 chown -R gotify:services /mnt/app-data/gotify/
 chown -R jellyfin:media /mnt/app-data/jellyfin/
 chown -R mosquitto:services /mnt/app-data/mosquitto/
+chown -R overseer:services /mnt/app-data/overseer/
 chown -R prowlarr:services /mnt/app-data/prowlarr/
+chown -R radarr:media /mnt/app-data/radarr/
 chown -R smokeping:services /mnt/app-data/smokeping/
+chown -R sonarr:media /mnt/app-data/sonarr/
 chown -R transmission:media /mnt/app-data/transmission/
 chown -R watchstate:services /mnt/app-data/watchstate/

@@ -18,13 +18,14 @@ Infrastructure, configuration, and documentation for v2 of the homelab.
 | Mongo        |         |        |            |            |          |                                                         |
 | Mosquitto    |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     | Need to point mqtt.schu to new IP                       |
 | Netatalk     |         |        |            |            |          |                                                         |
+| Overseer     |         |        |            |            |          |                                                         |
 | Plex         |   🚫    |   🚫   |     🚫     |     🚫     |    🚫    | Plex has been great, but time to say bye.               |
 | Postgres     |         |        |            |            |          |                                                         |
 | Prowlarr     |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
-| Radarr       |         |        |            |            |          |                                                         |
+| Radarr       |    ✅     |  ✅      |   ✅       |    ✅        |    ✅       |                                                         |
 | Scrutiny     |    ✅    |   ✅    |     ✅      |     ✅      |    🚫    | Can't run rootless, SMART requires root                 | 
 | Smokeping    |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
-| Sonarr       |         |        |            |            |          |                                                         |
+| Sonarr       |    ✅    |   ✅   |      ✅    |       ✅      |    ✅  |                                                         |
 | Transmission |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
 | Uptime Kuma  |    ✅    |   ✅    |     ✅      |     ✅      |    🚫    | Not easy to run rootless, needs access to Docker socket |
 | Watchstate   |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
