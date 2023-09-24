@@ -14,11 +14,11 @@ Infrastructure, configuration, and documentation for v2 of the homelab.
 | HDBGo        |   🚫    |   🚫   |     🚫     |     🚫     |    🚫    | Will not migrate -> Prowlarr                            |
 | Homer        |         |        |            |            |          |                                                         |
 | Jellyfin     |    ✅    |   ✅    |            |     ✅      |    ✅     |                                                         |
+| Jellyseerr     |  ✅    |   ✅     |  ✅           |    ✅         |    ✅       |                                                         |
 | Minecraft    |   🚫    |   🚫   |     🚫     |     🚫     |    🚫    |                                                         |
 | Mongo        |         |        |            |            |          |                                                         |
 | Mosquitto    |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     | Need to point mqtt.schu to new IP                       |
 | Netatalk     |         |        |            |            |          |                                                         |
-| Overseer     |         |        |            |            |          |                                                         |
 | Plex         |   🚫    |   🚫   |     🚫     |     🚫     |    🚫    | Plex has been great, but time to say bye.               |
 | Postgres     |         |        |            |            |          |                                                         |
 | Prowlarr     |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |

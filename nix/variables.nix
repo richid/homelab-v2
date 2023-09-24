@@ -23,6 +23,12 @@
       uid     = 988;
     };
 
+    jellyseerr = {
+      ip      = "192.168.20.222";
+      version = "1.7.0";
+      uid     = 978;
+    };
+
     prowlarr = {
       ip      = "192.168.20.217";
       version = "1.9.1-nightly";

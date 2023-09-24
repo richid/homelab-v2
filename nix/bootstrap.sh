@@ -12,8 +12,8 @@ zpool create -o ashift=12 -m legacy app-data mirror \
 # Create container datasets
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/gotify app-data/gotify
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/jellyfin app-data/jellyfin
+zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/jellyseerr app-data/jellyseerr
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/mosquitto app-data/mosquitto
-zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/overseer app-data/overseer
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/prowlarr app-data/prowlarr
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/radarr app-data/radarr
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/scrutiny app-data/scrutiny
@@ -39,7 +39,7 @@ chmod -R 775 /mnt/tank/media/
 chown -R gotify:services /mnt/app-data/gotify/
 chown -R jellyfin:media /mnt/app-data/jellyfin/
 chown -R mosquitto:services /mnt/app-data/mosquitto/
-chown -R overseer:services /mnt/app-data/overseer/
+chown -R jellyseerr:services /mnt/app-data/jellyseerr/
 chown -R prowlarr:services /mnt/app-data/prowlarr/
 chown -R radarr:media /mnt/app-data/radarr/
 chown -R smokeping:services /mnt/app-data/smokeping/

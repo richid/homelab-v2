@@ -10,6 +10,7 @@
       ./hardware-configuration.nix
       ./services/gotify/default.nix
       ./services/jellyfin/default.nix
+      ./services/jellyseerr/default.nix
       ./services/mosquitto/default.nix
       ./services/prowlarr/default.nix
       ./services/radarr/default.nix
@@ -107,6 +108,7 @@
         "jellyfin"     = commonSvcCfg // { group = "media"; extraGroups = [ "services" ]; };
         "mongo"        = commonSvcCfg;
         "mosquitto"    = commonSvcCfg;
+        "jellyseerr"   = commonSvcCfg;
         "postgres"     = commonSvcCfg;
         "prowlarr"     = commonSvcCfg;
         "radarr"       = commonSvcCfg // { group = "media"; extraGroups = [ "services" ]; };
