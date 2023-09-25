@@ -11,6 +11,7 @@ zpool create -o ashift=12 -m legacy app-data mirror \
 
 # Create container datasets
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/gotify app-data/gotify
+zfs create -o quota=2G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/homer app-data/homer
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/jellyfin app-data/jellyfin
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/jellyseerr app-data/jellyseerr
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/mosquitto app-data/mosquitto
@@ -37,6 +38,7 @@ chown -R rich:media /mnt/tank/media/
 chmod -R 775 /mnt/tank/media/
 
 chown -R gotify:services /mnt/app-data/gotify/
+chown -R homer:services /mnt/app-data/homer/
 chown -R jellyfin:media /mnt/app-data/jellyfin/
 chown -R mosquitto:services /mnt/app-data/mosquitto/
 chown -R jellyseerr:services /mnt/app-data/jellyseerr/

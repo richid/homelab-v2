@@ -9,6 +9,7 @@
     [
       ./hardware-configuration.nix
       ./services/gotify/default.nix
+      ./services/homer/default.nix
       ./services/jellyfin/default.nix
       ./services/jellyseerr/default.nix
       ./services/mosquitto/default.nix

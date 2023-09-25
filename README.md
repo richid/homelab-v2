@@ -10,11 +10,11 @@ Infrastructure, configuration, and documentation for v2 of the homelab.
 | Name         | Running | Stable | Production | Monitoring | Rootless | Notes                                                   |
 |--------------|:-------:|:------:|:----------:|:----------:|:--------:|---------------------------------------------------------|
 | Emby         |   🚫    |   🚫   |     🚫     |     🚫     |    🚫    | Will not migrate -> Jellyfin                            |
-| Gotify       |    ✅    |   ✅    |     ✅      |    N/A     |   ✅       |                                                         |
+| Gotify       |    ✅    |   ✅    |     ✅      |    N/A     |    ✅     |                                                         |
 | HDBGo        |   🚫    |   🚫   |     🚫     |     🚫     |    🚫    | Will not migrate -> Prowlarr                            |
-| Homer        |         |        |            |            |          |                                                         |
-| Jellyfin     |    ✅    |   ✅    |            |     ✅      |    ✅     |                                                         |
-| Jellyseerr     |  ✅    |   ✅     |  ✅           |    ✅         |    ✅       |                                                         |
+| Homer        |    ✅    |   ✅    |     ✅      |            |          |                                                         |
+| Jellyfin     |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
+| Jellyseerr   |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
 | Minecraft    |   🚫    |   🚫   |     🚫     |     🚫     |    🚫    |                                                         |
 | Mongo        |         |        |            |            |          |                                                         |
 | Mosquitto    |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     | Need to point mqtt.schu to new IP                       |
@@ -22,10 +22,10 @@ Infrastructure, configuration, and documentation for v2 of the homelab.
 | Plex         |   🚫    |   🚫   |     🚫     |     🚫     |    🚫    | Plex has been great, but time to say bye.               |
 | Postgres     |         |        |            |            |          |                                                         |
 | Prowlarr     |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
-| Radarr       |    ✅     |  ✅      |   ✅       |    ✅        |    ✅       |                                                         |
+| Radarr       |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
 | Scrutiny     |    ✅    |   ✅    |     ✅      |     ✅      |    🚫    | Can't run rootless, SMART requires root                 | 
 | Smokeping    |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
-| Sonarr       |    ✅    |   ✅   |      ✅    |       ✅      |    ✅  |                                                         |
+| Sonarr       |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
 | Transmission |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
 | Uptime Kuma  |    ✅    |   ✅    |     ✅      |     ✅      |    🚫    | Not easy to run rootless, needs access to Docker socket |
 | Watchstate   |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
