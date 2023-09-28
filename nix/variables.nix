@@ -5,6 +5,18 @@
     network   = "services";
     rootPath  = "/mnt/app-data";
 
+    caddy = {
+      ip      = "192.168.20.200";
+      version = "2.7.4";
+      uid     = 977;
+    };
+
+    diun = {
+      ip      = "192.168.20.214";
+      version = "4.26.0";
+      uid     = 976;
+    };
+
     gotify = {
       ip      = "192.168.20.213";
       version = "2.4.0";
@@ -79,11 +91,6 @@
       ip      = "192.168.20.219";
       version = "master-20230915-063bdf4";
       uid     = 991;
-    };
-
-    watchtower = {
-      ip      = "192.168.20.214";
-      version = "1.5.3";
     };
   };
 }

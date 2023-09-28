@@ -9,10 +9,12 @@ Infrastructure, configuration, and documentation for v2 of the homelab.
 
 | Name         | Running | Stable | Production | Monitoring | Rootless | Notes                                                   |
 |--------------|:-------:|:------:|:----------:|:----------:|:--------:|---------------------------------------------------------|
+| Caddy       |    ✅    |   ✅    |           |     ✅    |        |                                                         |
+| Diun        |    ✅    |   ✅    |   ✅      |     ✅    |    🚫     | Needs access to Docker socket, still needs tweaking                                                        |
 | Emby         |   🚫    |   🚫   |     🚫     |     🚫     |    🚫    | Will not migrate -> Jellyfin                            |
 | Gotify       |    ✅    |   ✅    |     ✅      |    N/A     |    ✅     |                                                         |
 | HDBGo        |   🚫    |   🚫   |     🚫     |     🚫     |    🚫    | Will not migrate -> Prowlarr                            |
-| Homer        |    ✅    |   ✅    |     ✅      |            |          |                                                         |
+| Homer        |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
 | Jellyfin     |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
 | Jellyseerr   |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
 | Minecraft    |   🚫    |   🚫   |     🚫     |     🚫     |    🚫    |                                                         |
@@ -29,4 +31,3 @@ Infrastructure, configuration, and documentation for v2 of the homelab.
 | Transmission |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
 | Uptime Kuma  |    ✅    |   ✅    |     ✅      |     ✅      |    🚫    | Not easy to run rootless, needs access to Docker socket |
 | Watchstate   |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
-| Watchtower   |    ✅    |   ✅    |     ✅      |     ✅      |    🚫    | Not easy to run rootless, needs access to Docker socket |

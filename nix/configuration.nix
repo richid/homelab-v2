@@ -8,6 +8,8 @@
   imports =
     [
       ./hardware-configuration.nix
+      ./services/caddy/default.nix
+      ./services/diun/default.nix
       ./services/gotify/default.nix
       ./services/homer/default.nix
       ./services/jellyfin/default.nix
@@ -21,7 +23,6 @@
       ./services/transmission/default.nix
       ./services/uptime-kuma/default.nix
       ./services/watchstate/default.nix
-      ./services/watchtower/default.nix
     ];
 
   boot.loader.systemd-boot.enable      = true;
@@ -104,6 +105,8 @@
         "emma"   = commonCfg;
         "lucas"  = commonCfg;
 
+        "caddy"        = commonSvcCfg;
+        "diun"         = commonSvcCfg;
         "gotify"       = commonSvcCfg;
         "homer"        = commonSvcCfg;
         "jellyfin"     = commonSvcCfg // { group = "media"; extraGroups = [ "services" ]; };

@@ -6,7 +6,7 @@ in
 {
   virtualisation.oci-containers.containers = {
     transmission = {
-      image = "linuxserver/transmission:${vars.services.transmission.version}";
+      image = "lscr.io/linuxserver/transmission:${vars.services.transmission.version}";
       environment = {
         PUID = toString vars.services.transmission.uid;
         PGID = toString vars.services.media_gid;

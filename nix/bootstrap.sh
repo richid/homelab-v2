@@ -10,6 +10,8 @@ zpool create -o ashift=12 -m legacy app-data mirror \
   /dev/disk/by-id/nvme-SPCC_M.2_PCIe_SSD_AA000000000000005666
 
 # Create container datasets
+zfs create -o quota=2G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/caddy app-data/caddy
+zfs create -o quota=2G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/diun app-data/diun
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/gotify app-data/gotify
 zfs create -o quota=2G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/homer app-data/homer
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/jellyfin app-data/jellyfin
@@ -33,10 +35,15 @@ mkfs.ext4 -m 1 -T largefile4 -L data0   /dev/disk/by-id/ata-ST10000NM0016-1TT101
 # Create macvlan network that uses bonded/LAG interface
 docker network create -d macvlan --subnet=192.168.20.0/24 --gateway=192.168.20.1 -o parent=bond0 services
 
+# Create Caddy network for easy reverse proxying
+docker network create caddy
+
 ##### Permissions #####
 chown -R rich:media /mnt/tank/media/
 chmod -R 775 /mnt/tank/media/
 
+chown -R caddy:services /mnt/app-data/caddy/
+chown -R diun:services /mnt/app-data/diun/
 chown -R gotify:services /mnt/app-data/gotify/
 chown -R homer:services /mnt/app-data/homer/
 chown -R jellyfin:media /mnt/app-data/jellyfin/

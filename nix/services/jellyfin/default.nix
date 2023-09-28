@@ -6,7 +6,7 @@ in
 {
   virtualisation.oci-containers.containers = {
     jellyfin = {
-      image = "linuxserver/jellyfin:${vars.services.jellyfin.version}";
+      image = "lscr.io/linuxserver/jellyfin:${vars.services.jellyfin.version}";
       environment = {
         DOCKER_MODS = "linuxserver/mods:jellyfin-opencl-intel";
         PUID = toString vars.services.jellyfin.uid;

@@ -6,7 +6,7 @@ in
 {
   virtualisation.oci-containers.containers = {
     radarr = {
-      image = "linuxserver/radarr:${vars.services.radarr.version}";
+      image = "lscr.io/linuxserver/radarr:${vars.services.radarr.version}";
       environment = {
         PUID = toString vars.services.radarr.uid;
         PGID = toString vars.services.media_gid;
