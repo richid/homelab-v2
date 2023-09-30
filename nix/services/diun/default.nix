@@ -9,7 +9,10 @@ in
       image = "crazymax/diun:${vars.services.diun.version}";
       environment = {
         TZ                                   = "America/New_York";
-        #DIUN_DEFAULTS_WATCHREPO              = "true";
+        DIUN_DEFAULTS_WATCHREPO              = "true";
+        DIUN_DEFAULTS_MAXTAGS                = "10";
+        DIUN_DEFAULTS_SORTTAGS               = "semver";
+        DIUN_DEFAULTS_INCLUDETAGS            = "^\d+\.\d+\.\d+$";
         DIUN_WATCH_SCHEDULE                  = "0 */12 * * *";
         DIUN_PROVIDERS_DOCKER                = "true";
         DIUN_PROVIDERS_DOCKER_WATCHBYDEFAULT = "true";
