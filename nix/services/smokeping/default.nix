@@ -6,7 +6,7 @@ in
 {
   virtualisation.oci-containers.containers = {
     smokeping = {
-      image = "lscr.io/lscr.io/linuxserver/smokeping:${vars.services.smokeping.version}";
+      image = "lscr.io/linuxserver/smokeping:${vars.services.smokeping.version}";
       environment = {
         PUID = toString vars.services.smokeping.uid;
         PGID = toString vars.services.base_gid;
