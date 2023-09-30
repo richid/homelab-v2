@@ -17,6 +17,7 @@ in
       volumes = [
         "${appPath}/data:/data"
         "${appPath}/config:/config"
+        "${appPath}/config/Caddyfile:/etc/caddy/Caddyfile"
       ];
       extraOptions = [
         "--network=services"
@@ -29,5 +30,34 @@ in
     unitConfig = {
       RequiresMountsFor = appPath;
     };
+
+    serviceConfig = {
+      ExecReload = "${pkgs.docker}/bin/docker exec -w /etc/caddy caddy caddy reload";
+    };
+  };
+
+  systemd.services.docker-caddy-watcher = {
+    unitConfig = {
+      Description = "Reload Caddy configuration when Caddyfile changed.";
+      After       = "network.target";
+
+      StartLimitIntervalSec = "10";
+      StartLimitBurst       = "5";
+    };
+
+    serviceConfig = {
+      Type      = "oneshot";
+      ExecStart = "systemctl reload docker-caddy.service";
+    };
+    wantedBy = ["multi-user.target"];
+  };
+
+  systemd.paths.docker-caddy-watcher = {
+    pathConfig = {
+      Unit        = "docker-caddy-watcher.service";
+      PathChanged = "${appPath}/config/Caddyfile";
+    };
+
+    wantedBy = ["multi-user.target"];
   };
 }
