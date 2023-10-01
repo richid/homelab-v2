@@ -17,6 +17,9 @@ in
       extraOptions = [
         "--network=services"
         "--ip=${vars.services.uptime-kuma.ip}"
+        "--label=caddy=status.schu"
+        "--label=caddy.reverse_proxy={{upstreams}}"
+        "--label=caddy.tls=internal"
       ];
     };
   };

@@ -18,6 +18,9 @@ in
       extraOptions = [
         "--network=services"
         "--ip=${vars.services.prowlarr.ip}"
+        "--label=caddy=prowlarr.schu"
+        "--label=caddy.reverse_proxy={{upstreams}}"
+        "--label=caddy.tls=internal"
       ];
     };
   };

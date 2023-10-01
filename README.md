@@ -9,8 +9,8 @@ Infrastructure, configuration, and documentation for v2 of the homelab.
 
 | Name         | Running | Stable | Production | Monitoring | Rootless | Notes                                                   |
 |--------------|:-------:|:------:|:----------:|:----------:|:--------:|---------------------------------------------------------|
-| Caddy       |    ✅    |   ✅    |           |     ✅    |        |                                                         |
-| Diun        |    ✅    |   ✅    |   ✅      |     ✅    |    🚫     | Needs access to Docker socket, still needs tweaking                                                        |
+| Caddy        |    ✅    |   ✅    |     ✅      |     ✅      |    🚫    | `caddy-docker-proxy`, needs Docker socket               |
+| Diun         |    ✅    |   ✅    |     ✅      |     ✅      |    🚫    | Needs access to Docker socket, still needs tweaking     |
 | Emby         |   🚫    |   🚫   |     🚫     |     🚫     |    🚫    | Will not migrate -> Jellyfin                            |
 | Gotify       |    ✅    |   ✅    |     ✅      |    N/A     |    ✅     |                                                         |
 | HDBGo        |   🚫    |   🚫   |     🚫     |     🚫     |    🚫    | Will not migrate -> Prowlarr                            |

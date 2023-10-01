@@ -19,6 +19,9 @@ in
       extraOptions = [
         "--network=services"
         "--ip=${vars.services.radarr.ip}"
+        "--label=caddy=radarr.schu"
+        "--label=caddy.reverse_proxy={{upstreams}}"
+        "--label=caddy.tls=internal"
       ];
     };
   };

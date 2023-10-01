@@ -18,6 +18,9 @@ in
       extraOptions = [
         "--network=services"
         "--ip=${vars.services.jellyseerr.ip}"
+        "--label=caddy=requests.schu jellyseerr.schu"
+        "--label=caddy.reverse_proxy={{upstreams}}"
+        "--label=caddy.tls=internal"
       ];
     };
   };

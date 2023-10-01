@@ -21,6 +21,9 @@ in
       extraOptions = [
         "--network=services"
         "--ip=${vars.services.transmission.ip}"
+        "--label=caddy=transmission.schu"
+        "--label=caddy.reverse_proxy={{upstreams}}"
+        "--label=caddy.tls=internal"
       ];
     };
   };

@@ -23,6 +23,9 @@ in
         "--network=services"
         "--ip=${vars.services.scrutiny.ip}"
         "--privileged"
+        "--label=caddy=disks.schu"
+        "--label=caddy.reverse_proxy={{upstreams}}"
+        "--label=caddy.tls=internal"
       ];
     };
   };

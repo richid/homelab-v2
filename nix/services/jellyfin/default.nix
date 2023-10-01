@@ -21,6 +21,9 @@ in
         "--device=/dev/dri:/dev/dri"
         "--network=services"
         "--ip=${vars.services.jellyfin.ip}"
+        "--label=caddy=watch.schu jellyfin.schu"
+        "--label=caddy.reverse_proxy={{upstreams}}"
+        "--label=caddy.tls=internal"
       ];
     };
   };

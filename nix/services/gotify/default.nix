@@ -17,6 +17,9 @@ in
       extraOptions = [
         "--network=services"
         "--ip=${vars.services.gotify.ip}"
+        "--label=caddy=gotify.schu"
+        "--label=caddy.reverse_proxy={{upstreams}}"
+        "--label=caddy.tls=internal"
       ];
     };
   };

@@ -18,6 +18,9 @@ in
       extraOptions = [
         "--network=services"
         "--ip=${vars.services.homer.ip}"
+        "--label=caddy=home.schu"
+        "--label=caddy.reverse_proxy={{upstreams}}"
+        "--label=caddy.tls=internal"
       ];
     };
   };

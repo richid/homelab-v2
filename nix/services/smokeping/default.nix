@@ -19,6 +19,9 @@ in
       extraOptions = [
         "--network=services"
         "--ip=${vars.services.smokeping.ip}"
+        "--label=caddy=smokeping.schu"
+        "--label=caddy.reverse_proxy={{upstreams}}"
+        "--label=caddy.tls=internal"
       ];
     };
   };
