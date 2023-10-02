@@ -22,6 +22,7 @@ in
         "--label=caddy=sonarr.schu"
         "--label=caddy.reverse_proxy={{upstreams}}"
         "--label=caddy.tls=internal"
+        "--label=caddy.import=cors"
       ];
     };
   };

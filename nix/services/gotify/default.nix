@@ -19,6 +19,8 @@ in
         "--ip=${vars.services.gotify.ip}"
         "--label=caddy=gotify.schu"
         "--label=caddy.reverse_proxy={{upstreams}}"
+        "--label=caddy.reverse_proxy.header_up=-Origin"
+        "--label=caddy.import=cors"
         "--label=caddy.tls=internal"
       ];
     };
