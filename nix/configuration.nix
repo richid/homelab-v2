@@ -14,6 +14,7 @@
       ./services/homer/default.nix
       ./services/jellyfin/default.nix
       ./services/jellyseerr/default.nix
+      ./services/mongo/default.nix
       ./services/mosquitto/default.nix
       ./services/postgres/default.nix
       ./services/prowlarr/default.nix
@@ -22,6 +23,7 @@
       ./services/smokeping/default.nix
       ./services/sonarr/default.nix
       ./services/transmission/default.nix
+      ./services/unifi/default.nix
       ./services/uptime-kuma/default.nix
       ./services/watchstate/default.nix
     ];
@@ -120,6 +122,7 @@
         "smokeping"    = commonSvcCfg;
         "sonarr"       = commonSvcCfg // { group = "media"; extraGroups = [ "services" ]; };
         "transmission" = commonSvcCfg // { group = "media"; extraGroups = [ "services" ]; };
+        "unifi"        = commonSvcCfg;
         "watchstate"   = commonSvcCfg;
       };
 

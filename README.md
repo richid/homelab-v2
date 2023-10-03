@@ -18,7 +18,7 @@ Infrastructure, configuration, and documentation for v2 of the homelab.
 | Jellyfin     |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
 | Jellyseerr   |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
 | Minecraft    |   🚫    |   🚫   |     🚫     |     🚫     |    🚫    |                                                         |
-| Mongo        |         |        |            |            |          |                                                         |
+| Mongo        |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
 | Mosquitto    |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     | Need to point mqtt.schu to new IP                       |
 | Netatalk     |         |        |            |            |          |                                                         |
 | Plex         |   🚫    |   🚫   |     🚫     |     🚫     |    🚫    | Plex has been great, but time to say bye.               |
@@ -29,5 +29,6 @@ Infrastructure, configuration, and documentation for v2 of the homelab.
 | Smokeping    |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
 | Sonarr       |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
 | Transmission |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
+| Unifi        |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
 | Uptime Kuma  |    ✅    |   ✅    |     ✅      |     ✅      |    🚫    | Not easy to run rootless, needs access to Docker socket |
 | Watchstate   |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
