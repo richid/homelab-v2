@@ -17,6 +17,7 @@ zfs create -o quota=2G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/jellyfin app-data/jellyfin
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/jellyseerr app-data/jellyseerr
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/mosquitto app-data/mosquitto
+zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/postgres app-data/postgres
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/prowlarr app-data/prowlarr
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/radarr app-data/radarr
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/scrutiny app-data/scrutiny
@@ -49,9 +50,21 @@ chown -R homer:services /mnt/app-data/homer/
 chown -R jellyfin:media /mnt/app-data/jellyfin/
 chown -R mosquitto:services /mnt/app-data/mosquitto/
 chown -R jellyseerr:services /mnt/app-data/jellyseerr/
+chown -R postgres:services /mnt/app-data/postgres/
 chown -R prowlarr:services /mnt/app-data/prowlarr/
 chown -R radarr:media /mnt/app-data/radarr/
 chown -R smokeping:services /mnt/app-data/smokeping/
 chown -R sonarr:media /mnt/app-data/sonarr/
 chown -R transmission:media /mnt/app-data/transmission/
 chown -R watchstate:services /mnt/app-data/watchstate/
+
+##### Postgres Migration #####
+1. Spin up PG16 Docker container
+2. Create hass:hass user in new cluster
+  a. `CREATE USER hass WITH PASSWORD 'hass';`
+  b. `CREATE DATABASE home_assistant WITH OWNER hass ENCODING 'utf8';`
+3. Stop HASS from writing to the DB (unplug the network cable :D)
+4. Dump existing data
+  a. `pg_dump -U postgres home_assistant | gzip > home_assistant.gz`
+5. Import data into new schema
+  a. `gunzip -c home_assistant.gz | psql --set ON_ERROR_STOP=on -U postgres home_assistant

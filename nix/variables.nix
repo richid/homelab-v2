@@ -47,6 +47,12 @@
       uid     = 978;
     };
 
+    postgres16 = {
+      ip      = "192.168.20.224";
+      version = "16";
+      uid     = 983;
+    };
+
     prowlarr = {
       ip      = "192.168.20.217";
       version = "1.9.1-nightly";

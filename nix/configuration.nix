@@ -15,6 +15,7 @@
       ./services/jellyfin/default.nix
       ./services/jellyseerr/default.nix
       ./services/mosquitto/default.nix
+      ./services/postgres/default.nix
       ./services/prowlarr/default.nix
       ./services/radarr/default.nix
       ./services/scrutiny/default.nix

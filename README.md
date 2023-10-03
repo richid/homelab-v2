@@ -22,7 +22,7 @@ Infrastructure, configuration, and documentation for v2 of the homelab.
 | Mosquitto    |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     | Need to point mqtt.schu to new IP                       |
 | Netatalk     |         |        |            |            |          |                                                         |
 | Plex         |   🚫    |   🚫   |     🚫     |     🚫     |    🚫    | Plex has been great, but time to say bye.               |
-| Postgres     |         |        |            |            |          |                                                         |
+| Postgres     |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
 | Prowlarr     |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
 | Radarr       |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
 | Scrutiny     |    ✅    |   ✅    |     ✅      |     ✅      |    🚫    | Can't run rootless, SMART requires root                 | 
