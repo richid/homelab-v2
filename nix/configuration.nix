@@ -8,6 +8,7 @@
   imports =
     [
       ./hardware-configuration.nix
+      ./filesystems.nix
       ./services/caddy/default.nix
       ./services/diun/default.nix
       ./services/gotify/default.nix
@@ -146,78 +147,6 @@
   };
 
   virtualisation.oci-containers.backend = "docker";
-
-  # Filesystems TODO: move to filesystems.nix
-  services.zfs = {
-    autoScrub.enable = true;
-    zed.settings = {
-      ZED_DEBUG_LOG            = "/tmp/zed.debug.log";
-      ZED_SCRUB_AFTER_RESILVER = true;
-    };
-    zed.enableMail = false;
-  };
-
-  fileSystems = {
-    "/mnt/app-data" = {
-      device = "app-data";
-      fsType = "zfs";
-      label  = "app-data";
-    };
-
-    "/mnt/parity0" = {
-      device  = "/dev/disk/by-id/ata-ST10000NM0016-1TT101_ZA218QZ0";
-      fsType = "ext4";
-      label  = "parity0";
-    };
-
-    "/mnt/parity1" = {
-      device  = "/dev/disk/by-id/ata-ST10000NM0016-1TT101_ZA21BXT1";
-      fsType = "ext4";
-      label  = "parity1";
-    };
-
-    "/mnt/data0" = {
-      device  = "/dev/disk/by-id/ata-ST10000NM0016-1TT101_ZA20WPHN";
-      fsType = "ext4";
-      label  = "data0";
-    };
-
-    "/mnt/tank" = {
-      device  = "/mnt/data*";
-      fsType  = "fuse.mergerfs";
-      options = [
-        "defaults"
-        "minfreespace=10G"
-        "func.getattr=newest"
-        "fsname=tank"
-      ];
-    };
-  };
-
-  snapraid = {
-    enable = true;
-    extraConfig = ''
-      autosave 500
-    '';
-    parityFiles = [
-      "/mnt/parity0/snapraid.parity"
-      "/mnt/parity1/snapraid.parity"
-    ];
-    contentFiles = [
-      "/mnt/parity0/snapraid.content" # Temp to get around the N+1 req for content files
-      "/mnt/parity1/snapraid.content" # Temp to get around the N+1 req for content files
-      "/mnt/data0/snapraid.content"
-    ];
-    dataDisks = {
-      d1 = "/mnt/data0";
-    };
-    exclude = [
-      "*.part"
-      "*.unrecoverable"
-      "/tmp/"
-      "/lost+found/"
-    ];
-  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

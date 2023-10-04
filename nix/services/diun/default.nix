@@ -8,17 +8,16 @@ in
     diun = {
       image = "crazymax/diun:${vars.services.diun.version}";
       environment = {
-        TZ                                   = "America/New_York";
         DIUN_DEFAULTS_WATCHREPO              = "true";
-        DIUN_DEFAULTS_MAXTAGS                = "10";
+        DIUN_DEFAULTS_MAXTAGS                = "20";
         DIUN_DEFAULTS_SORTTAGS               = "semver";
-        DIUN_DEFAULTS_INCLUDETAGS            = "^\d+\.\d+\.\d+$";
         DIUN_WATCH_SCHEDULE                  = "0 */12 * * *";
         DIUN_PROVIDERS_DOCKER                = "true";
         DIUN_PROVIDERS_DOCKER_WATCHBYDEFAULT = "true";
-        DIUN_NOTIF_GOTIFY_ENDPOINT           = "http://gotify.schu";
+        DIUN_NOTIF_GOTIFY_ENDPOINT           = "http://${vars.services.gotify.ip}"; # Can't use DNS, certs are self-signed
         DIUN_NOTIF_GOTIFY_TOKEN              = "ArX72kXzIz0rVcF"; # Regenerate and encrypt this token
         DIUN_NOTIF_GOTIFY_PRIORITY           = "3";
+        TZ                                   = "America/New_York";
       };
       volumes = [
         "${appPath}/data:/data"
