@@ -45,19 +45,19 @@
     };
 
     "/mnt/parity0" = {
-      device  = "/dev/disk/by-id/ata-ST10000NM0016-1TT101_ZA218QZ0";
+      device = "/dev/disk/by-id/ata-ST10000NM0016-1TT101_ZA218QZ0";
       fsType = "ext4";
       label  = "parity0";
     };
 
     "/mnt/parity1" = {
-      device  = "/dev/disk/by-id/ata-ST10000NM0016-1TT101_ZA21BXT1";
+      device = "/dev/disk/by-id/ata-ST10000NM0016-1TT101_ZA21BXT1";
       fsType = "ext4";
       label  = "parity1";
     };
 
     "/mnt/data0" = {
-      device  = "/dev/disk/by-id/ata-ST10000NM0016-1TT101_ZA20WPHN";
+      device = "/dev/disk/by-id/ata-ST10000NM0016-1TT101_ZA20WPHN";
       fsType = "ext4";
       label  = "data0";
     };
@@ -76,21 +76,26 @@
 
   snapraid = {
     enable = true;
+
     extraConfig = ''
       autosave 500
     '';
+
     parityFiles = [
       "/mnt/parity0/snapraid.parity"
       "/mnt/parity1/snapraid.parity"
     ];
+
     contentFiles = [
       "/mnt/parity0/snapraid.content" # Temp to get around the N+1 req for content files
       "/mnt/parity1/snapraid.content" # Temp to get around the N+1 req for content files
       "/mnt/data0/snapraid.content"
     ];
+
     dataDisks = {
       d1 = "/mnt/data0";
     };
+
     exclude = [
       "*.part"
       "*.unrecoverable"
@@ -98,5 +103,11 @@
       "/lost+found/"
       ".smbdelete*"
     ];
+
+    scrub = {
+      interval  = "04:00";
+      plan      = 12;
+      olderThan = 10;
+    };
   };
 }
