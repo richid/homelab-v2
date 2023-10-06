@@ -9,6 +9,12 @@ zpool create -o ashift=12 -m legacy app-data mirror \
   /dev/disk/by-id/nvme-WDC_WD_BLACK_SDBPNTY-256G-1106_210603800146 \
   /dev/disk/by-id/nvme-SPCC_M.2_PCIe_SSD_AA000000000000005666
 
+zpool create -o ashift=12 -m legacy dozer mirror \
+  /dev/disk/by-id/ata-ST3500630AS_9QG1ATEN \
+  /dev/disk/by-id/ata-ST3500630AS_9QG1ATWD \
+  spare \
+  /dev/disk/by-id/ata-ST3500630AS_9QG1BZDG
+
 # Create container datasets
 zfs create -o quota=2G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/caddy app-data/caddy
 zfs create -o quota=2G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/diun app-data/diun
@@ -33,6 +39,13 @@ zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-
 mkfs.ext4 -m 0 -T largefile4 -L parity0 /dev/disk/by-id/ata-ST10000NM0016-1TT101_ZA218QZ0
 mkfs.ext4 -m 0 -T largefile4 -L parity1 /dev/disk/by-id/ata-ST10000NM0016-1TT101_ZA21BXT1
 mkfs.ext4 -m 1 -T largefile4 -L data0   /dev/disk/by-id/ata-ST10000NM0016-1TT101_ZA20WPHN
+mkfs.ext4 -m 1 -T largefile4 -L data1   /dev/disk/by-id/ata-WDC_WD40PURX-64NZ6Y0_WD-WCC7K1CZK8JC
+mkfs.ext4 -m 1 -T largefile4 -L data2   /dev/disk/by-id/ata-WDC_WD40PURX-64NZ6Y0_WD-WCC7K2JYLLHL
+mkfs.ext4 -m 1 -T largefile4 -L data3   /dev/disk/by-id/ata-WDC_WD40PURX-64NZ6Y0_WD-WCC7K2LD2NTR
+mkfs.ext4 -m 1 -T largefile4 -L data4   /dev/disk/by-id/ata-WDC_WD40PURX-64NZ6Y0_WD-WCC7K4FEACY1
+mkfs.ext4 -m 1 -T largefile4 -L data5   /dev/disk/by-id/ata-WDC_WD40EURX-64WRWY0_WD-WCC4E1745891
+mkfs.ext4 -m 1 -T largefile4 -L data6   /dev/disk/by-id/ata-WDC_WD40EURX-64WRWY0_WD-WCC4E2036120
+mkfs.ext4 -m 1 -T largefile4 -L data7   /dev/disk/by-id/ata-WDC_WD40EURX-64WRWY0_WD-WCC4E2056001
 
 ##### Docker #####
 # Create macvlan network that uses bonded/LAG interface

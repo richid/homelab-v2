@@ -79,6 +79,7 @@
     duf
     htop
     mergerfs
+    mergerfs-tools
     snapraid
     vim
     wget

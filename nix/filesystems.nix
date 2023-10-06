@@ -44,6 +44,12 @@
       label  = "app-data";
     };
 
+    "/mnt/dozer" = {
+      device = "dozer";
+      fsType = "zfs";
+      label  = "dozer";
+    };
+
     "/mnt/parity0" = {
       device = "/dev/disk/by-id/ata-ST10000NM0016-1TT101_ZA218QZ0";
       fsType = "ext4";
@@ -60,6 +66,48 @@
       device = "/dev/disk/by-id/ata-ST10000NM0016-1TT101_ZA20WPHN";
       fsType = "ext4";
       label  = "data0";
+    };
+
+    "/mnt/data1" = {
+      device = "/dev/disk/by-id/ata-WDC_WD40PURX-64NZ6Y0_WD-WCC7K1CZK8JC";
+      fsType = "ext4";
+      label  = "data1";
+    };
+
+    "/mnt/data2" = {
+      device = "/dev/disk/by-id/ata-WDC_WD40PURX-64NZ6Y0_WD-WCC7K2JYLLHL";
+      fsType = "ext4";
+      label  = "data2";
+    };
+
+    "/mnt/data3" = {
+      device = "/dev/disk/by-id/ata-WDC_WD40PURX-64NZ6Y0_WD-WCC7K2LD2NTR";
+      fsType = "ext4";
+      label  = "data3";
+    };
+
+    "/mnt/data4" = {
+      device = "/dev/disk/by-id/ata-WDC_WD40PURX-64NZ6Y0_WD-WCC7K4FEACY1";
+      fsType = "ext4";
+      label  = "data4";
+    };
+
+    "/mnt/data5" = {
+      device = "/dev/disk/by-id/ata-WDC_WD40EURX-64WRWY0_WD-WCC4E1745891";
+      fsType = "ext4";
+      label  = "data5";
+    };
+
+    "/mnt/data6" = {
+      device = "/dev/disk/by-id/ata-WDC_WD40EURX-64WRWY0_WD-WCC4E2036120";
+      fsType = "ext4";
+      label  = "data6";
+    };
+
+    "/mnt/data7" = {
+      device = "/dev/disk/by-id/ata-WDC_WD40EURX-64WRWY0_WD-WCC4E2056001";
+      fsType = "ext4";
+      label  = "data7";
     };
 
     "/mnt/tank" = {
