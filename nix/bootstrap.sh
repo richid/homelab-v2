@@ -3,24 +3,18 @@
 # concerned with initial setup of ZFS arrays, formatting disks, etc. that is
 # not handled by NixOS directly.
 
-##### ZFS #####
-# Create mirrored ZFS pool on NVMes for container application data
+# ZFS
+## app-data - ZFS mirror on NVMes for container application data
 zpool create -o ashift=12 -m legacy app-data mirror \
   /dev/disk/by-id/nvme-WDC_WD_BLACK_SDBPNTY-256G-1106_210603800146 \
   /dev/disk/by-id/nvme-SPCC_M.2_PCIe_SSD_AA000000000000005666
 
-zpool create -o ashift=12 -m legacy dozer mirror \
-  /dev/disk/by-id/ata-ST3500630AS_9QG1ATEN \
-  /dev/disk/by-id/ata-ST3500630AS_9QG1ATWD \
-  spare \
-  /dev/disk/by-id/ata-ST3500630AS_9QG1BZDG
-
-# Create container datasets
+### Datasets
 zfs create -o quota=2G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/caddy app-data/caddy
 zfs create -o quota=2G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/diun app-data/diun
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/gotify app-data/gotify
 zfs create -o quota=2G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/homer app-data/homer
-zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/jellyfin app-data/jellyfin
+zfs create -o quota=50G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/jellyfin app-data/jellyfin
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/jellyseerr app-data/jellyseerr
 zfs create -o quota=10G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/mongo app-data/mongo
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/mosquitto app-data/mosquitto
@@ -34,6 +28,20 @@ zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/unifi app-data/unifi
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/uptime-kuma app-data/uptime-kuma
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/watchstate app-data/watchstate
+
+## dozer - ZFS mirrors on HDDs for high-value data
+zpool create -o ashift=12 -m legacy dozer mirror \
+  /dev/disk/by-id/ata-ST3500630AS_9QG1ATEN \
+  /dev/disk/by-id/ata-ST3500630AS_9QG1ATWD \
+
+zpool add -o ashift=12 dozer mirror \
+  /dev/disk/by-id/ata-ST3500630AS_9QG1BZDG \
+  /dev/disk/by-id/ata-ST3500630AS_9QG1C94E
+
+###  Datasets
+zfs create -o compression=lz4 -o canmount=on -o mountpoint=/mnt/dozer/Backups dozer/backups
+zfs create -o compression=lz4 -o canmount=on -o mountpoint=/mnt/dozer/Dropbox dozer/dropbox
+
 
 ##### MergerFS / Snapraid #####
 mkfs.ext4 -m 0 -T largefile4 -L parity0 /dev/disk/by-id/ata-ST10000NM0016-1TT101_ZA218QZ0

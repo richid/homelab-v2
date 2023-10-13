@@ -115,7 +115,10 @@
       fsType  = "fuse.mergerfs";
       options = [
         "defaults"
-        "minfreespace=10G"
+        "minfreespace=50G"
+        "moveonenospc"
+        "ignorepponrename"
+        "category.create=mfs"
         "func.getattr=newest"
         "fsname=tank"
       ];
@@ -135,13 +138,20 @@
     ];
 
     contentFiles = [
-      "/mnt/parity0/snapraid.content" # Temp to get around the N+1 req for content files
-      "/mnt/parity1/snapraid.content" # Temp to get around the N+1 req for content files
       "/mnt/data0/snapraid.content"
+      "/mnt/data1/snapraid.content"
+      "/mnt/data2/snapraid.content"
     ];
 
     dataDisks = {
-      d1 = "/mnt/data0";
+      d0 = "/mnt/data0";
+      d1 = "/mnt/data1";
+      d2 = "/mnt/data2";
+      d3 = "/mnt/data3";
+      d4 = "/mnt/data4";
+      d5 = "/mnt/data5";
+      d6 = "/mnt/data6";
+      d7 = "/mnt/data7";
     };
 
     exclude = [
