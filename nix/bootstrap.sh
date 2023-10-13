@@ -106,3 +106,17 @@ db.createUser({ user: "unifi", pwd: passwordPrompt(), roles: [{ role: "dbAdmin",
 
 use unifi_stat
 db.createUser({ user: "unifi", pwd: passwordPrompt(), roles: [{ role: "dbAdmin", db: "unifi" },{ role: "dbAdmin", db: "unifi_stat" }]});
+
+## Backups
+
+[nix-shell:~]# restic -r rclone:gdrive:/BCackups init
+enter password for new repository:
+enter password again:
+created restic repository e60c554e7e at rclone:gdrive:/BCackups
+
+Please note that knowledge of your password is required to access
+the repository. Losing your password means that your data is
+irrecoverably lost.
+
+Using restic + reclone to save to Google Drive
+Configuration rclone using a custom OAuth App following https://rclone.org/drive/#making-your-own-client-id

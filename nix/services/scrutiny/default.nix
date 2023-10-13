@@ -13,6 +13,7 @@ in
         "/run/udev:/run/udev:ro"
       ];
       extraOptions = [
+        "--cap-add=SYS_ADMIN"
         "--cap-add=SYS_RAWIO"
         "--device=/dev/nvme0"
         "--device=/dev/nvme1"

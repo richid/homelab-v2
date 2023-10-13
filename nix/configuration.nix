@@ -80,6 +80,7 @@
     htop
     mergerfs
     mergerfs-tools
+    rclone
     snapraid
     vim
     wget
@@ -110,6 +111,7 @@
         "emma"   = commonCfg;
         "lucas"  = commonCfg;
 
+        "backups"      = commonSvcCfg;
         "caddy"        = commonSvcCfg;
         "diun"         = commonSvcCfg;
         "gotify"       = commonSvcCfg;
@@ -127,6 +129,28 @@
         "unifi"        = commonSvcCfg;
         "watchstate"   = commonSvcCfg;
       };
+
+  security.sudo.extraRules= [{
+    users = [ "rich" ];
+    commands = [{
+      command = "ALL" ;
+      options= [ "NOPASSWD" ];
+    }];
+  }];
+
+  services.restic.backups = {
+    gdrive = {
+      user         = "backups";
+      repository   = "rclone:gdrive:/Backups";
+      paths        = [ "/mnt/dozer/Dropbox" ];
+      passwordFile = "/etc/nixos/restic-password";
+
+      timerConfig = {
+        OnCalendar = "*-*-* 03:00:00";
+        Persistent = true;
+      };
+    };
+  };
 
   services.openssh = {
     enable = true;
