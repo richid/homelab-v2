@@ -17,6 +17,7 @@ in
         "${appPath}/v16/data:/var/lib/postgresql/data"
       ];
       extraOptions = [
+        "--label=diun.include_tags=^16\..*"
         "--network=services"
         "--ip=${vars.services.postgres16.ip}"
       ];

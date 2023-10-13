@@ -23,6 +23,7 @@ in
         "--label=caddy.reverse_proxy={{upstreams}}"
         "--label=caddy.tls=internal"
         "--label=caddy.import=cors"
+        #"--label=diun.include_tags=^\d+\.\d+\.\d+$"
       ];
     };
   };

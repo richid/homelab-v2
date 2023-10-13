@@ -18,6 +18,7 @@ in
         "${appPath}/data:/data"
       ];
       extraOptions = [
+        #"--label=diun.include_tags=^\d+\.\d+\.\d+$"
         "--network=services"
         "--ip=${vars.services.caddy.ip}"
       ];
