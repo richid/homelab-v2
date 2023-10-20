@@ -134,8 +134,6 @@
       options = [
         "defaults"
         "minfreespace=50G"
-        "moveonenospc"
-        "ignorepponrename"
         "category.create=mfs"
         "func.getattr=newest"
         "fsname=tank"
