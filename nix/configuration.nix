@@ -181,12 +181,21 @@
     }];
   }];
 
+  services.openssh = {
+    enable = true;
+    settings = {
+      PasswordAuthentication = true;
+      PermitRootLogin        = "yes";
+    };
+  };
+
   services.restic.backups = {
     gdrive = {
-      user         = "backups";
-      repository   = "rclone:gdrive:/Backups";
-      paths        = [ "/mnt/dozer/Dropbox" ];
-      passwordFile = "/etc/nixos/restic-password";
+      user             = "backups";
+      repository       = "rclone:gdrive:/Backups";
+      paths            = [ "/mnt/dozer/Dropbox" ];
+      passwordFile     = "/etc/nixos/restic-password";
+      rcloneConfigFile = "/root/.config/rclone/rclone.conf";
 
       timerConfig = {
         OnCalendar = "*-*-* 03:00:00";
