@@ -118,6 +118,7 @@
     dua
     duf
     htop
+    jdupes
     mergerfs
     mergerfs-tools
     rclone
