@@ -14,7 +14,7 @@ in
         TZ = "America/New_York";
       };
       volumes = [
-        "/mnt/tank/media:/media:ro"
+        "/mnt/tank/Media:/media:ro"
         "${appPath}/config:/config"
       ];
       extraOptions = [

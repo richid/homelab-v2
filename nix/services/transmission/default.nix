@@ -16,7 +16,7 @@ in
       volumes = [
         "${appPath}/config:/config"
         "${appPath}/torrents:/watch"
-        "/mnt/tank/downloads/:/downloads"
+        "/mnt/tank/Downloads/:/downloads"
       ];
       extraOptions = [
         "--network=services"
