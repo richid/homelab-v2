@@ -14,6 +14,7 @@ zfs create -o quota=2G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-
 zfs create -o quota=2G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/diun app-data/diun
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/gotify app-data/gotify
 zfs create -o quota=2G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/homer app-data/homer
+zfs create -o quota=25G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/grafana app-data/grafana
 zfs create -o quota=50G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/jellyfin app-data/jellyfin
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/jellyseerr app-data/jellyseerr
 zfs create -o quota=10G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/mongo app-data/mongo
@@ -27,6 +28,7 @@ zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/transmission app-data/transmission
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/unifi app-data/unifi
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/uptime-kuma app-data/uptime-kuma
+zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/vector app-data/vector
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/watchstate app-data/watchstate
 
 ## dozer - ZFS mirrors on HDDs for high-value data
@@ -67,6 +69,7 @@ chmod -R 775 /mnt/tank/media/
 chown -R caddy:services /mnt/app-data/caddy/
 chown -R diun:services /mnt/app-data/diun/
 chown -R gotify:services /mnt/app-data/gotify/
+chown -R grafana:services /mnt/app-data/grafana/
 chown -R homer:services /mnt/app-data/homer/
 chown -R jellyfin:media /mnt/app-data/jellyfin/
 chown -R mongo:services /mnt/app-data/mongo/
@@ -79,6 +82,7 @@ chown -R smokeping:services /mnt/app-data/smokeping/
 chown -R sonarr:media /mnt/app-data/sonarr/
 chown -R transmission:media /mnt/app-data/transmission/
 chown -R unifi:services /mnt/app-data/unifi/
+chown -R vector:services /mnt/app-data/vector/
 chown -R watchstate:services /mnt/app-data/watchstate/
 
 ##### Postgres Migration #####

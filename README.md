@@ -13,6 +13,7 @@ Infrastructure, configuration, and documentation for v2 of the homelab.
 | Diun         |    ✅    |   ✅    |     ✅      |     ✅      |    🚫    | Needs access to Docker socket, still needs tweaking     |
 | Emby         |   🚫    |   🚫   |     🚫     |     🚫     |    🚫    | Will not migrate -> Jellyfin                            |
 | Gotify       |    ✅    |   ✅    |     ✅      |    N/A     |    ✅     |                                                         |
+| Grafana      |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
 | HDBGo        |   🚫    |   🚫   |     🚫     |     🚫     |    🚫    | Will not migrate -> Prowlarr                            |
 | Homer        |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
 | Jellyfin     |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
@@ -31,4 +32,5 @@ Infrastructure, configuration, and documentation for v2 of the homelab.
 | Transmission |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
 | Unifi        |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
 | Uptime Kuma  |    ✅    |   ✅    |     ✅      |     ✅      |    🚫    | Not easy to run rootless, needs access to Docker socket |
+| Vector       |    ✅    |   ✅    |     ✅      |     ✅      |   N/A    | Runs on the host, not Docker                            |
 | Watchstate   |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |

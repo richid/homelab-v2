@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports =
@@ -12,6 +12,7 @@
       ./services/caddy/default.nix
       ./services/diun/default.nix
       ./services/gotify/default.nix
+      ./services/grafana/default.nix
       ./services/homer/default.nix
       ./services/jellyfin/default.nix
       ./services/jellyseerr/default.nix
@@ -154,6 +155,7 @@
         "caddy"        = commonSvcCfg;
         "diun"         = commonSvcCfg;
         "gotify"       = commonSvcCfg;
+        "grafana"      = commonSvcCfg;
         "homer"        = commonSvcCfg;
         "jellyfin"     = commonSvcCfg // { group = "media"; extraGroups = [ "services" ]; };
         "mongo"        = commonSvcCfg;
@@ -166,6 +168,7 @@
         "sonarr"       = commonSvcCfg // { group = "media"; extraGroups = [ "services" ]; };
         "transmission" = commonSvcCfg // { group = "media"; extraGroups = [ "services" ]; };
         "unifi"        = commonSvcCfg;
+        "vector"       = commonSvcCfg // { extraGroups = [ "docker" ]; };
         "watchstate"   = commonSvcCfg;
       };
 
@@ -191,18 +194,95 @@
     };
   };
 
-  services.openssh = {
-    enable = true;
-    settings = {
-      PasswordAuthentication = true;
-      PermitRootLogin        = "yes";
-    };
-  };
-
   services.smartd = {
     enable = true;
     notifications.wall.enable = true;
   };
+
+  services.vector = {
+    enable         = true;
+    journaldAccess = true;
+
+    settings = {
+      api = {
+        enabled = true;
+        address = "0.0.0.0:8686";
+      };
+
+      data_dir = "/mnt/app-data/vector";
+
+      sources = {
+        # TODO: vector user can't read the Docker socket, howdo?
+        docker_logs = {
+          type = "docker_logs";
+        };
+
+        vector_logs = {
+          type = "internal_logs";
+        };
+
+        host_metrics = { # TODO: Ship to Grafana directly?
+          type       = "host_metrics";
+          collectors = [ "cgroups" "cpu" "disk" "filesystem" "load" "host" "memory" "network" ];
+          namespace  = "gibson";
+
+          disk.devices.includes           = [ "sd*" "nvme*" ];
+          filesystem.devices.includes     = [ "sd*" "nvme*" ];
+          filesystem.filesystems.includes = [ "ext*" "fuse.mergerfs" "zfs" ];
+
+          scrape_interval_secs = 10;
+        };
+
+        journald_logs = {
+          type = "journald";
+        };
+      };
+
+      sinks = {
+        console = {
+          type   = "console";
+          inputs = [ "vector_logs" ];
+
+          encoding.codec = "text";
+        };
+
+        loki_docker = {
+          type     = "loki";
+          inputs   = [ "docker_logs" ];
+          endpoint = "http://192.168.20.227:3100";
+          labels   = {
+            source           = "docker";
+            docker_id      = "{{ container_id }}";
+            docker_created = "{{ container_created_at }}";
+            docker_name    = "{{ container_name }}";
+            docker_image   = "{{ image }}";
+            docker_stream  = "{{ stream }}";
+          };
+
+          encoding.codec = "text";
+        };
+
+        loki_journald = {
+          type     = "loki";
+          inputs   = [ "journald_logs" ];
+          endpoint = "http://192.168.20.227:3100";
+          labels   = {
+            source        = "journald";
+            journald_unit = "{{ _SYSTEMD_UNIT }}";
+          };
+
+          encoding.codec = "text";
+        };
+      };
+    };
+  };
+
+  # Don't let systemd use an ephemeral user, we want to use our own
+  # so we have appropriate permissions to the /mnt/app-data/vector ZFS dataset.
+  # https://github.com/NixOS/nixpkgs/blob/bd1cde45c77891214131cbbea5b1203e485a9d51/nixos/modules/services/logging/vector.nix#L53C11-L53C22
+  systemd.services.vector.serviceConfig.DynamicUser = lib.mkForce false;
+  systemd.services.vector.serviceConfig.User        = lib.mkForce "vector";
+  systemd.services.vector.serviceConfig.Group       = lib.mkForce "services";
 
   virtualisation.docker = {
     autoPrune.enable = true;

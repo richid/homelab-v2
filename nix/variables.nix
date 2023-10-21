@@ -23,6 +23,12 @@
       uid     = 987;
     };
 
+    grafana = {
+      ip      = "192.168.20.226";
+      version = "10.1.5";
+      uid     = 971;
+    };
+
     homer = {
       ip      = "192.168.20.223";
       version = "v23.05.1";
@@ -51,6 +57,12 @@
       ip      = "192.168.20.222";
       version = "1.7.0";
       uid     = 978;
+    };
+
+    loki = {
+      ip      = "192.168.20.227";
+      version = "2.9.1";
+      uid     = 971;
     };
 
     postgres16 = {
@@ -103,6 +115,12 @@
     uptime-kuma = {
       ip      = "192.168.20.215";
       version = "1";
+    };
+
+    vector = {
+      ip      = "192.168.20.228";
+      version = "0.33.0-alpine";
+      uid     = 972;
     };
 
     watchstate = {
