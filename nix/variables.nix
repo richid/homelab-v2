@@ -73,7 +73,7 @@
 
     prowlarr = {
       ip      = "192.168.20.217";
-      version = "1.9.1-nightly";
+      version = "1.9.4";
       uid     = 989;
     };
 
