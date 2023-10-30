@@ -115,6 +115,7 @@
 
   environment.variables.EDITOR = "vim";
   environment.systemPackages = with pkgs; [
+    croc
     du-dust
     dua
     duf
@@ -197,7 +198,7 @@
       repository       = "rclone:gdrive:/Backups";
       paths            = [ "/mnt/dozer/Dropbox" ];
       passwordFile     = "/etc/nixos/restic-password";
-      rcloneConfigFile = "/root/.config/rclone/rclone.conf";
+      rcloneConfigFile = "/etc/nixos/rclone.conf";
 
       timerConfig = {
         OnCalendar = "*-*-* 03:00:00";
@@ -224,7 +225,6 @@
       data_dir = "/mnt/app-data/vector";
 
       sources = {
-        # TODO: vector user can't read the Docker socket, howdo?
         docker_logs = {
           type = "docker_logs";
         };
@@ -233,14 +233,14 @@
           type = "internal_logs";
         };
 
-        host_metrics = { # TODO: Ship to Grafana directly?
+        host_metrics = {
           type       = "host_metrics";
           collectors = [ "cgroups" "cpu" "disk" "filesystem" "load" "host" "memory" "network" ];
           namespace  = "gibson";
 
-          disk.devices.includes           = [ "sd*" "nvme*" ];
-          filesystem.devices.includes     = [ "sd*" "nvme*" ];
-          filesystem.filesystems.includes = [ "ext*" "fuse.mergerfs" "zfs" ];
+          #disk.devices.includes           = [ "sd*" "nvme*" ];
+          #filesystem.devices.includes     = [ "sd*" "nvme*" ];
+          #filesystem.filesystems.includes = [ "ext*" "fuse.mergerfs" "zfs" ];
 
           scrape_interval_secs = 10;
         };
