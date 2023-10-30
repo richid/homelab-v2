@@ -35,6 +35,12 @@
       uid     = 986;
     };
 
+    influxdb = {
+      ip      = "192.168.20.228";
+      version = "2.7.3";
+      uid     = 970;
+    };
+
     jellyfin = {
       ip      = "192.168.20.218";
       version = "10.8.10";
@@ -115,12 +121,6 @@
     uptime-kuma = {
       ip      = "192.168.20.215";
       version = "1";
-    };
-
-    vector = {
-      ip      = "192.168.20.228";
-      version = "0.33.0-alpine";
-      uid     = 972;
     };
 
     watchstate = {

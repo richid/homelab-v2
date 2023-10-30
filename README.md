@@ -16,6 +16,7 @@ Infrastructure, configuration, and documentation for v2 of the homelab.
 | Grafana      |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
 | HDBGo        |   🚫    |   🚫   |     🚫     |     🚫     |    🚫    | Will not migrate -> Prowlarr                            |
 | Homer        |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
+| InfluxDB     |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
 | Jellyfin     |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
 | Jellyseerr   |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
 | Minecraft    |   🚫    |   🚫   |     🚫     |     🚫     |    🚫    |                                                         |

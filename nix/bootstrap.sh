@@ -10,26 +10,27 @@ zpool create -o ashift=12 -m legacy app-data mirror \
   /dev/disk/by-id/nvme-SPCC_M.2_PCIe_SSD_AA000000000000005666
 
 ### Datasets
-zfs create -o quota=2G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/caddy app-data/caddy
-zfs create -o quota=2G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/diun app-data/diun
+zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/caddy app-data/caddy
+zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/diun app-data/diun
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/gotify app-data/gotify
-zfs create -o quota=2G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/homer app-data/homer
+zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/homer app-data/homer
+zfs create -o quota=25G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/influxdb app-data/influxdb
 zfs create -o quota=25G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/grafana app-data/grafana
 zfs create -o quota=50G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/jellyfin app-data/jellyfin
-zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/jellyseerr app-data/jellyseerr
+zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/jellyseerr app-data/jellyseerr
 zfs create -o quota=10G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/mongo app-data/mongo
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/mosquitto app-data/mosquitto
 zfs create -o quota=10G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/postgres app-data/postgres
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/prowlarr app-data/prowlarr
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/radarr app-data/radarr
-zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/scrutiny app-data/scrutiny
+zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/scrutiny app-data/scrutiny
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/smokeping app-data/smokeping
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/sonarr app-data/sonarr
-zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/transmission app-data/transmission
+zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/transmission app-data/transmission
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/unifi app-data/unifi
-zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/uptime-kuma app-data/uptime-kuma
+zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/uptime-kuma app-data/uptime-kuma
 zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/vector app-data/vector
-zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/watchstate app-data/watchstate
+zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/watchstate app-data/watchstate
 
 ## dozer - ZFS mirrors on HDDs for high-value data
 zpool create -o ashift=12 -m legacy dozer mirror \
@@ -71,6 +72,7 @@ chown -R diun:services /mnt/app-data/diun/
 chown -R gotify:services /mnt/app-data/gotify/
 chown -R grafana:services /mnt/app-data/grafana/
 chown -R homer:services /mnt/app-data/homer/
+chown -R influxdb:services /mnt/app-data/influxdb/
 chown -R jellyfin:media /mnt/app-data/jellyfin/
 chown -R mongo:services /mnt/app-data/mongo/
 chown -R mosquitto:services /mnt/app-data/mosquitto/

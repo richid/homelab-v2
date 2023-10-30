@@ -23,7 +23,7 @@ in
       ];
     };
 
-    loki = { # Hmmmm, move to Influx???
+    loki = { # TODO: Hmmmm, move to Influx???
       image = "grafana/loki:${vars.services.loki.version}";
       user  = "${toString vars.services.grafana.uid}:${toString vars.services.base_gid}";
       environment = {

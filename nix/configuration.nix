@@ -14,6 +14,7 @@
       ./services/gotify/default.nix
       ./services/grafana/default.nix
       ./services/homer/default.nix
+      ./services/influxdb/default.nix
       ./services/jellyfin/default.nix
       ./services/jellyseerr/default.nix
       ./services/mongo/default.nix
@@ -158,6 +159,7 @@
         "gotify"       = commonSvcCfg;
         "grafana"      = commonSvcCfg;
         "homer"        = commonSvcCfg;
+        "influxdb"     = commonSvcCfg;
         "jellyfin"     = commonSvcCfg // { group = "media"; extraGroups = [ "services" ]; };
         "mongo"        = commonSvcCfg;
         "mosquitto"    = commonSvcCfg;
@@ -282,6 +284,15 @@
           };
 
           encoding.codec = "text";
+        };
+
+        influxdb_host_metrics = {
+          type     = "influxdb_metrics";
+          inputs   = [ "host_metrics" ];
+          bucket   = "system_metrics";
+          org      = "temple";
+          endpoint = "http://192.168.20.228:8086";
+          token    = "sBBOqs-3OEJNdCe_K0fPw7M_BzWM0oJ4o0M6tzsEZcNHjB42kS2wYxm3ECpyBdBt44XP63fQLiU79LqQmwzZjw==";
         };
       };
     };
