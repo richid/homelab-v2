@@ -21,6 +21,7 @@ in
         "--label=caddy=home.schu"
         "--label=caddy.reverse_proxy={{upstreams}}"
         "--label=caddy.tls=internal"
+        "--label=diun.include_tags=^v\\d+\\.\\d+\\.\\d+$"
       ];
     };
   };

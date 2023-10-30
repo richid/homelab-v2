@@ -121,6 +121,7 @@
     duf
     htop
     jdupes
+    jq
     mergerfs
     mergerfs-tools
     rclone
