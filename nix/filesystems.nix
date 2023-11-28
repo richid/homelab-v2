@@ -1,60 +1,4 @@
 {
-  services.zfs = {
-    autoScrub.enable = true;
-    zed.settings = {
-      ZED_DEBUG_LOG            = "/tmp/zed.debug.log";
-      ZED_SCRUB_AFTER_RESILVER = true;
-    };
-    zed.enableMail = false;
-  };
-
-  # Note: Not enabling avahi/mDNS since this is running on the MGMT VLAN which
-  # does not have mDNS enabled. All other VLANs do have this enabled, so it
-  # may be possible to run and advertise this in a container?
-  services.samba = {
-    enable       = true;
-    securityType = "user";
-
-    # [global] Samba section
-    extraConfig = ''
-      browseable  = yes
-      smb encrypt = required
-
-      veto files        = /._*/.DS_Store/
-      delete veto files = yes
-    '';
-
-    shares = {
-      Backups = {
-        path             = "/mnt/dozer/Backups";
-        browseable       = "yes";
-        "read only"      = "no";
-        "guest ok"       = "yes";
-        "create mask"    = "0744";
-        "directory mask" = "0755";
-        "force group"    = "family"; # hurrrhwaa?
-      };
-      Dropbox = {
-        path             = "/mnt/dozer/Dropbox";
-        browseable       = "yes";
-        "read only"      = "no";
-        "guest ok"       = "yes";
-        "create mask"    = "0744";
-        "directory mask" = "0755";
-        "force group"    = "family";
-      };
-      Media = {
-        path             = "/mnt/tank/Media";
-        browseable       = "yes";
-        "read only"      = "no";
-        "guest ok"       = "yes";
-        "create mask"    = "0744";
-        "directory mask" = "0755";
-        "force group"    = "media";
-      };
-    };
-  };
-
   fileSystems = {
     "/mnt/app-data" = {
       device = "app-data";
@@ -139,6 +83,73 @@
         "fsname=tank"
       ];
     };
+
+    "/export/Media" = {
+      device = "/mnt/tank/Media";
+      options = [ "bind" ];
+    };
+  };
+
+  services.nfs.server.enable = true;
+  services.nfs.server.exports = ''
+    /export          192.168.0.0/19(rw,insecure,sync,no_subtree_check,crossmnt,anonuid=1000,anongid=991,fsid=0)
+    /export/Media    192.168.0.0/19(rw,insecure,sync,no_subtree_check,crossmnt,anonuid=1000,anongid=991,nohide)
+  '';
+
+  # Note: Not enabling avahi/mDNS since this is running on the MGMT VLAN which
+  # does not have mDNS enabled. All other VLANs do have this enabled, so it
+  # may be possible to run and advertise this in a container?
+  services.samba = {
+    enable       = true;
+    securityType = "user";
+
+    # [global] Samba section
+    extraConfig = ''
+      browseable  = yes
+      smb encrypt = required
+
+      veto files        = /._*/.DS_Store/
+      delete veto files = yes
+    '';
+
+    shares = {
+      Backups = {
+        path             = "/mnt/dozer/Backups";
+        browseable       = "yes";
+        "read only"      = "no";
+        "guest ok"       = "yes";
+        "create mask"    = "0744";
+        "directory mask" = "0755";
+        "force group"    = "family"; # hurrrhwaa?
+      };
+      Dropbox = {
+        path             = "/mnt/dozer/Dropbox";
+        browseable       = "yes";
+        "read only"      = "no";
+        "guest ok"       = "yes";
+        "create mask"    = "0744";
+        "directory mask" = "0755";
+        "force group"    = "family";
+      };
+      Media = {
+        path             = "/mnt/tank/Media";
+        browseable       = "yes";
+        "read only"      = "no";
+        "guest ok"       = "yes";
+        "create mask"    = "0744";
+        "directory mask" = "0755";
+        "force group"    = "media";
+      };
+    };
+  };
+
+  services.zfs = {
+    autoScrub.enable = true;
+    zed.settings = {
+      ZED_DEBUG_LOG            = "/tmp/zed.debug.log";
+      ZED_SCRUB_AFTER_RESILVER = true;
+    };
+    zed.enableMail = false;
   };
 
   snapraid = {

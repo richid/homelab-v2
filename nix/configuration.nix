@@ -130,6 +130,20 @@
     wget
   ];
 
+  environment.etc."nut/upsd.conf".source   = ./nut/upsd.conf;
+  environment.etc."nut/upsd.users".source  = ./nut/upsd.users;
+  environment.etc."nut/upsmon.conf".source = ./nut/upsmon.conf;
+
+  power.ups = {
+    enable = true;
+
+    ups.gibson = {
+      driver      = "usbhid-ups";
+      port        = "auto";
+      description = "Eaton 5P UPS";
+    };
+  };
+
   programs.zsh.enable = true;
 
   users.groups.family   = {};
@@ -165,6 +179,7 @@
         "jellyfin"     = commonSvcCfg // { group = "media"; extraGroups = [ "services" ]; };
         "mongo"        = commonSvcCfg;
         "mosquitto"    = commonSvcCfg;
+        "nut"          = commonSvcCfg // { createHome = true; home = "/var/lib/nut"; password = "nut"; };
         "jellyseerr"   = commonSvcCfg;
         "postgres"     = commonSvcCfg;
         "prowlarr"     = commonSvcCfg;
