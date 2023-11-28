@@ -187,6 +187,7 @@
       "/tmp/"
       "/lost+found/"
       ".smbdelete*"
+      "/Downloads/incomplete/"
     ];
 
     scrub = {
