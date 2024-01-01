@@ -17,6 +17,7 @@
       ./services/influxdb/default.nix
       ./services/jellyfin/default.nix
       ./services/jellyseerr/default.nix
+      ./services/minecraft/default.nix
       ./services/mongo/default.nix
       ./services/mosquitto/default.nix
       ./services/postgres/default.nix
@@ -177,6 +178,7 @@
         "homer"        = commonSvcCfg;
         "influxdb"     = commonSvcCfg;
         "jellyfin"     = commonSvcCfg // { group = "media"; extraGroups = [ "services" ]; };
+        "minecraft"    = commonSvcCfg;
         "mongo"        = commonSvcCfg;
         "mosquitto"    = commonSvcCfg;
         "nut"          = commonSvcCfg // { createHome = true; home = "/var/lib/nut"; password = "nut"; };

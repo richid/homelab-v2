@@ -18,6 +18,7 @@ zfs create -o quota=25G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app
 zfs create -o quota=25G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/grafana app-data/grafana
 zfs create -o quota=50G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/jellyfin app-data/jellyfin
 zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/jellyseerr app-data/jellyseerr
+zfs create -o quota=10G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/minecraft app-data/minecraft
 zfs create -o quota=10G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/mongo app-data/mongo
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/mosquitto app-data/mosquitto
 zfs create -o quota=10G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/postgres app-data/postgres
@@ -74,6 +75,7 @@ chown -R grafana:services /mnt/app-data/grafana/
 chown -R homer:services /mnt/app-data/homer/
 chown -R influxdb:services /mnt/app-data/influxdb/
 chown -R jellyfin:media /mnt/app-data/jellyfin/
+chown -R minecraft:services /mnt/app-data/minecraft/
 chown -R mongo:services /mnt/app-data/mongo/
 chown -R mosquitto:services /mnt/app-data/mosquitto/
 chown -R jellyseerr:services /mnt/app-data/jellyseerr/

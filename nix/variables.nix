@@ -47,6 +47,12 @@
       uid     = 985;
     };
 
+    minecraft-java = {
+      ip      = "192.168.20.230";
+      version = "stable";
+      uid     = 968;
+    };
+
     mongo44 = {
       ip      = "192.168.20.225";
       version = "4.4";
