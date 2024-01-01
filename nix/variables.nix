@@ -85,13 +85,13 @@
 
     prowlarr = {
       ip      = "192.168.20.217";
-      version = "1.10.5";
+      version = "1.11.4";
       uid     = 989;
     };
 
     radarr = {
       ip      = "192.168.20.220";
-      version = "5.1.3";
+      version = "5.2.6";
       uid     = 982;
     };
 
