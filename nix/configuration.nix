@@ -26,6 +26,7 @@
       ./services/scrutiny/default.nix
       ./services/smokeping/default.nix
       ./services/sonarr/default.nix
+      ./services/tandoor/default.nix
       ./services/transmission/default.nix
       ./services/unifi/default.nix
       ./services/uptime-kuma/default.nix
@@ -188,6 +189,7 @@
         "radarr"       = commonSvcCfg // { group = "media"; extraGroups = [ "services" ]; };
         "smokeping"    = commonSvcCfg;
         "sonarr"       = commonSvcCfg // { group = "media"; extraGroups = [ "services" ]; };
+        "tandoor"      = commonSvcCfg;
         "transmission" = commonSvcCfg // { group = "media"; extraGroups = [ "services" ]; };
         "unifi"        = commonSvcCfg;
         "vector"       = commonSvcCfg // { extraGroups = [ "docker" ]; };

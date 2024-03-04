@@ -19,7 +19,7 @@ Infrastructure, configuration, and documentation for v2 of the homelab.
 | InfluxDB     |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
 | Jellyfin     |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
 | Jellyseerr   |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
-| Minecraft    |   🚫    |   🚫   |     🚫     |     🚫     |    🚫    |                                                         |
+| Minecraft    |    ✅    |   ✅    |     ✅      |     🚫     |    🚫    |                                                         |
 | Mongo        |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
 | Mosquitto    |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     | Need to point mqtt.schu to new IP                       |
 | Netatalk     |   🚫    |   🚫   |     🚫     |     🚫     |    🚫    | Not using, moving to Samba                              |
@@ -30,6 +30,7 @@ Infrastructure, configuration, and documentation for v2 of the homelab.
 | Scrutiny     |    ✅    |   ✅    |     ✅      |     ✅      |    🚫    | Can't run rootless, SMART requires root                 | 
 | Smokeping    |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
 | Sonarr       |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
+| Tandoor      |    ✅    |   ✅    |     ✅      |            |          |                                                         |
 | Transmission |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
 | Unifi        |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
 | Uptime Kuma  |    ✅    |   ✅    |     ✅      |     ✅      |    🚫    | Not easy to run rootless, needs access to Docker socket |

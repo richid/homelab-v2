@@ -27,6 +27,7 @@ zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-
 zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/scrutiny app-data/scrutiny
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/smokeping app-data/smokeping
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/sonarr app-data/sonarr
+zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/tandoor app-data/tandoor
 zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/transmission app-data/transmission
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/unifi app-data/unifi
 zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/uptime-kuma app-data/uptime-kuma
@@ -84,6 +85,7 @@ chown -R prowlarr:services /mnt/app-data/prowlarr/
 chown -R radarr:media /mnt/app-data/radarr/
 chown -R smokeping:services /mnt/app-data/smokeping/
 chown -R sonarr:media /mnt/app-data/sonarr/
+chown -R tandoor:services /mnt/app-data/tandoor/
 chown -R transmission:media /mnt/app-data/transmission/
 chown -R unifi:services /mnt/app-data/unifi/
 chown -R vector:services /mnt/app-data/vector/
@@ -128,3 +130,12 @@ irrecoverably lost.
 
 Using restic + reclone to save to Google Drive
 Configuration rclone using a custom OAuth App following https://rclone.org/drive/#making-your-own-client-id
+
+#### Tandoor Setup
+CREATE USER tandoor WITH PASSWORD 'tandoor';
+GRANT ALL PRIVILEGES ON DATABASE tandoor TO tandoor;
+ALTER DATABASE tandoor OWNER TO tandoor;
+ALTER ROLE tandoor SET client_encoding TO 'utf8';
+ALTER ROLE tandoor SET default_transaction_isolation TO 'read committed';
+ALTER ROLE tandoor SET timezone TO 'UTC';
+ALTER USER tandoor WITH SUPERUSER;
