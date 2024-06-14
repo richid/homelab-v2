@@ -9,6 +9,7 @@
     [
       ./hardware-configuration.nix
       ./filesystems.nix
+      ./services/audiobookshelf/default.nix
       ./services/caddy/default.nix
       ./services/diun/default.nix
       ./services/gotify/default.nix
@@ -171,29 +172,30 @@
         "emma"   = commonCfg;
         "lucas"  = commonCfg;
 
-        "backups"      = commonSvcCfg;
-        "caddy"        = commonSvcCfg;
-        "diun"         = commonSvcCfg;
-        "gotify"       = commonSvcCfg;
-        "grafana"      = commonSvcCfg;
-        "homer"        = commonSvcCfg;
-        "influxdb"     = commonSvcCfg;
-        "jellyfin"     = commonSvcCfg // { group = "media"; extraGroups = [ "services" ]; };
-        "minecraft"    = commonSvcCfg;
-        "mongo"        = commonSvcCfg;
-        "mosquitto"    = commonSvcCfg;
-        "nut"          = commonSvcCfg // { createHome = true; home = "/var/lib/nut"; password = "nut"; };
-        "jellyseerr"   = commonSvcCfg;
-        "postgres"     = commonSvcCfg;
-        "prowlarr"     = commonSvcCfg;
-        "radarr"       = commonSvcCfg // { group = "media"; extraGroups = [ "services" ]; };
-        "smokeping"    = commonSvcCfg;
-        "sonarr"       = commonSvcCfg // { group = "media"; extraGroups = [ "services" ]; };
-        "tandoor"      = commonSvcCfg;
-        "transmission" = commonSvcCfg // { group = "media"; extraGroups = [ "services" ]; };
-        "unifi"        = commonSvcCfg;
-        "vector"       = commonSvcCfg // { extraGroups = [ "docker" ]; };
-        "watchstate"   = commonSvcCfg;
+        "audiobookshelf" = commonSvcCfg // { group = "media"; extraGroups = [ "services" ]; };
+        "backups"        = commonSvcCfg;
+        "caddy"          = commonSvcCfg;
+        "diun"           = commonSvcCfg;
+        "gotify"         = commonSvcCfg;
+        "grafana"        = commonSvcCfg;
+        "homer"          = commonSvcCfg;
+        "influxdb"       = commonSvcCfg;
+        "jellyfin"       = commonSvcCfg // { group = "media"; extraGroups = [ "services" ]; };
+        "minecraft"      = commonSvcCfg;
+        "mongo"          = commonSvcCfg;
+        "mosquitto"      = commonSvcCfg;
+        "nut"            = commonSvcCfg // { createHome = true; home = "/var/lib/nut"; password = "nut"; };
+        "jellyseerr"     = commonSvcCfg;
+        "postgres"       = commonSvcCfg;
+        "prowlarr"       = commonSvcCfg;
+        "radarr"         = commonSvcCfg // { group = "media"; extraGroups = [ "services" ]; };
+        "smokeping"      = commonSvcCfg;
+        "sonarr"         = commonSvcCfg // { group = "media"; extraGroups = [ "services" ]; };
+        "tandoor"        = commonSvcCfg;
+        "transmission"   = commonSvcCfg // { group = "media"; extraGroups = [ "services" ]; };
+        "unifi"          = commonSvcCfg;
+        "vector"         = commonSvcCfg // { extraGroups = [ "docker" ]; };
+        "watchstate"     = commonSvcCfg;
       };
 
   security.sudo.extraRules= [{

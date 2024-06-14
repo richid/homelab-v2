@@ -10,6 +10,7 @@ zpool create -o ashift=12 -m legacy app-data mirror \
   /dev/disk/by-id/nvme-SPCC_M.2_PCIe_SSD_AA000000000000005666
 
 ### Datasets
+zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/audiobookshelf app-data/audiobookshelf
 zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/caddy app-data/caddy
 zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/diun app-data/diun
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/gotify app-data/gotify
@@ -69,6 +70,7 @@ docker network create -d macvlan --subnet=192.168.10.0/24 --gateway=192.168.10.1
 chown -R rich:media /mnt/tank/media/
 chmod -R 775 /mnt/tank/media/
 
+chown -R audiobookshelf:services /mnt/app-data/audiobookshelf/
 chown -R caddy:services /mnt/app-data/caddy/
 chown -R diun:services /mnt/app-data/diun/
 chown -R gotify:services /mnt/app-data/gotify/

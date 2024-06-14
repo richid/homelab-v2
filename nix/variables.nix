@@ -5,6 +5,12 @@
     network   = "services";
     rootPath  = "/mnt/app-data";
 
+    audiobookshelf = {
+      ip      = "192.168.20.234";
+      version = "2.10.1";
+      uid     = 965;
+    };
+
     caddy = {
       ip      = "192.168.20.200";
       version = "2.8.9";
