@@ -6,7 +6,7 @@ in
 {
   virtualisation.oci-containers.containers = {
     tandoor = {
-      image = "vabene1111/recipes:${vars.services.tandoor.version}";
+      image = "TandoorRecipes/recipes:${vars.services.tandoor.version}";
       user  = "${toString vars.services.tandoor.uid}:${toString vars.services.base_gid}";
       environment = {
         DB_ENGINE         = "django.db.backends.postgresql";
