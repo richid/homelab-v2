@@ -32,6 +32,7 @@ in
         "--device=/dev/sdl"
         "--device=/dev/sdm"
         "--device=/dev/sdn"
+        "--device=/dev/sdo"
         "--network=services"
         "--ip=${vars.services.scrutiny.ip}"
         "--label=caddy=disks.schu"
