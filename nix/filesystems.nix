@@ -72,6 +72,12 @@
       label  = "data7";
     };
 
+    "/mnt/data8" = {
+      device = "/dev/disk/by-id/ata-HUH721010ALE601_7PK1UM0G";
+      fsType = "ext4";
+      label  = "data8";
+    };
+
     "/mnt/tank" = {
       device  = "/mnt/data*";
       fsType  = "fuse.mergerfs";
