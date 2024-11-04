@@ -7,13 +7,13 @@
 
     audiobookshelf = {
       ip      = "192.168.20.234";
-      version = "2.10.1";
+      version = "2.16.1";
       uid     = 965;
     };
 
     caddy = {
       ip      = "192.168.20.200";
-      version = "2.8.9";
+      version = "2.9.0";
       uid     = 977;
     };
 
@@ -31,19 +31,19 @@
 
     grafana = {
       ip      = "192.168.20.226";
-      version = "10.1.5";
+      version = "11.3.0";
       uid     = 971;
     };
 
     homer = {
       ip      = "192.168.20.223";
-      version = "v23.10.1";
+      version = "v24.10.2";
       uid     = 986;
     };
 
     influxdb = {
       ip      = "192.168.20.228";
-      version = "2.7.3";
+      version = "2.7.10";
       uid     = 970;
     };
 
@@ -67,7 +67,7 @@
 
     mosquitto = {
       ip      = "192.168.20.212";
-      version = "2.0.17";
+      version = "2.0.20";
       uid     = 988;
     };
 
@@ -79,7 +79,7 @@
 
     loki = {
       ip      = "192.168.20.227";
-      version = "2.9.2";
+      version = "3.2.1";
       uid     = 971;
     };
 
@@ -91,13 +91,13 @@
 
     prowlarr = {
       ip      = "192.168.20.217";
-      version = "1.13.3";
+      version = "1.25.4";
       uid     = 989;
     };
 
     radarr = {
       ip      = "192.168.20.220";
-      version = "5.3.6";
+      version = "5.14.0";
       uid     = 982;
     };
 
@@ -120,7 +120,7 @@
 
     tandoor = {
       ip      = "192.168.20.233";
-      version = "1.5.18";
+      version = "1.5.20";
       uid     = 966;
     };
 
@@ -132,7 +132,7 @@
 
     unifi = {
       ip      = "192.168.10.10";
-      version = "8.0.7";
+      version = "8.5.6";
       uid     = 975;
     };
 

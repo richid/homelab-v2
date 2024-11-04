@@ -14,6 +14,7 @@ in
       extraOptions = [
         "--network=services"
         "--ip=${vars.services.mongo44.ip}"
+        "--label=diun.include_tags=^4\\.\\d+\\.\\d+$"
       ];
     };
   };
