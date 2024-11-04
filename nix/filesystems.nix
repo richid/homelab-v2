@@ -24,12 +24,6 @@
       label  = "parity1";
     };
 
-    "/mnt/data0" = {
-      device = "/dev/disk/by-id/ata-ST10000NM0016-1TT101_ZA20WPHN";
-      fsType = "ext4";
-      label  = "data0";
-    };
-
     "/mnt/data1" = {
       device = "/dev/disk/by-id/ata-WDC_WD40PURX-64NZ6Y0_WD-WCC7K1CZK8JC";
       fsType = "ext4";
@@ -78,13 +72,15 @@
       label  = "data8";
     };
 
+    # PFRD chooses a branch at random with the likelihood of selection based on a branch's
+    # available space relative to the total.
     "/mnt/tank" = {
       device  = "/mnt/data*";
       fsType  = "fuse.mergerfs";
       options = [
         "defaults"
         "minfreespace=50G"
-        "category.create=mfs"
+        "category.create=pfrd"
         "func.getattr=newest"
         "fsname=tank"
       ];
@@ -171,13 +167,13 @@
     ];
 
     contentFiles = [
-      "/mnt/data0/snapraid.content"
       "/mnt/data1/snapraid.content"
       "/mnt/data2/snapraid.content"
+      "/mnt/data3/snapraid.content"
     ];
 
     dataDisks = {
-      d0 = "/mnt/data0";
+      d0 = "/mnt/data8";
       d1 = "/mnt/data1";
       d2 = "/mnt/data2";
       d3 = "/mnt/data3";

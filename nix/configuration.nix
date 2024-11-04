@@ -128,6 +128,7 @@
     mergerfs
     mergerfs-tools
     rclone
+    screen
     snapraid
     vim
     wget
