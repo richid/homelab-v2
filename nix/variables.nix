@@ -7,7 +7,7 @@
 
     audiobookshelf = {
       ip      = "192.168.20.234";
-      version = "2.16.1";
+      version = "2.16.2";
       uid     = 965;
     };
 
@@ -49,7 +49,7 @@
 
     jellyfin = {
       ip      = "192.168.20.218";
-      version = "10.8.10";
+      version = "10.10.1";
       uid     = 985;
     };
 
@@ -73,7 +73,7 @@
 
     jellyseerr = {
       ip      = "192.168.20.222";
-      version = "1.7.0";
+      version = "2.0.1";
       uid     = 978;
     };
 
@@ -114,7 +114,7 @@
 
     sonarr = {
       ip      = "192.168.20.221";
-      version = "3.0.10";
+      version = "4.0.10";
       uid     = 981;
     };
 
