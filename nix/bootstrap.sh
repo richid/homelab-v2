@@ -52,7 +52,7 @@ zfs create -o compression=lz4 -o canmount=on -o mountpoint=/mnt/dozer/Dropbox do
 ##### MergerFS / Snapraid #####
 mkfs.ext4 -m 0 -T largefile4 -L parity0 /dev/disk/by-id/ata-ST10000NM0016-1TT101_ZA218QZ0
 mkfs.ext4 -m 0 -T largefile4 -L parity1 /dev/disk/by-id/ata-ST10000NM0016-1TT101_ZA21BXT1
-mkfs.ext4 -m 1 -T largefile4 -L data0   /dev/disk/by-id/ata-ST10000NM0016-1TT101_ZA20WPHN
+mkfs.ext4 -m 1 -T largefile4 -L data0   /dev/disk/by-id/ata-ST10000NM0016-1TT101_ZA20WPHN # DEAD
 mkfs.ext4 -m 1 -T largefile4 -L data1   /dev/disk/by-id/ata-WDC_WD40PURX-64NZ6Y0_WD-WCC7K1CZK8JC
 mkfs.ext4 -m 1 -T largefile4 -L data2   /dev/disk/by-id/ata-WDC_WD40PURX-64NZ6Y0_WD-WCC7K2JYLLHL
 mkfs.ext4 -m 1 -T largefile4 -L data3   /dev/disk/by-id/ata-WDC_WD40PURX-64NZ6Y0_WD-WCC7K2LD2NTR
@@ -60,6 +60,7 @@ mkfs.ext4 -m 1 -T largefile4 -L data4   /dev/disk/by-id/ata-WDC_WD40PURX-64NZ6Y0
 mkfs.ext4 -m 1 -T largefile4 -L data5   /dev/disk/by-id/ata-WDC_WD40EURX-64WRWY0_WD-WCC4E1745891
 mkfs.ext4 -m 1 -T largefile4 -L data6   /dev/disk/by-id/ata-WDC_WD40EURX-64WRWY0_WD-WCC4E2036120
 mkfs.ext4 -m 1 -T largefile4 -L data7   /dev/disk/by-id/ata-WDC_WD40EURX-64WRWY0_WD-WCC4E2056001
+mkfs.ext4 -m 1 -T largefile4 -L data8   /dev/disk/by-id/ata-HUH721010ALE601_7PK1UM0G
 
 ##### Docker #####
 # Create macvlan network that uses bonded/LAG interface
