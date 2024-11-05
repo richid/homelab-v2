@@ -9,29 +9,10 @@
     [
       ./hardware-configuration.nix
       ./filesystems.nix
-      ./services/audiobookshelf/default.nix
-      ./services/caddy/default.nix
-      ./services/diun/default.nix
-      ./services/gotify/default.nix
-      ./services/grafana/default.nix
-      ./services/homer/default.nix
-      ./services/influxdb/default.nix
-      ./services/jellyfin/default.nix
-      ./services/jellyseerr/default.nix
-      ./services/minecraft/default.nix
-      ./services/mongo/default.nix
-      ./services/mosquitto/default.nix
-      ./services/postgres/default.nix
-      ./services/prowlarr/default.nix
-      ./services/radarr/default.nix
-      ./services/scrutiny/default.nix
-      ./services/smokeping/default.nix
-      ./services/sonarr/default.nix
-      ./services/tandoor/default.nix
-      ./services/transmission/default.nix
-      ./services/unifi/default.nix
-      ./services/uptime-kuma/default.nix
-      ./services/watchstate/default.nix
+    ] ++ lib.pipe ./services [
+      builtins.readDir
+      (lib.filterAttrs (name: _: lib.hasSuffix ".nix" name))
+      (lib.mapAttrsToList (name: _: ./services + "/${name}"))
     ];
 
   boot.loader.systemd-boot.enable      = true;
