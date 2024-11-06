@@ -20,9 +20,8 @@ in
       extraOptions = [
         "--network=services"
         "--ip=${vars.services.audiobookshelf.ip}"
-        "--label=caddy=books.schu"
+        "--label=caddy=books.fatsch.us"
         "--label=caddy.reverse_proxy={{upstreams}}"
-        "--label=caddy.tls=internal"
         "--label=caddy.import=cors"
         "--label=diun.include_tags=^\\d+\\.\\d+\\.\\d+$"
       ];
