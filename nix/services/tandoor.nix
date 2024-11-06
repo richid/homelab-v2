@@ -1,6 +1,7 @@
 { config, pkgs, lib, ... }:
 let
   vars    = import ../variables.nix;
+  secrets = import ../secrets.nix;
   appPath = "${vars.services.rootPath}/tandoor";
 in
 {
@@ -14,8 +15,8 @@ in
         POSTGRES_HOST     = "${vars.services.postgres16.ip}";
         POSTGRES_PORT     = "5432";
         POSTGRES_USER     = "tandoor";
-        POSTGRES_PASSWORD = "tandoor";
-        SECRET_KEY        = "L0q3lqP42tIook9pDLuZrySKGBZLPaH4lU/CP2Rd/sMFPzV1dm";
+        POSTGRES_PASSWORD = secrets.tandoor.postgres_password;
+        SECRET_KEY        = secrets.tandoor.secret_key;
       };
       volumes = [
         "${appPath}/staticfiles:/opt/recipes/staticfiles"

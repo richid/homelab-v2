@@ -3,7 +3,9 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, lib, pkgs, ... }:
-
+let
+  secrets = import ./secrets.nix;
+in
 {
   imports =
     [
@@ -296,7 +298,7 @@
           bucket   = "system_metrics";
           org      = "temple";
           endpoint = "http://192.168.20.228:8086";
-          token    = "sBBOqs-3OEJNdCe_K0fPw7M_BzWM0oJ4o0M6tzsEZcNHjB42kS2wYxm3ECpyBdBt44XP63fQLiU79LqQmwzZjw==";
+          token    = secrets.vector.influxdb_token;
         };
       };
     };
