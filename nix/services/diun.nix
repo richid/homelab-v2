@@ -14,7 +14,7 @@ in
         DIUN_DEFAULTS_NOTIFYON               = "new";
         DIUN_DEFAULTS_SORTTAGS               = "semver";
         DIUN_DEFAULTS_WATCHREPO              = "true";
-        DIUN_NOTIF_GOTIFY_ENDPOINT           = "http://${vars.services.gotify.ip}"; # Can't use DNS, certs are self-signed
+        DIUN_NOTIF_GOTIFY_ENDPOINT           = "https://gotify.fatsch.us";
         DIUN_NOTIF_GOTIFY_PRIORITY           = "3";
         DIUN_NOTIF_GOTIFY_TOKEN              = secrets.diun.gotify_token;
         DIUN_PROVIDERS_DOCKER                = "true";
