@@ -25,10 +25,11 @@ in
       extraOptions = [
         "--network=services"
         "--ip=${vars.services.tandoor.ip}"
-        "--label=caddy=recipes.schu tandoor.schu"
-        "--label=caddy.reverse_proxy={{upstreams 8080}}"
-        "--label=caddy.tls=internal"
-        "--label=caddy.import=cors"
+        "--label=caddy=*.fatsch.us"
+        "--label=caddy.@recipes=host recipes.fatsch.us"
+        "--label=caddy.handle=@recipes"
+        "--label=caddy.handle.reverse_proxy={{upstreams 8080}}"
+        "--label=caddy.handle.import=cors"
       ];
     };
   };

@@ -19,11 +19,11 @@ in
       extraOptions = [
         "--network=services"
         "--ip=${vars.services.radarr.ip}"
-        "--label=caddy=radarr.schu"
-        "--label=caddy.reverse_proxy={{upstreams}}"
-        "--label=caddy.tls=internal"
-        "--label=caddy.import=cors"
-        #"--label=diun.include_tags=^\d+\.\d+\.\d+$"
+        "--label=caddy=*.fatsch.us"
+        "--label=caddy.@radarr=host radarr.fatsch.us"
+        "--label=caddy.handle=@radarr"
+        "--label=caddy.handle.reverse_proxy={{upstreams}}"
+        "--label=caddy.handle.import=cors"
       ];
     };
   };

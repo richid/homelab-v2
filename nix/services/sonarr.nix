@@ -19,10 +19,11 @@ in
       extraOptions = [
         "--network=services"
         "--ip=${vars.services.sonarr.ip}"
-        "--label=caddy=sonarr.schu"
-        "--label=caddy.reverse_proxy={{upstreams}}"
-        "--label=caddy.tls=internal"
-        "--label=caddy.import=cors"
+        "--label=caddy=*.fatsch.us"
+        "--label=caddy.@sonarr=host sonarr.fatsch.us"
+        "--label=caddy.handle=@sonarr"
+        "--label=caddy.handle.reverse_proxy={{upstreams}}"
+        "--label=caddy.handle.import=cors"
       ];
     };
   };

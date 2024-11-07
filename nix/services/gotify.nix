@@ -17,11 +17,12 @@ in
       extraOptions = [
         "--network=services"
         "--ip=${vars.services.gotify.ip}"
-        "--label=caddy=gotify.schu"
-        "--label=caddy.reverse_proxy={{upstreams}}"
-        "--label=caddy.reverse_proxy.header_up=-Origin"
-        "--label=caddy.import=cors"
-        "--label=caddy.tls=internal"
+        "--label=caddy=*.fatsch.us"
+        "--label=caddy.@gotify=host gotify.fatsch.us"
+        "--label=caddy.handle=@gotify"
+        "--label=caddy.handle.reverse_proxy={{upstreams}}"
+        "--label=caddy.handle.reverse_proxy.header_up=-Origin"
+        "--label=caddy.handle.import=cors"
       ];
     };
   };

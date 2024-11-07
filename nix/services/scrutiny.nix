@@ -34,10 +34,11 @@ in
         "--device=/dev/sdo"
         "--network=services"
         "--ip=${vars.services.scrutiny.ip}"
-        "--label=caddy=disks.schu"
-        "--label=caddy.reverse_proxy={{upstreams 8080}}"
-        "--label=caddy.tls=internal"
-        "--label=caddy.import=cors"
+        "--label=caddy=*.fatsch.us"
+        "--label=caddy.@disks=host disks.fatsch.us"
+        "--label=caddy.handle=@disks"
+        "--label=caddy.handle.reverse_proxy={{upstreams 8080}}"
+        "--label=caddy.handle.import=cors"
         "--label=diun.include_tags=^v\\d+\\.\\d+\\.\\d+-omnibus$"
       ];
     };

@@ -18,9 +18,10 @@ in
       extraOptions = [
         "--network=services"
         "--ip=${vars.services.homer.ip}"
-        "--label=caddy=home.schu"
-        "--label=caddy.reverse_proxy={{upstreams}}"
-        "--label=caddy.tls=internal"
+        "--label=caddy=*.fatsch.us"
+        "--label=caddy.@home=host home.fatsch.us"
+        "--label=caddy.handle=@home"
+        "--label=caddy.handle.reverse_proxy={{upstreams}}"
         "--label=diun.include_tags=^v\\d+\\.\\d+\\.\\d+$"
       ];
     };

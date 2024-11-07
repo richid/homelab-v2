@@ -21,10 +21,11 @@ in
       extraOptions = [
         "--network=services"
         "--ip=${vars.services.transmission.ip}"
-        "--label=caddy=transmission.schu"
-        "--label=caddy.reverse_proxy={{upstreams}}"
-        "--label=caddy.tls=internal"
-        "--label=caddy.import=cors"
+        "--label=caddy=*.fatsch.us"
+        "--label=caddy.@transmission=host transmission.fatsch.us"
+        "--label=caddy.handle=@transmission"
+        "--label=caddy.handle.reverse_proxy={{upstreams}}"
+        "--label=caddy.handle.import=cors"
       ];
     };
   };

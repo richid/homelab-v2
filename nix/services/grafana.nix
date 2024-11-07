@@ -17,9 +17,11 @@ in
       extraOptions = [
         "--network=services"
         "--ip=${vars.services.grafana.ip}"
-        "--label=caddy=grafana.schu"
-        "--label=caddy.reverse_proxy={{upstreams 3000}}"
-        "--label=caddy.tls=internal"
+        "--label=caddy=*.fatsch.us"
+        "--label=caddy.@grafana=host grafana.fatsch.us"
+        "--label=caddy.handle=@grafana"
+        "--label=caddy.handle.reverse_proxy={{upstreams 3000}}"
+        "--label=caddy.handle.import=cors"
       ];
     };
 

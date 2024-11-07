@@ -17,9 +17,11 @@ in
       extraOptions = [
         "--network=services"
         "--ip=${vars.services.influxdb.ip}"
-        "--label=caddy=influx.schu"
-        "--label=caddy.reverse_proxy={{upstreams 8086}}"
-        "--label=caddy.tls=internal"
+        "--label=caddy=*.fatsch.us"
+        "--label=caddy.@influx=host influx.fatsch.us"
+        "--label=caddy.handle=@influx"
+        "--label=caddy.handle.reverse_proxy={{upstreams 8086}}"
+        "--label=caddy.handle.import=cors"
       ];
     };
   };

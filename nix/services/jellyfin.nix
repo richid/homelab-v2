@@ -21,10 +21,12 @@ in
         "--device=/dev/dri:/dev/dri"
         "--network=services"
         "--ip=${vars.services.jellyfin.ip}"
-        "--label=caddy=watch.schu jellyfin.schu"
-        "--label=caddy.reverse_proxy={{upstreams}}"
-        "--label=caddy.tls=internal"
-        "--label=caddy.import=cors"
+        "--label=caddy=*.fatsch.us"
+        "--label=caddy.@jellyfin=host jellyfin.fatsch.us watch.fatsch.us"
+        "--label=caddy.handle=@jellyfin"
+        "--label=caddy.handle.reverse_proxy={{upstreams}}"
+        "--label=caddy.handle.import=cors"
+        "--label=diun.include_tags=^v\\d+\\.\\d+\\.\\d+-omnibus$"
       ];
     };
   };

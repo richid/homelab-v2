@@ -19,10 +19,11 @@ in
       extraOptions = [
         "--network=services"
         "--ip=${vars.services.smokeping.ip}"
-        "--label=caddy=smokeping.schu"
-        "--label=caddy.reverse_proxy={{upstreams}}"
-        "--label=caddy.tls=internal"
-        "--label=caddy.import=cors"
+        "--label=caddy=*.fatsch.us"
+        "--label=caddy.@smokeping=host smokeping.fatsch.us"
+        "--label=caddy.handle=@smokeping"
+        "--label=caddy.handle.reverse_proxy={{upstreams}}"
+        "--label=caddy.handle.import=cors"
       ];
     };
   };

@@ -27,6 +27,7 @@ in
   };
 
   systemd.services.docker-jellyseerr = {
+    enable = false;
     unitConfig = {
       RequiresMountsFor = appPath;
     };

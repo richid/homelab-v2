@@ -17,10 +17,12 @@ in
       extraOptions = [
         "--network=services"
         "--ip=${vars.services.uptime-kuma.ip}"
-        "--label=caddy=status.schu"
-        "--label=caddy.reverse_proxy={{upstreams}}"
-        "--label=caddy.tls=internal"
-        "--label=caddy.import=cors"
+        "--label=caddy=*.fatsch.us"
+        "--label=caddy.@status=host status.fatsch.us"
+        "--label=caddy.handle=@status"
+        "--label=caddy.handle.reverse_proxy={{upstreams}}"
+        "--label=caddy.handle.import=cors"
+        "--pull=newer"
       ];
     };
   };

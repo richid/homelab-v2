@@ -18,10 +18,11 @@ in
       extraOptions = [
         "--network=services"
         "--ip=${vars.services.prowlarr.ip}"
-        "--label=caddy=prowlarr.schu"
-        "--label=caddy.reverse_proxy={{upstreams}}"
-        "--label=caddy.tls=internal"
-        "--label=caddy.import=cors"
+        "--label=caddy=*.fatsch.us"
+        "--label=caddy.@prowlarr=host prowlarr.fatsch.us"
+        "--label=caddy.handle=@prowlarr"
+        "--label=caddy.handle.reverse_proxy={{upstreams}}"
+        "--label=caddy.handle.import=cors"
         "--label=diun.include_tags=^\\d+\\.\\d+\\.\\d+$"
       ];
     };
