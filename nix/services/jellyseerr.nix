@@ -18,10 +18,11 @@ in
       extraOptions = [
         "--network=services"
         "--ip=${vars.services.jellyseerr.ip}"
-        "--label=caddy=requests.schu jellyseerr.schu"
-        "--label=caddy.reverse_proxy={{upstreams}}"
-        "--label=caddy.tls=internal"
-        "--label=caddy.import=cors"
+        "--label=caddy=*.fatsch.us"
+        "--label=caddy.@requests=host requests.fatsch.us"
+        "--label=caddy.handle=@requests"
+        "--label=caddy.handle.reverse_proxy={{upstreams}}"
+        "--label=caddy.handle.import=cors"
       ];
     };
   };

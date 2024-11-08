@@ -14,7 +14,7 @@ in
 
         MONGO_USER   = "unifi";
         MONGO_PASS   = secrets.unifi.mongo_password;
-        MONGO_HOST   = "mongo44.schu";
+        MONGO_HOST   = "mongo44.fatschu.us";
         MONGO_PORT   = "27017";
         MONGO_DBNAME = "unifi";
         TZ           = "America/New_York";
