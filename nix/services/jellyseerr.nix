@@ -19,7 +19,7 @@ in
         "--network=services"
         "--ip=${vars.services.jellyseerr.ip}"
         "--label=caddy=*.fatsch.us"
-        "--label=caddy.@requests=host requests.fatsch.us"
+        "--label=caddy.@requests=host requests.fatsch.us jellyseerr.fatsch.us"
         "--label=caddy.handle=@requests"
         "--label=caddy.handle.reverse_proxy={{upstreams}}"
         "--label=caddy.handle.import=cors"
@@ -28,7 +28,6 @@ in
   };
 
   systemd.services.docker-jellyseerr = {
-    enable = false;
     unitConfig = {
       RequiresMountsFor = appPath;
     };
