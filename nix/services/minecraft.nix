@@ -27,6 +27,7 @@ in
   };
 
   systemd.services.docker-minecraft-java = {
+    enable = false;
     unitConfig = {
       RequiresMountsFor = appPath;
     };
