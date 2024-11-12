@@ -32,7 +32,6 @@ zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-
 zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/transmission app-data/transmission
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/unifi app-data/unifi
 zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/uptime-kuma app-data/uptime-kuma
-zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/vector app-data/vector
 zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/watchstate app-data/watchstate
 
 ## dozer - ZFS mirrors on HDDs for high-value data
@@ -91,7 +90,6 @@ chown -R sonarr:media /mnt/app-data/sonarr/
 chown -R tandoor:services /mnt/app-data/tandoor/
 chown -R transmission:media /mnt/app-data/transmission/
 chown -R unifi:services /mnt/app-data/unifi/
-chown -R vector:services /mnt/app-data/vector/
 chown -R watchstate:services /mnt/app-data/watchstate/
 
 ##### Postgres Migration #####
