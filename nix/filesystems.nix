@@ -154,7 +154,7 @@
     zed.enableMail = false;
   };
 
-  snapraid = {
+  services.snapraid = {
     enable = true;
 
     extraConfig = ''
