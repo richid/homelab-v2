@@ -22,7 +22,7 @@ in
         "--label=caddy.handle=@status"
         "--label=caddy.handle.reverse_proxy={{upstreams}}"
         "--label=caddy.handle.import=cors"
-        "--pull=newer"
+        "--pull=always"
       ];
     };
   };
