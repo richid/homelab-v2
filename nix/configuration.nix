@@ -117,10 +117,6 @@ in
     wget
   ];
 
-  environment.etc."nut/upsd.conf".source   = ./nut/upsd.conf;
-  environment.etc."nut/upsd.users".source  = ./nut/upsd.users;
-  environment.etc."nut/upsmon.conf".source = ./nut/upsmon.conf;
-
   power.ups = {
     enable = true;
 
@@ -129,6 +125,13 @@ in
       port        = "auto";
       description = "Eaton 5P UPS";
     };
+
+    users.upsmon = {
+      passwordFile = "/etc/nixos/conf/upsmon.password";
+      upsmon = "master";
+    };
+
+    upsmon.monitor.gibson.user = "upsmon";
   };
 
   programs.zsh.enable = true;
@@ -168,7 +171,6 @@ in
         "minecraft"      = commonSvcCfg;
         "mongo"          = commonSvcCfg;
         "mosquitto"      = commonSvcCfg;
-        "nut"            = commonSvcCfg // { createHome = true; home = "/var/lib/nut"; password = "nut"; };
         "jellyseerr"     = commonSvcCfg;
         "postgres"       = commonSvcCfg;
         "prowlarr"       = commonSvcCfg;
@@ -203,8 +205,8 @@ in
       user             = "backups";
       repository       = "rclone:gdrive:/Backups";
       paths            = [ "/mnt/dozer/Dropbox" ];
-      passwordFile     = "/etc/nixos/restic-password";
-      rcloneConfigFile = "/etc/nixos/rclone.conf";
+      passwordFile     = "/etc/nixos/conf/restic-password";
+      rcloneConfigFile = "/etc/nixos/conf/rclone.conf";
 
       timerConfig = {
         OnCalendar = "*-*-* 03:00:00";
