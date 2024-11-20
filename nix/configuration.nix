@@ -256,6 +256,7 @@ in
         };
         docker_log = {
           from_beginning = false;
+          docker_label_exclude = [ "*" ];
           tags = {
             bucket = "system_logs";
           };
@@ -317,7 +318,7 @@ in
         file = {
           data_format = "influx";
           files = [ "stdout" ];
-          namepass = [ "zfs_pool*" ];
+          namepass = [ "docker_log*" ];
         };
         influxdb_v2 = {
           urls = [ "https://influx.fatsch.us" ];
