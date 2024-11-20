@@ -12,6 +12,8 @@ in
         PUID = toString vars.services.unifi.uid;
         PGID = toString vars.services.base_gid;
 
+        MEM_LIMIT    = "4096";
+        MEM_STARTUP  = "4096";
         MONGO_USER   = "unifi";
         MONGO_PASS   = secrets.unifi.mongo_password;
         MONGO_HOST   = "mongo44.fatschu.us";
