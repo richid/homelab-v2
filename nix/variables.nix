@@ -143,7 +143,7 @@
 
     watchstate = {
       ip      = "192.168.20.219";
-      version = "master-20230915-063bdf4";
+      version = "master-20241116-c66994a";
       uid     = 991;
     };
   };
