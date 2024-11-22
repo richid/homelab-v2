@@ -24,30 +24,9 @@ in
         "--label=caddy.handle.import=cors"
       ];
     };
-
-    loki = { # TODO: Hmmmm, move to Influx???
-      image = "grafana/loki:${vars.services.loki.version}";
-      user  = "${toString vars.services.grafana.uid}:${toString vars.services.base_gid}";
-      environment = {
-        TZ = "America/New_York";
-      };
-      volumes = [
-        "${appPath}/loki:/loki"
-      ];
-      extraOptions = [
-        "--network=services"
-        "--ip=${vars.services.loki.ip}"
-      ];
-    };
   };
 
   systemd.services.docker-grafana = {
-    unitConfig = {
-      RequiresMountsFor = appPath;
-    };
-  };
-
-  systemd.services.docker-loki = {
     unitConfig = {
       RequiresMountsFor = appPath;
     };
