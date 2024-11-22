@@ -182,6 +182,7 @@ in
         "sonarr"         = commonSvcCfg // { group = "media"; extraGroups = [ "services" ]; };
         "tandoor"        = commonSvcCfg;
         "transmission"   = commonSvcCfg // { group = "media"; extraGroups = [ "services" ]; };
+        "tunarr"         = commonSvcCfg // { group = "media"; extraGroups = [ "services" ]; };
         "unifi"          = commonSvcCfg;
         "watchstate"     = commonSvcCfg;
       };
