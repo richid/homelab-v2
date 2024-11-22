@@ -16,7 +16,7 @@ zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/gotify app-data/gotify
 zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/homer app-data/homer
 zfs create -o quota=25G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/influxdb app-data/influxdb
-zfs create -o quota=25G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/grafana app-data/grafana
+zfs create -o quota=10G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/grafana app-data/grafana
 zfs create -o quota=50G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/jellyfin app-data/jellyfin
 zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/jellyseerr app-data/jellyseerr
 zfs create -o quota=10G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/minecraft app-data/minecraft
@@ -32,7 +32,7 @@ zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-
 zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/transmission app-data/transmission
 zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/tunarr app-data/tunarr
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/unifi app-data/unifi
-zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/uptime-kuma app-data/uptime-kuma
+zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/uptime-kuma app-data/uptime-kuma
 zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/watchstate app-data/watchstate
 
 ## dozer - ZFS mirrors on HDDs for high-value data
