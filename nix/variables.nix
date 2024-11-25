@@ -126,7 +126,7 @@
 
     tunarr = {
       ip      = "192.168.20.235";
-      version = "0.16.2";
+      version = "0.16.6-vaapi";
       uid     = 964;
     };
 

@@ -10,6 +10,7 @@ in
       user  = "${toString vars.services.tunarr.uid}:${toString vars.services.media_gid}";
       environment = {
         TUNARR_SERVER_ADMIN_MODE = "true";
+        LOG_LEVEL = "debug";
         TZ = "America/New_York";
       };
       volumes = [
