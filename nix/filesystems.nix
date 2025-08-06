@@ -94,8 +94,7 @@
 
   services.nfs.server.enable = true;
   services.nfs.server.exports = ''
-    /export          192.168.0.0/19(rw,insecure,sync,no_subtree_check,crossmnt,anonuid=1000,anongid=991,fsid=0)
-    /export/Media    192.168.0.0/19(rw,insecure,sync,no_subtree_check,crossmnt,anonuid=1000,anongid=991,nohide)
+    /export/Media    192.168.0.0/19(rw,insecure,sync,no_subtree_check,crossmnt,anonuid=1000,anongid=991,nohide,fsid=0)
   '';
 
   # Note: Not enabling avahi/mDNS since this is running on the MGMT VLAN which
