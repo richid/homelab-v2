@@ -223,6 +223,10 @@ in
     notifications.wall.enable = true;
   };
 
+  services.tailscale = {
+    enable = true;
+  };
+
   services.telegraf = {
     enable = true;
 
