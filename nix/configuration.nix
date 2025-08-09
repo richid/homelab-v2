@@ -130,7 +130,7 @@ in
 
     users.upsmon = {
       passwordFile = "/etc/nixos/conf/upsmon.password";
-      upsmon = "master";
+      upsmon = "primary";
     };
 
     upsmon.monitor.gibson.user = "upsmon";
