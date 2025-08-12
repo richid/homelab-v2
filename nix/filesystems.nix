@@ -95,15 +95,14 @@
     # [global] Samba section
     settings = {
       global = {
-        "browseable"  = "yes";
+        browseable    = "yes";
+        security      = "user";
         "smb encrypt" = "required";
 
         "veto files"        = "/._*/.DS_Store/";
         "delete veto files" = "yes";
       };
-    };
 
-    shares = {
       Backups = {
         path             = "/mnt/dozer/Backups";
         browseable       = "yes";
@@ -113,6 +112,7 @@
         "directory mask" = "0755";
         "force group"    = "family"; # hurrrhwaa?
       };
+
       Dropbox = {
         path             = "/mnt/dozer/Dropbox";
         browseable       = "yes";
@@ -122,6 +122,7 @@
         "directory mask" = "0755";
         "force group"    = "family";
       };
+
       Media = {
         path             = "/mnt/tank/Media";
         browseable       = "yes";
