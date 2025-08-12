@@ -225,6 +225,7 @@ in
 
   services.tailscale = {
     enable = true;
+    useRoutingFeatures = "both";
   };
 
   services.telegraf = {
