@@ -16,6 +16,7 @@ in
       volumes = [
         "${appPath}/data:/config/tunarr"
         "${appPath}/streams:/streams"
+        "${appPath}/root:/root"
       ];
       extraOptions = [
         "--device=/dev/dri:/dev/dri"

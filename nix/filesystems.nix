@@ -89,8 +89,7 @@
   # does not have mDNS enabled. All other VLANs do have this enabled, so it
   # may be possible to run and advertise this in a container?
   services.samba = {
-    enable       = true;
-    securityType = "user";
+    enable = true;
 
     # [global] Samba section
     settings = {
