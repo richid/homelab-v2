@@ -9,12 +9,14 @@ in
       image = "itzg/minecraft-server:${vars.services.minecraft-java.version}";
       #user  = "${toString vars.services.minecraft-java.uid}:${toString vars.services.base_gid}";
       environment = {
-        EULA    = "true";
-        TYPE    = "PAPER";
-        UID     = "${toString vars.services.minecraft-java.uid}";
-        GID     = "${toString vars.services.base_gid}";
-        MEMORY  = "4G";
-        PLUGINS = "https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot\nhttps://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot";
+        EULA             = "true";
+        TYPE             = "PAPER";
+        UID              = "${toString vars.services.minecraft-java.uid}";
+        GID              = "${toString vars.services.base_gid}";
+        MEMORY           = "4G";
+        PLUGINS          = "https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot\nhttps://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot";
+        SPIGET_RESOURCES = "28140";
+        VERSION          = "1.21.11";
       };
       volumes = [
         "${appPath}/java/data:/data"
@@ -27,7 +29,6 @@ in
   };
 
   systemd.services.docker-minecraft-java = {
-    enable = false;
     unitConfig = {
       RequiresMountsFor = appPath;
     };

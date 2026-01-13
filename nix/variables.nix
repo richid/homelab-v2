@@ -61,7 +61,7 @@
 
     minecraft-java = {
       ip      = "192.168.20.230";
-      version = "stable";
+      version = "java21";
       uid     = 968;
     };
 
