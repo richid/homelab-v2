@@ -46,8 +46,8 @@ zpool add -o ashift=12 dozer mirror \
 
 ###  Datasets
 zfs create -o compression=lz4 -o canmount=on -o mountpoint=/mnt/dozer/Backups dozer/backups
-zfs create -o compression=lz4 -o canmount=on -o mountpoint=/mnt/dozer/Dropbox dozer/dropbox
-
+zfs create -o compression=lz4 -o canmount=on -o mountpoint=/mnt/dozer/Sync dozer/sync
+chown -R rich:family /mnt/dozer/Sync
 
 ##### MergerFS / Snapraid #####
 mkfs.ext4 -m 0 -T largefile4 -L parity0 /dev/disk/by-id/ata-ST10000NM0016-1TT101_ZA218QZ0

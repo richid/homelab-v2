@@ -112,16 +112,6 @@
         "force group"    = "family"; # hurrrhwaa?
       };
 
-      Dropbox = {
-        path             = "/mnt/dozer/Dropbox";
-        browseable       = "yes";
-        "read only"      = "no";
-        "guest ok"       = "yes";
-        "create mask"    = "0744";
-        "directory mask" = "0755";
-        "force group"    = "family";
-      };
-
       Media = {
         path             = "/mnt/tank/Media";
         browseable       = "yes";
