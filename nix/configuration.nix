@@ -203,21 +203,6 @@ in
     };
   };
 
-  services.restic.backups = {
-    gdrive = {
-      user             = "backups";
-      repository       = "rclone:gdrive:/Backups";
-      paths            = [ "/mnt/dozer/Dropbox" ];
-      passwordFile     = "/etc/nixos/conf/restic-password";
-      rcloneConfigFile = "/etc/nixos/conf/rclone.conf";
-
-      timerConfig = {
-        OnCalendar = "*-*-* 03:00:00";
-        Persistent = true;
-      };
-    };
-  };
-
   services.smartd = {
     enable = true;
     notifications.wall.enable = true;
