@@ -1,9 +1,10 @@
 {
   services = {
-    base_gid  = 990;
-    media_gid = 991;
-    network   = "services";
-    rootPath  = "/mnt/app-data";
+    base_gid   = 990;
+    family_gid = 994;
+    media_gid  = 991;
+    network    = "services";
+    rootPath   = "/mnt/app-data";
 
     audiobookshelf = {
       ip      = "192.168.20.234";
@@ -110,6 +111,12 @@
       ip      = "192.168.20.221";
       version = "4.0.15";
       uid     = 981;
+    };
+
+    syncthing = {
+      ip      = "192.168.20.236";
+      version = "v2.0.13-ls206";
+      uid     = 1000; # rich
     };
 
     tandoor = {
