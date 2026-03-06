@@ -181,6 +181,7 @@ in
         "smokeping"      = commonSvcCfg;
         "sonarr"         = commonSvcCfg // { group = "media"; extraGroups = [ "services" ]; };
         "tandoor"        = commonSvcCfg;
+        "trackage"       = commonSvcCfg;
         "transmission"   = commonSvcCfg // { group = "media"; extraGroups = [ "services" ]; };
         "tunarr"         = commonSvcCfg // { group = "media"; extraGroups = [ "services" ]; };
         "unifi"          = commonSvcCfg;

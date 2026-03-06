@@ -29,6 +29,7 @@ zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/smokeping app-data/smokeping
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/sonarr app-data/sonarr
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/tandoor app-data/tandoor
+zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/trackage app-data/trackage
 zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/transmission app-data/transmission
 zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/tunarr app-data/tunarr
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/unifi app-data/unifi
@@ -90,6 +91,7 @@ chown -R smokeping:services /mnt/app-data/smokeping/
 chown -R sonarr:media /mnt/app-data/sonarr/
 chown -R tandoor:services /mnt/app-data/tandoor/
 chown -R transmission:media /mnt/app-data/transmission/
+chown -R trackage:services /mnt/app-data/trackage/
 chown -R tunarr:media /mnt/app-data/tunarr/
 chown -R unifi:services /mnt/app-data/unifi/
 chown -R watchstate:services /mnt/app-data/watchstate/
