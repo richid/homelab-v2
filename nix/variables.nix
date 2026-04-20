@@ -125,6 +125,12 @@
       uid     = 966;
     };
 
+    trackage = {
+      ip      = "192.168.20.237";
+      version = "0.4.0";
+      uid     = 961;
+    };
+
     transmission = {
       ip      = "192.168.20.216";
       version = "4.0.4";
