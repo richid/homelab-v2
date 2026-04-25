@@ -10,7 +10,7 @@ Infrastructure, configuration, and documentation for v2 of the homelab.
 |----------------|:-------:|:------:|:----------:|:----------:|:--------:|---------------------------------------------------------|
 | Audiobookshelf |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
 | Caddy          |    ✅    |   ✅    |     ✅      |     ✅      |    🚫    | `caddy-docker-proxy`, needs Docker socket               |
-| Diun           |    ✅    |   ✅    |     ✅      |     ✅      |    🚫    | Needs access to Docker socket, still needs tweaking     |
+| Diun           |    ✅    |   ✅    |     ✅      |     ✅      |    🚫    | Needs access to Docker socket                           |
 | Emby           |   🚫    |   🚫   |     🚫     |     🚫     |    🚫    | Will not migrate -> Jellyfin                            |
 | Gotify         |    ✅    |   ✅    |     ✅      |    N/A     |    ✅     |                                                         |
 | Grafana        |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
@@ -21,7 +21,7 @@ Infrastructure, configuration, and documentation for v2 of the homelab.
 | Jellyseerr     |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
 | Minecraft      |    ✅    |   ✅    |     ✅      |     🚫     |    🚫    |                                                         |
 | Mongo          |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
-| Mosquitto      |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     | Need to point mqtt.schu to new IP                       |
+| Mosquitto      |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
 | Netatalk       |   🚫    |   🚫   |     🚫     |     🚫     |    🚫    | Not using, moving to Samba                              |
 | Plex           |   🚫    |   🚫   |     🚫     |     🚫     |    🚫    | Plex has been great, but time to say bye.               |
 | Postgres       |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
@@ -30,7 +30,7 @@ Infrastructure, configuration, and documentation for v2 of the homelab.
 | Scrutiny       |    ✅    |   ✅    |     ✅      |     ✅      |    🚫    | Can't run rootless, SMART requires root                 |
 | Smokeping      |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
 | Sonarr         |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
-| Tandoor        |    ✅    |   ✅    |     ✅      |            |          |                                                         |
+| Tandoor        |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
 | Transmission   |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
 | Unifi          |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
 | Uptime Kuma    |    ✅    |   ✅    |     ✅      |     ✅      |    🚫    | Not easy to run rootless, needs access to Docker socket |
