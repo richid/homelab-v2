@@ -11,6 +11,7 @@ in
       user  = "${toString vars.services.tandoor.uid}:${toString vars.services.base_gid}";
       environment = {
         DB_ENGINE         = "django.db.backends.postgresql";
+        GUNICORN_MEDIA    = "1";
         POSTGRES_DB       = "tandoor";
         POSTGRES_HOST     = "${vars.services.postgres16.ip}";
         POSTGRES_PORT     = "5432";
