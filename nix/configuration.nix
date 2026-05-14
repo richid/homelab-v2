@@ -185,6 +185,7 @@ in
         "transmission"   = commonSvcCfg // { group = "media"; extraGroups = [ "services" ]; };
         "tunarr"         = commonSvcCfg // { group = "media"; extraGroups = [ "services" ]; };
         "unifi"          = commonSvcCfg;
+        "vikunja"        = commonSvcCfg;
         "watchstate"     = commonSvcCfg;
       };
 
