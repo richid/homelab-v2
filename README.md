@@ -2,35 +2,50 @@
 
 Infrastructure, configuration, and documentation for v2 of the homelab.
 
+## Deploy
+
+`gibson` builds from the flake on GitHub. Push the branch first.
+
+| Task | Command on `gibson` | Use |
+|---|---|---|
+| `task diff` | `nixos-rebuild build` + `nix store diff-closures` | See what changes |
+| `task test` | `nixos-rebuild test` | Activate now. A reboot reverts it. |
+| `task switch` | `nixos-rebuild switch` | Activate and make it the boot default |
+
+Each task uses `--refresh --flake github:richid/homelab-v2/<ref>#gibson`. The default ref is `main`. To test a branch: `task test REF=<branch>`.
+
 ## Hardware
 
 ## Services
 
-| Name           | Running | Stable | Production | Monitoring | Rootless | Notes                                                   |
-|----------------|:-------:|:------:|:----------:|:----------:|:--------:|---------------------------------------------------------|
-| Audiobookshelf |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
-| Caddy          |    ✅    |   ✅    |     ✅      |     ✅      |    🚫    | `caddy-docker-proxy`, needs Docker socket               |
-| Emby           |   🚫    |   🚫   |     🚫     |     🚫     |    🚫    | Will not migrate -> Jellyfin                            |
-| Gotify         |    ✅    |   ✅    |     ✅      |    N/A     |    ✅     |                                                         |
-| Grafana        |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
-| HDBGo          |   🚫    |   🚫   |     🚫     |     🚫     |    🚫    | Will not migrate -> Prowlarr                            |
-| Homer          |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
-| InfluxDB       |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
-| Jellyfin       |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
-| Jellyseerr     |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
-| Minecraft      |    ✅    |   ✅    |     ✅      |     🚫     |    🚫    |                                                         |
-| Mongo          |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
-| Mosquitto      |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
-| Netatalk       |   🚫    |   🚫   |     🚫     |     🚫     |    🚫    | Not using, moving to Samba                              |
-| Plex           |   🚫    |   🚫   |     🚫     |     🚫     |    🚫    | Plex has been great, but time to say bye.               |
-| Postgres       |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
-| Prowlarr       |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
-| Radarr         |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
-| Scrutiny       |    ✅    |   ✅    |     ✅      |     ✅      |    🚫    | Can't run rootless, SMART requires root                 |
-| Smokeping      |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
-| Sonarr         |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
-| Tandoor        |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
-| Transmission   |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
-| Unifi          |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
-| Uptime Kuma    |    ✅    |   ✅    |     ✅      |     ✅      |    🚫    | Not easy to run rootless, needs access to Docker socket |
-| Vector         |    ✅    |   ✅    |     ✅      |     ✅      |   N/A    | Runs on the host, not Docker                            |
+Rootless: the service process runs as a non-root UID. LinuxServer and `itzg` images start as root, then drop to `PUID`/`UID`.
+
+| Name           | Running | Stable | Monitoring | Rootless | Notes                                                   |
+|----------------|:-------:|:------:|:----------:|:--------:|---------------------------------------------------------|
+| Audiobookshelf |    ✅    |   ✅    |     ✅      |    ✅     |                                                         |
+| AWS DynDNS     |    ✅    |   ✅    |     🚫      |    🚫    | Updates `mc.fatsch.us` in Route 53                      |
+| Caddy          |    ✅    |   ✅    |     ✅      |    🚫    | `caddy-docker-proxy`, needs Docker socket               |
+| Gotify         |    ✅    |   ✅    |    N/A     |    ✅     |                                                         |
+| Grafana        |    ✅    |   ✅    |     ✅      |    ✅     |                                                         |
+| Homer          |    ✅    |   ✅    |     ✅      |    ✅     |                                                         |
+| InfluxDB       |    ✅    |   ✅    |     ✅      |    ✅     |                                                         |
+| Jellyfin       |    ✅    |   ✅    |     ✅      |    ✅     |                                                         |
+| Jellyseerr     |    ✅    |   ✅    |     ✅      |    ✅     |                                                         |
+| Minecraft      |    ✅    |   ✅    |     🚫     |    ✅     |                                                         |
+| Mongo          |    ✅    |   ✅    |     ✅      |    ✅     |                                                         |
+| Mosquitto      |    ✅    |   ✅    |     ✅      |    ✅     |                                                         |
+| Postgres       |    ✅    |   ✅    |     ✅      |    ✅     |                                                         |
+| Prowlarr       |    ✅    |   ✅    |     ✅      |    ✅     |                                                         |
+| Radarr         |    ✅    |   ✅    |     ✅      |    ✅     |                                                         |
+| Scrutiny       |    ✅    |   ✅    |     ✅      |    🚫    | Can't run rootless, SMART requires root                 |
+| Smokeping      |    ✅    |   ✅    |     ✅      |    ✅     |                                                         |
+| Sonarr         |    ✅    |   ✅    |     ✅      |    ✅     |                                                         |
+| Syncthing      |    ✅    |   ✅    |     🚫      |    ✅     |                                                         |
+| Tandoor        |    ✅    |   ✅    |     ✅      |    ✅     |                                                         |
+| Telegraf       |    ✅    |   ✅    |     ✅      |   N/A    | Runs on the host, not Docker                            |
+| Trackage       |    ✅    |   ✅    |     🚫      |    ✅     |                                                         |
+| Transmission   |    ✅    |   ✅    |     ✅      |    ✅     |                                                         |
+| Tunarr         |    ✅    |   ✅    |     ✅      |    ✅     |                                                         |
+| Unifi          |    ✅    |   ✅    |     ✅      |    ✅     |                                                         |
+| Uptime Kuma    |    ✅    |   ✅    |     ✅      |    🚫    | Not easy to run rootless, needs access to Docker socket |
+| Vikunja        |    ✅    |   ✅    |     🚫      |    ✅     |                                                         |

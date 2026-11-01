@@ -1,0 +1,27 @@
+version: '3'
+
+vars:
+  HOST: root@192.168.10.100
+  REF: '{{.REF | default "main"}}'
+  FLAKE: github:richid/homelab-v2/{{.REF}}#gibson
+  FLAKE_ENV: export NIX_CONFIG='experimental-features = nix-command flakes' &&
+
+tasks:
+  diff:
+    desc: Build the flake on the server and compare it with the running system
+    interactive: true
+    cmds:
+      - ssh -t {{.HOST}} "{{.FLAKE_ENV}} nixos-rebuild build --refresh --flake {{.FLAKE}} && nix store diff-closures /run/current-system ./result"
+
+  test:
+    desc: Run nixos-rebuild test from the flake on GitHub
+    interactive: true
+    cmds:
+      - ssh -t {{.HOST}} "{{.FLAKE_ENV}} nixos-rebuild test --refresh --flake {{.FLAKE}}"
+
+  switch:
+    desc: Run nixos-rebuild switch from the flake on GitHub
+    interactive: true
+    prompt: Run nixos-rebuild switch from {{.FLAKE}} on {{.HOST}}?
+    cmds:
+      - ssh -t {{.HOST}} "{{.FLAKE_ENV}} nixos-rebuild switch --refresh --flake {{.FLAKE}}"
