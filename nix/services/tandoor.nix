@@ -1,7 +1,6 @@
 { config, pkgs, lib, ... }:
 let
   vars    = import ../variables.nix;
-  secrets = import ../secrets.nix;
   appPath = "${vars.services.rootPath}/tandoor";
 in
 {
@@ -16,9 +15,8 @@ in
         POSTGRES_HOST     = "${vars.services.postgres16.ip}";
         POSTGRES_PORT     = "5432";
         POSTGRES_USER     = "tandoor";
-        POSTGRES_PASSWORD = secrets.tandoor.postgres_password;
-        SECRET_KEY        = secrets.tandoor.secret_key;
       };
+      environmentFiles = [ config.age.secrets.tandoor.path ];
       volumes = [
         "${appPath}/staticfiles:/opt/recipes/staticfiles"
         "${appPath}/mediafiles:/opt/recipes/mediafiles"

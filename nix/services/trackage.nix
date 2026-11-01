@@ -1,7 +1,6 @@
 { config, pkgs, lib, ... }:
 let
   vars    = import ../variables.nix;
-  secrets = import ../secrets.nix;
   appPath = "${vars.services.rootPath}/trackage";
 in
 {

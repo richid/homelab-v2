@@ -3,9 +3,6 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, lib, pkgs, ... }:
-let
-  secrets = import ./secrets.nix;
-in
 {
   imports =
     [
@@ -99,6 +96,16 @@ in
 
   nixpkgs.config.allowUnfree = true;
 
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  age.secrets = {
+    aws-dyndns.file      = ../secrets/aws-dyndns.env.age;
+    tandoor.file         = ../secrets/tandoor.env.age;
+    telegraf.file        = ../secrets/telegraf.env.age;
+    unifi.file           = ../secrets/unifi.env.age;
+    upsmon-password.file = ../secrets/upsmon-password.age;
+  };
+
   environment.variables.EDITOR = "vim";
   environment.systemPackages = with pkgs; [
     croc
@@ -129,7 +136,7 @@ in
     };
 
     users.upsmon = {
-      passwordFile = "/etc/nixos/conf/upsmon.password";
+      passwordFile = config.age.secrets.upsmon-password.path;
       upsmon = "primary";
     };
 
@@ -254,7 +261,7 @@ in
         };
         exec = {
           interval = "1h";
-          commands = [ "/etc/nixos/scripts/zpool_capacity.sh" ];
+          commands = [ "${./scripts/zpool_capacity.sh}" ];
           data_format = "influx";
         };
         filecount = {
@@ -314,7 +321,7 @@ in
         influxdb_v2 = {
           urls = [ "https://influx.fatsch.us" ];
           organization = "temple";
-          token = secrets.telegraf.influxdb.token;
+          token = "$INFLUX_TOKEN";
 
           bucket = "system_metrics";
           bucket_tag = "bucket";
@@ -325,6 +332,7 @@ in
   };
 
   systemd.services.telegraf.path = [ pkgs.smartmontools "/run/wrappers" ];
+  systemd.services.telegraf.serviceConfig.EnvironmentFile = config.age.secrets.telegraf.path;
 
   virtualisation.docker = {
     autoPrune.enable = true;

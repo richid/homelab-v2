@@ -1,7 +1,6 @@
 { config, pkgs, lib, ... }:
 let
   vars    = import ../variables.nix;
-  secrets = import ../secrets.nix;
   appPath = "${vars.services.rootPath}/unifi";
 in
 {
@@ -15,12 +14,12 @@ in
         MEM_LIMIT    = "4096";
         MEM_STARTUP  = "4096";
         MONGO_USER   = "unifi";
-        MONGO_PASS   = secrets.unifi.mongo_password;
         MONGO_HOST   = "mongo44.fatschu.us";
         MONGO_PORT   = "27017";
         MONGO_DBNAME = "unifi";
         TZ           = "America/New_York";
       };
+      environmentFiles = [ config.age.secrets.unifi.path ];
       volumes = [
         "${appPath}/config:/config"
       ];
