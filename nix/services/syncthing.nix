@@ -25,7 +25,6 @@ in
         "--label=caddy.handle=@files"
         "--label=caddy.handle.reverse_proxy={{upstreams 8384}}"
         "--label=caddy.handle.import=cors"
-        "--label=diun.include_tags=^v\\d+\\.\\d+\\.\\d+-(\.*)$"
       ];
     };
   };

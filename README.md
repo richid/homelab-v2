@@ -10,7 +10,6 @@ Infrastructure, configuration, and documentation for v2 of the homelab.
 |----------------|:-------:|:------:|:----------:|:----------:|:--------:|---------------------------------------------------------|
 | Audiobookshelf |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
 | Caddy          |    ✅    |   ✅    |     ✅      |     ✅      |    🚫    | `caddy-docker-proxy`, needs Docker socket               |
-| Diun           |    ✅    |   ✅    |     ✅      |     ✅      |    🚫    | Needs access to Docker socket                           |
 | Emby           |   🚫    |   🚫   |     🚫     |     🚫     |    🚫    | Will not migrate -> Jellyfin                            |
 | Gotify         |    ✅    |   ✅    |     ✅      |    N/A     |    ✅     |                                                         |
 | Grafana        |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |

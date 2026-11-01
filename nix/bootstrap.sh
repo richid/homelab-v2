@@ -12,7 +12,6 @@ zpool create -o ashift=12 -m legacy app-data mirror \
 ### Datasets
 zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/audiobookshelf app-data/audiobookshelf
 zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/caddy app-data/caddy
-zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/diun app-data/diun
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/gotify app-data/gotify
 zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/homer app-data/homer
 zfs create -o quota=25G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/influxdb app-data/influxdb
@@ -74,7 +73,6 @@ chmod -R 775 /mnt/tank/media/
 
 chown -R audiobookshelf:services /mnt/app-data/audiobookshelf/
 chown -R caddy:services /mnt/app-data/caddy/
-chown -R diun:services /mnt/app-data/diun/
 chown -R gotify:services /mnt/app-data/gotify/
 chown -R grafana:services /mnt/app-data/grafana/
 chown -R homer:services /mnt/app-data/homer/

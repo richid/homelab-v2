@@ -22,7 +22,6 @@ in
         "--label=caddy.@home=host home.fatsch.us"
         "--label=caddy.handle=@home"
         "--label=caddy.handle.reverse_proxy={{upstreams}}"
-        "--label=diun.include_tags=^v\\d+\\.\\d+\\.\\d+$"
       ];
     };
   };

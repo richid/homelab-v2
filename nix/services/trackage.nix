@@ -23,7 +23,6 @@ in
         "--label=caddy.handle=@trackage"
         "--label=caddy.handle.reverse_proxy={{upstreams 3000}}"
         "--label=caddy.handle.import=cors"
-        "--label=diun.include_tags=^\\d+\\.\\d+\\.\\d+$"
       ];
     };
   };

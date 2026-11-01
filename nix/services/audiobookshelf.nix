@@ -25,7 +25,6 @@ in
         "--label=caddy.handle=@books"
         "--label=caddy.handle.reverse_proxy={{upstreams}}"
         "--label=caddy.handle.import=cors"
-        "--label=diun.include_tags=^\\d+\\.\\d+\\.\\d+$"
       ];
     };
   };

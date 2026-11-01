@@ -38,7 +38,6 @@ in
         "--label=caddy.handle=@disks"
         "--label=caddy.handle.reverse_proxy={{upstreams 8080}}"
         "--label=caddy.handle.import=cors"
-        "--label=diun.include_tags=^v\\d+\\.\\d+\\.\\d+-omnibus$"
       ];
     };
   };

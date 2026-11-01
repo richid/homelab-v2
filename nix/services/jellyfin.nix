@@ -26,7 +26,6 @@ in
         "--label=caddy.handle=@jellyfin"
         "--label=caddy.handle.reverse_proxy={{upstreams}}"
         "--label=caddy.handle.import=cors"
-        "--label=diun.include_tags=^v\\d+\\.\\d+\\.\\d+-omnibus$"
       ];
     };
   };

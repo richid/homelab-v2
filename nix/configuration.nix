@@ -165,7 +165,6 @@ in
         "audiobookshelf" = commonSvcCfg // { group = "media"; extraGroups = [ "services" ]; };
         "backups"        = commonSvcCfg;
         "caddy"          = commonSvcCfg;
-        "diun"           = commonSvcCfg;
         "gotify"         = commonSvcCfg;
         "grafana"        = commonSvcCfg;
         "homer"          = commonSvcCfg;
