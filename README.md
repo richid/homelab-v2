@@ -6,7 +6,9 @@ Infrastructure, configuration, and documentation for v2 of the homelab.
 
 `gibson` builds from the flake on GitHub. Push the branch first.
 
-A push to `main` deploys automatically: `nixos-upgrade.timer` checks every 5 minutes and switches when the commit changes. A failure sends a Gotify message.
+Changes go to `main` through a squash-merged pull request. The `check` workflow must build `gibson` first.
+
+A merge to `main` deploys automatically: `nixos-upgrade.timer` checks every 5 minutes and switches when the commit changes. A failure sends a Gotify message.
 
 | Task | Command on `gibson` | Use |
 |---|---|---|

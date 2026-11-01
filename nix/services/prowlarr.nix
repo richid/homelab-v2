@@ -6,7 +6,7 @@ in
 {
   virtualisation.oci-containers.containers = {
     prowlarr = {
-      image = "lscr.io/linuxserver/prowlarr:${vars.services.prowlarr.version}";
+      image = "${vars.services.prowlarr.image}:${vars.services.prowlarr.version}";
       environment = {
         PUID = toString vars.services.prowlarr.uid;
         PGID = toString vars.services.base_gid;

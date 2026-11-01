@@ -6,7 +6,7 @@ in
 {
   virtualisation.oci-containers.containers = {
     mosquitto = {
-      image = "eclipse-mosquitto:${vars.services.mosquitto.version}";
+      image = "${vars.services.mosquitto.image}:${vars.services.mosquitto.version}";
       user = "${toString vars.services.mosquitto.uid}:${toString vars.services.base_gid}";
       volumes = [
         "${appPath}/config/mosquitto.conf:/mosquitto/config/mosquitto.conf"

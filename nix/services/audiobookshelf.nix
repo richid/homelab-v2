@@ -6,7 +6,7 @@ in
 {
   virtualisation.oci-containers.containers = {
     audiobookshelf = {
-      image = "ghcr.io/advplyr/audiobookshelf:${vars.services.audiobookshelf.version}";
+      image = "${vars.services.audiobookshelf.image}:${vars.services.audiobookshelf.version}";
       user  = "${toString vars.services.audiobookshelf.uid}:${toString vars.services.media_gid}";
       environment = {
         TZ = "America/New_York";

@@ -6,7 +6,7 @@ in
 {
   virtualisation.oci-containers.containers = {
     vikunja = {
-      image = "vikunja/vikunja:${vars.services.vikunja.version}";
+      image = "${vars.services.vikunja.image}:${vars.services.vikunja.version}";
       user  = "${toString vars.services.vikunja.uid}:${toString vars.services.base_gid}";
       environment = {
         VIKUNJA_DATABASE_PATH  = "/db/vikunja.db";

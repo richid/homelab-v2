@@ -6,7 +6,7 @@ in
 {
   virtualisation.oci-containers.containers = {
     influxdb = {
-      image = "influxdb:${vars.services.influxdb.version}";
+      image = "${vars.services.influxdb.image}:${vars.services.influxdb.version}";
       user  = "${toString vars.services.influxdb.uid}:${toString vars.services.base_gid}";
       environment = {
       };

@@ -6,7 +6,7 @@ in
 {
   virtualisation.oci-containers.containers = {
     trackage = {
-      image = "ghcr.io/richid/trackage:${vars.services.trackage.version}";
+      image = "${vars.services.trackage.image}:${vars.services.trackage.version}";
       user  = "${toString vars.services.trackage.uid}:${toString vars.services.base_gid}";
       environment = {
         TZ = "America/New_York";

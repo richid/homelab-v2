@@ -6,7 +6,7 @@ in
 {
   virtualisation.oci-containers.containers = {
     postgres16 = {
-      image = "postgres:${vars.services.postgres16.version}";
+      image = "${vars.services.postgres16.image}:${vars.services.postgres16.version}";
       user  = "${toString vars.services.postgres16.uid}:${toString vars.services.base_gid}";
       environment = {
         POSTGRES_PASSWORD = "postgres";

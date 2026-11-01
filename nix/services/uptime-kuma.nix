@@ -6,7 +6,7 @@ in
 {
   virtualisation.oci-containers.containers = {
     uptime-kuma = {
-      image = "louislam/uptime-kuma:${vars.services.uptime-kuma.version}";
+      image = "${vars.services.uptime-kuma.image}:${vars.services.uptime-kuma.version}";
       environment = {
         PORT = "80";
       };

@@ -6,7 +6,7 @@ in
 {
   virtualisation.oci-containers.containers = {
     tunarr = {
-      image = "ghcr.io/chrisbenincasa/tunarr:${vars.services.tunarr.version}";
+      image = "${vars.services.tunarr.image}:${vars.services.tunarr.version}";
       user  = "${toString vars.services.tunarr.uid}:${toString vars.services.media_gid}";
       environment = {
         TUNARR_SERVER_ADMIN_MODE = "true";
