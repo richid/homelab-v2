@@ -6,6 +6,8 @@ Infrastructure, configuration, and documentation for v2 of the homelab.
 
 `gibson` builds from the flake on GitHub. Push the branch first.
 
+A push to `main` deploys automatically: `nixos-upgrade.timer` checks every 5 minutes and switches when the commit changes. A failure sends a Gotify message.
+
 | Task | Command on `gibson` | Use |
 |---|---|---|
 | `task diff` | `nixos-rebuild build` + `nix store diff-closures` | See what changes |
@@ -13,6 +15,8 @@ Infrastructure, configuration, and documentation for v2 of the homelab.
 | `task switch` | `nixos-rebuild switch` | Activate and make it the boot default |
 
 Each task uses `--refresh --flake github:richid/homelab-v2/<ref>#gibson`. The default ref is `main`. To test a branch: `task test REF=<branch>`.
+
+The timer switches back to `main` within 5 minutes. To keep a branch running, stop the timer first: `systemctl stop nixos-upgrade.timer`. Start it again when done.
 
 ## Hardware
 

@@ -8,12 +8,13 @@
     agenix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { nixpkgs, agenix, ... }: {
+  outputs = { self, nixpkgs, agenix, ... }: {
     nixosConfigurations.gibson = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
         ./nix/configuration.nix
         agenix.nixosModules.default
+        { system.configurationRevision = self.rev or self.dirtyRev or null; }
       ];
     };
   };
