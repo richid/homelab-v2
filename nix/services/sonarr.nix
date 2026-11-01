@@ -6,7 +6,7 @@ in
 {
   virtualisation.oci-containers.containers = {
     sonarr = {
-      image = "lscr.io/linuxserver/sonarr:${vars.services.sonarr.version}";
+      image = "${vars.services.sonarr.image}:${vars.services.sonarr.version}";
       environment = {
         PUID = toString vars.services.sonarr.uid;
         PGID = toString vars.services.media_gid;

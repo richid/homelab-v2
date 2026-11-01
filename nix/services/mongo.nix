@@ -6,7 +6,7 @@ in
 {
   virtualisation.oci-containers.containers = {
     mongo44 = {
-      image = "mongo:${vars.services.mongo44.version}";
+      image = "${vars.services.mongo44.image}:${vars.services.mongo44.version}";
       user  = "${toString vars.services.mongo44.uid}:${toString vars.services.base_gid}";
       volumes = [
         "${appPath}/v4.4/data:/data/db"

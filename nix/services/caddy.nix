@@ -6,7 +6,7 @@ in
 {
   virtualisation.oci-containers.containers = {
     caddy = {
-      image = "ghcr.io/richid/caddy-docker-proxy-r53-dns:${vars.services.caddy.version}";
+      image = "${vars.services.caddy.image}:${vars.services.caddy.version}";
       environment = {
         CADDY_DOCKER_CADDYFILE_PATH = "/etc/caddy/Caddyfile";
         TZ = "America/New_York";

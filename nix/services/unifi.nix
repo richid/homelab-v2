@@ -6,7 +6,7 @@ in
 {
   virtualisation.oci-containers.containers = {
     unifi = {
-      image = "lscr.io/linuxserver/unifi-network-application:${vars.services.unifi.version}";
+      image = "${vars.services.unifi.image}:${vars.services.unifi.version}";
       environment = {
         PUID = toString vars.services.unifi.uid;
         PGID = toString vars.services.base_gid;

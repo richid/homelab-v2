@@ -6,7 +6,7 @@ in
 {
   virtualisation.oci-containers.containers = {
     syncthing = {
-      image = "lscr.io/linuxserver/syncthing:${vars.services.syncthing.version}";
+      image = "${vars.services.syncthing.image}:${vars.services.syncthing.version}";
       environment = {
         PCAP = "cap_chown,cap_fowner+ep";
         PUID = toString vars.services.syncthing.uid;

@@ -6,7 +6,7 @@ in
 {
   virtualisation.oci-containers.containers = {
     jellyseerr = {
-      image = "fallenbagel/jellyseerr:${vars.services.jellyseerr.version}";
+      image = "${vars.services.jellyseerr.image}:${vars.services.jellyseerr.version}";
       user = "${toString vars.services.jellyseerr.uid}:${toString vars.services.base_gid}";
       environment = {
         PORT = "80";

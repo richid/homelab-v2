@@ -6,7 +6,7 @@ in
 {
   virtualisation.oci-containers.containers = {
     minecraft-java = {
-      image = "itzg/minecraft-server:${vars.services.minecraft-java.version}";
+      image = "${vars.services.minecraft-java.image}:${vars.services.minecraft-java.version}";
       #user  = "${toString vars.services.minecraft-java.uid}:${toString vars.services.base_gid}";
       environment = {
         EULA             = "true";

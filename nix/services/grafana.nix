@@ -6,7 +6,7 @@ in
 {
   virtualisation.oci-containers.containers = {
     grafana = {
-      image = "grafana/grafana-oss:${vars.services.grafana.version}";
+      image = "${vars.services.grafana.image}:${vars.services.grafana.version}";
       user  = "${toString vars.services.grafana.uid}:${toString vars.services.base_gid}";
       environment = {
         TZ = "America/New_York";

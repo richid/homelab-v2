@@ -5,9 +5,9 @@ in
 {
   virtualisation.oci-containers.containers = {
     aws-dyndns = {
-      image = "sjmayotte/route53-dynamic-dns:v1.4.1";
+      image = "${vars.services.aws-dyndns.image}:${vars.services.aws-dyndns.version}";
       environment = {
-        AWS_REGION            = "us-east-1";
+        AWS_REGION             = "us-east-1";
         IPCHECKER              = "ipify.org";
         LOG_TO_STDOUT          = "true";
         ROUTE53_DOMAIN         = "mc.fatsch.us";

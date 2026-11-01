@@ -6,7 +6,7 @@ in
 {
   virtualisation.oci-containers.containers = {
     scrutiny = {
-      image = "ghcr.io/analogj/scrutiny:${vars.services.scrutiny.version}";
+      image = "${vars.services.scrutiny.image}:${vars.services.scrutiny.version}";
       volumes = [
         "${appPath}/config:/opt/scrutiny/config"
         "${appPath}/influxdb:/opt/scrutiny/influxdb"
