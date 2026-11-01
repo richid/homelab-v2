@@ -1,0 +1,51 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "dependencyDashboard": true,
+  "minimumReleaseAge": "3 days",
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": ["/^nix/variables\\.nix$/"],
+      "matchStrings": [
+        "image\\s*=\\s*\"(?<depName>[^\"]+)\";\\s*version\\s*=\\s*\"(?<currentValue>[^\"]+)\";"
+      ],
+      "datasourceTemplate": "docker"
+    }
+  ],
+  "packageRules": [
+    {
+      "matchManagers": ["custom.regex"],
+      "enabled": false
+    },
+    {
+      "matchManagers": ["custom.regex"],
+      "matchPackageNames": [
+        "b4bz/homer",
+        "ghcr.io/gotify/server",
+        "louislam/uptime-kuma"
+      ],
+      "enabled": true
+    },
+    {
+      "matchUpdateTypes": ["major"],
+      "dependencyDashboardApproval": true
+    },
+    {
+      "matchPackageNames": ["postgres"],
+      "allowedVersions": "<17"
+    },
+    {
+      "matchPackageNames": ["mongo"],
+      "allowedVersions": "<5"
+    },
+    {
+      "matchPackageNames": ["influxdb"],
+      "allowedVersions": "<3"
+    },
+    {
+      "matchPackageNames": ["b4bz/homer"],
+      "allowedVersions": "/^v\\d+\\.\\d+\\.\\d+$/"
+    }
+  ]
+}
