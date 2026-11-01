@@ -35,4 +35,3 @@ Infrastructure, configuration, and documentation for v2 of the homelab.
 | Unifi          |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |
 | Uptime Kuma    |    ✅    |   ✅    |     ✅      |     ✅      |    🚫    | Not easy to run rootless, needs access to Docker socket |
 | Vector         |    ✅    |   ✅    |     ✅      |     ✅      |   N/A    | Runs on the host, not Docker                            |
-| Watchstate     |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |

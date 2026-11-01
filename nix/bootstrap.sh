@@ -35,7 +35,6 @@ zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/unifi app-data/unifi
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/uptime-kuma app-data/uptime-kuma
 zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/vikunja app-data/vikunja
-zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/watchstate app-data/watchstate
 
 ## dozer - ZFS mirrors on HDDs for high-value data
 zpool create -o ashift=12 -m legacy dozer mirror \
@@ -96,7 +95,6 @@ chown -R trackage:services /mnt/app-data/trackage/
 chown -R tunarr:media /mnt/app-data/tunarr/
 chown -R unifi:services /mnt/app-data/unifi/
 chown -R vikunja:services /mnt/app-data/vikunja
-chown -R watchstate:services /mnt/app-data/watchstate/
 
 ##### Postgres Migration #####
 1. Spin up PG16 Docker container

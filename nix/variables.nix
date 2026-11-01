@@ -159,11 +159,5 @@
       version = "2.3.0";
       uid     = 960;
     };
-
-    watchstate = {
-      ip      = "192.168.20.219";
-      version = "master-20241116-c66994a";
-      uid     = 991;
-    };
   };
 }
