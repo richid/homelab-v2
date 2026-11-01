@@ -32,6 +32,7 @@ in
     scriptArgs = "%i";
     script = ''
       log=$(${config.systemd.package}/bin/journalctl -u "$1" -n 20 --no-pager -o cat)
+      log=''${log:-No log lines for $1.}
       ${pkgs.curl}/bin/curl -fsS -X POST -H "X-Gotify-Key: $GOTIFY_TOKEN" --form-string "title=gibson: $1 failed" --form-string "message=$log" --form-string "priority=8" https://gotify.fatsch.us/message
     '';
   };
