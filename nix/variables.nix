@@ -15,7 +15,7 @@
 
     aws-dyndns = {
       image   = "sjmayotte/route53-dynamic-dns";
-      version = "v1.4.1";
+      version = "v1.4.5";
     };
 
     caddy = {
