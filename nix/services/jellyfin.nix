@@ -1,38 +1,26 @@
-{ config, pkgs, lib, ... }:
+{ config, ... }:
 let
-  vars     = import ../variables.nix;
-  appPath = "${vars.services.rootPath}/jellyfin";
+  vars = import ../variables.nix;
+  svc  = config.homelab.services.jellyfin;
 in
 {
-  virtualisation.oci-containers.containers = {
-    jellyfin = {
-      image = "${vars.services.jellyfin.image}:${vars.services.jellyfin.version}";
-      environment = {
-        DOCKER_MODS = "linuxserver/mods:jellyfin-opencl-intel";
-        PUID = toString vars.services.jellyfin.uid;
-        PGID = toString vars.services.media_gid;
-        TZ = "America/New_York";
-      };
-      volumes = [
-        "/mnt/tank/Media:/media:ro"
-        "${appPath}/config:/config"
-      ];
-      extraOptions = [
-        "--device=/dev/dri:/dev/dri"
-        "--network=services"
-        "--ip=${vars.services.jellyfin.ip}"
-        "--label=caddy=*.fatsch.us"
-        "--label=caddy.@jellyfin=host jellyfin.fatsch.us watch.fatsch.us"
-        "--label=caddy.handle=@jellyfin"
-        "--label=caddy.handle.reverse_proxy={{upstreams}}"
-        "--label=caddy.handle.import=cors"
-      ];
+  homelab.services.jellyfin = {
+    inherit (vars.services.jellyfin) image version ip uid;
+    uidEnv       = true;
+    group        = "media";
+    caddyHost    = "jellyfin.fatsch.us";
+    caddyAliases = [ "watch.fatsch.us" ];
+    caddyCors    = true;
+    environment  = {
+      DOCKER_MODS = "linuxserver/mods:jellyfin-opencl-intel";
+      TZ          = "America/New_York";
     };
-  };
-
-  systemd.services.docker-jellyfin = {
-    unitConfig = {
-      RequiresMountsFor = appPath;
-    };
+    volumes = [
+      "/mnt/tank/Media:/media:ro"
+      "${svc.appPath}/config:/config"
+    ];
+    preOptions = [
+      "--device=/dev/dri:/dev/dri"
+    ];
   };
 }

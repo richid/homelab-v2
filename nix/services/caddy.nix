@@ -1,32 +1,20 @@
-{ config, pkgs, lib, ... }:
+{ config, ... }:
 let
-  vars    = import ../variables.nix;
-  appPath = "${vars.services.rootPath}/caddy";
+  vars = import ../variables.nix;
+  svc  = config.homelab.services.caddy;
 in
 {
-  virtualisation.oci-containers.containers = {
-    caddy = {
-      image = "${vars.services.caddy.image}:${vars.services.caddy.version}";
-      environment = {
-        CADDY_DOCKER_CADDYFILE_PATH = "/etc/caddy/Caddyfile";
-        TZ = "America/New_York";
-      };
-      volumes = [
-        "/var/run/docker.sock:/var/run/docker.sock"
-        "${appPath}/Caddyfile:/etc/caddy/Caddyfile"
-        "${appPath}/config:/config"
-        "${appPath}/data:/data"
-      ];
-      extraOptions = [
-        "--network=services"
-        "--ip=${vars.services.caddy.ip}"
-      ];
+  homelab.services.caddy = {
+    inherit (vars.services.caddy) image version ip;
+    environment = {
+      CADDY_DOCKER_CADDYFILE_PATH = "/etc/caddy/Caddyfile";
+      TZ                          = "America/New_York";
     };
-  };
-
-  systemd.services.docker-caddy = {
-    unitConfig = {
-      RequiresMountsFor = appPath;
-    };
+    volumes = [
+      "/var/run/docker.sock:/var/run/docker.sock"
+      "${svc.appPath}/Caddyfile:/etc/caddy/Caddyfile"
+      "${svc.appPath}/config:/config"
+      "${svc.appPath}/data:/data"
+    ];
   };
 }

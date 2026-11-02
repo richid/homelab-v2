@@ -50,6 +50,16 @@ let
         default     = null;
         description = "Host name that Caddy serves for this container. Null adds no Caddy labels.";
       };
+      caddyAliases = mkOption {
+        type        = types.listOf types.str;
+        default     = [ ];
+        description = "More host names that Caddy serves with the same handler.";
+      };
+      caddyHeaderUp = mkOption {
+        type        = types.nullOr types.str;
+        default     = null;
+        description = "Value of the reverse_proxy header_up directive. Null adds no header_up label.";
+      };
       caddyPort = mkOption {
         type        = types.nullOr types.port;
         default     = null;
@@ -61,9 +71,9 @@ let
         description = "Import the cors snippet in the Caddy handler.";
       };
       appPath = mkOption {
-        type        = types.str;
+        type        = types.nullOr types.str;
         default     = "${vars.services.rootPath}/${name}";
-        description = "App data path. The container unit waits for this mount.";
+        description = "App data path. The container unit waits for this mount. Null adds no mount dependency.";
       };
       volumes = mkOption {
         type    = types.listOf types.str;
@@ -76,6 +86,11 @@ let
       environmentFiles = mkOption {
         type    = types.listOf types.path;
         default = [ ];
+      };
+      preOptions = mkOption {
+        type        = types.listOf types.str;
+        default     = [ ];
+        description = "Extra docker run options, added before the generated ones.";
       };
       extraOptions = mkOption {
         type        = types.listOf types.str;
@@ -97,10 +112,12 @@ let
     in
     lib.optionals (svc.caddyHost != null) ([
       "--label=caddy=${domain}"
-      "--label=caddy.${matcher}=host ${svc.caddyHost}"
+      "--label=caddy.${matcher}=host ${lib.concatStringsSep " " ([ svc.caddyHost ] ++ svc.caddyAliases)}"
       "--label=caddy.handle=${matcher}"
       "--label=caddy.handle.reverse_proxy=${upstream}"
-    ] ++ lib.optional svc.caddyCors "--label=caddy.handle.import=cors");
+    ]
+    ++ lib.optional (svc.caddyHeaderUp != null) "--label=caddy.handle.reverse_proxy.header_up=${svc.caddyHeaderUp}"
+    ++ lib.optional svc.caddyCors "--label=caddy.handle.import=cors");
 
   container = _: svc: {
     image            = "${svc.image}:${svc.version}";
@@ -112,7 +129,8 @@ let
     environmentFiles = svc.environmentFiles;
     volumes          = svc.volumes;
     extraOptions     =
-      [ "--network=${svc.network}" ]
+      svc.preOptions
+      ++ [ "--network=${svc.network}" ]
       ++ lib.optional (svc.ip != null) "--ip=${svc.ip}"
       ++ caddyLabels svc
       ++ svc.extraOptions;
@@ -131,6 +149,6 @@ in
     systemd.services = lib.mapAttrs' (name: svc:
       lib.nameValuePair "docker-${name}" {
         unitConfig.RequiresMountsFor = svc.appPath;
-      }) cfg;
+      }) (lib.filterAttrs (_: svc: svc.appPath != null) cfg);
   };
 }

@@ -1,50 +1,38 @@
-{ config, pkgs, lib, ... }:
+{ config, ... }:
 let
-  vars     = import ../variables.nix;
-  appPath = "${vars.services.rootPath}/scrutiny";
+  vars = import ../variables.nix;
+  svc  = config.homelab.services.scrutiny;
 in
 {
-  virtualisation.oci-containers.containers = {
-    scrutiny = {
-      image = "${vars.services.scrutiny.image}:${vars.services.scrutiny.version}";
-      volumes = [
-        "${appPath}/config:/opt/scrutiny/config"
-        "${appPath}/influxdb:/opt/scrutiny/influxdb"
-        "/run/udev:/run/udev:ro"
-      ];
-      extraOptions = [
-        "--cap-add=SYS_ADMIN"
-        "--cap-add=SYS_RAWIO"
-        "--device=/dev/nvme0"
-        "--device=/dev/nvme1"
-        "--device=/dev/nvme2"
-        "--device=/dev/sda"
-        "--device=/dev/sdb"
-        "--device=/dev/sdd"
-        "--device=/dev/sde"
-        "--device=/dev/sdf"
-        "--device=/dev/sdg"
-        "--device=/dev/sdh"
-        "--device=/dev/sdi"
-        "--device=/dev/sdj"
-        "--device=/dev/sdk"
-        "--device=/dev/sdl"
-        "--device=/dev/sdm"
-        "--device=/dev/sdn"
-        "--network=services"
-        "--ip=${vars.services.scrutiny.ip}"
-        "--label=caddy=*.fatsch.us"
-        "--label=caddy.@disks=host disks.fatsch.us"
-        "--label=caddy.handle=@disks"
-        "--label=caddy.handle.reverse_proxy={{upstreams 8080}}"
-        "--label=caddy.handle.import=cors"
-      ];
-    };
-  };
-
-  systemd.services.docker-scrutiny= {
-    unitConfig = {
-      RequiresMountsFor = appPath;
-    };
+  homelab.services.scrutiny = {
+    inherit (vars.services.scrutiny) image version ip;
+    caddyHost = "disks.fatsch.us";
+    caddyPort = 8080;
+    caddyCors = true;
+    volumes   = [
+      "${svc.appPath}/config:/opt/scrutiny/config"
+      "${svc.appPath}/influxdb:/opt/scrutiny/influxdb"
+      "/run/udev:/run/udev:ro"
+    ];
+    preOptions = [
+      "--cap-add=SYS_ADMIN"
+      "--cap-add=SYS_RAWIO"
+      "--device=/dev/nvme0"
+      "--device=/dev/nvme1"
+      "--device=/dev/nvme2"
+      "--device=/dev/sda"
+      "--device=/dev/sdb"
+      "--device=/dev/sdd"
+      "--device=/dev/sde"
+      "--device=/dev/sdf"
+      "--device=/dev/sdg"
+      "--device=/dev/sdh"
+      "--device=/dev/sdi"
+      "--device=/dev/sdj"
+      "--device=/dev/sdk"
+      "--device=/dev/sdl"
+      "--device=/dev/sdm"
+      "--device=/dev/sdn"
+    ];
   };
 }

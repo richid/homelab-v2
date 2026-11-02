@@ -1,35 +1,20 @@
-{ config, pkgs, lib, ... }:
+{ config, ... }:
 let
-  vars     = import ../variables.nix;
-  appPath = "${vars.services.rootPath}/jellyseerr";
+  vars = import ../variables.nix;
+  svc  = config.homelab.services.jellyseerr;
 in
 {
-  virtualisation.oci-containers.containers = {
-    jellyseerr = {
-      image = "${vars.services.jellyseerr.image}:${vars.services.jellyseerr.version}";
-      user = "${toString vars.services.jellyseerr.uid}:${toString vars.services.base_gid}";
-      environment = {
-        PORT = "80";
-        TZ   = "America/New_York";
-      };
-      volumes = [
-        "${appPath}/config:/app/config"
-      ];
-      extraOptions = [
-        "--network=services"
-        "--ip=${vars.services.jellyseerr.ip}"
-        "--label=caddy=*.fatsch.us"
-        "--label=caddy.@requests=host requests.fatsch.us jellyseerr.fatsch.us"
-        "--label=caddy.handle=@requests"
-        "--label=caddy.handle.reverse_proxy={{upstreams}}"
-        "--label=caddy.handle.import=cors"
-      ];
+  homelab.services.jellyseerr = {
+    inherit (vars.services.jellyseerr) image version ip uid;
+    caddyHost    = "requests.fatsch.us";
+    caddyAliases = [ "jellyseerr.fatsch.us" ];
+    caddyCors    = true;
+    environment  = {
+      PORT = "80";
+      TZ   = "America/New_York";
     };
-  };
-
-  systemd.services.docker-jellyseerr = {
-    unitConfig = {
-      RequiresMountsFor = appPath;
-    };
+    volumes = [
+      "${svc.appPath}/config:/app/config"
+    ];
   };
 }

@@ -1,35 +1,19 @@
-{ config, pkgs, lib, ... }:
+{ config, ... }:
 let
-  vars    = import ../variables.nix;
-  appPath = "${vars.services.rootPath}/gotify";
+  vars = import ../variables.nix;
+  svc  = config.homelab.services.gotify;
 in
 {
-  virtualisation.oci-containers.containers = {
-    gotify = {
-      image = "${vars.services.gotify.image}:${vars.services.gotify.version}";
-      user  = "${toString vars.services.gotify.uid}:${toString vars.services.base_gid}";
-      environment = {
-        TZ = "America/New_York";
-      };
-      volumes = [
-        "${appPath}/data:/app/data"
-      ];
-      extraOptions = [
-        "--network=services"
-        "--ip=${vars.services.gotify.ip}"
-        "--label=caddy=*.fatsch.us"
-        "--label=caddy.@gotify=host gotify.fatsch.us"
-        "--label=caddy.handle=@gotify"
-        "--label=caddy.handle.reverse_proxy={{upstreams}}"
-        "--label=caddy.handle.reverse_proxy.header_up=-Origin"
-        "--label=caddy.handle.import=cors"
-      ];
+  homelab.services.gotify = {
+    inherit (vars.services.gotify) image version ip uid;
+    caddyHost     = "gotify.fatsch.us";
+    caddyHeaderUp = "-Origin";
+    caddyCors     = true;
+    environment   = {
+      TZ = "America/New_York";
     };
-  };
-
-  systemd.services.docker-gotify = {
-    unitConfig = {
-      RequiresMountsFor = appPath;
-    };
+    volumes = [
+      "${svc.appPath}/data:/app/data"
+    ];
   };
 }

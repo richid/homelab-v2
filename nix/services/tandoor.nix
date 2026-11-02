@@ -1,42 +1,27 @@
-{ config, pkgs, lib, ... }:
+{ config, ... }:
 let
-  vars    = import ../variables.nix;
-  appPath = "${vars.services.rootPath}/tandoor";
+  vars = import ../variables.nix;
+  svc  = config.homelab.services.tandoor;
 in
 {
-  virtualisation.oci-containers.containers = {
-    tandoor = {
-      image = "${vars.services.tandoor.image}:${vars.services.tandoor.version}";
-      user  = "${toString vars.services.tandoor.uid}:${toString vars.services.base_gid}";
-      environment = {
-        ALLOWED_HOSTS        = "recipes.fatsch.us";
-        CSRF_TRUSTED_ORIGINS = "https://recipes.fatsch.us";
-        DB_ENGINE            = "django.db.backends.postgresql";
-        POSTGRES_DB          = "tandoor";
-        POSTGRES_HOST        = "postgres16";
-        POSTGRES_PORT        = "5432";
-        POSTGRES_USER        = "tandoor";
-      };
-      environmentFiles = [ config.age.secrets.tandoor.path ];
-      volumes = [
-        "${appPath}/staticfiles:/opt/recipes/staticfiles"
-        "${appPath}/mediafiles:/opt/recipes/mediafiles"
-      ];
-      extraOptions = [
-        "--network=services"
-        "--ip=${vars.services.tandoor.ip}"
-        "--label=caddy=*.fatsch.us"
-        "--label=caddy.@recipes=host recipes.fatsch.us"
-        "--label=caddy.handle=@recipes"
-        "--label=caddy.handle.reverse_proxy={{upstreams 80}}"
-        "--label=caddy.handle.import=cors"
-      ];
+  homelab.services.tandoor = {
+    inherit (vars.services.tandoor) image version ip uid;
+    caddyHost   = "recipes.fatsch.us";
+    caddyPort   = 80;
+    caddyCors   = true;
+    environment = {
+      ALLOWED_HOSTS        = "recipes.fatsch.us";
+      CSRF_TRUSTED_ORIGINS = "https://recipes.fatsch.us";
+      DB_ENGINE            = "django.db.backends.postgresql";
+      POSTGRES_DB          = "tandoor";
+      POSTGRES_HOST        = "postgres16";
+      POSTGRES_PORT        = "5432";
+      POSTGRES_USER        = "tandoor";
     };
-  };
-
-  systemd.services.docker-tandoor = {
-    unitConfig = {
-      RequiresMountsFor = appPath;
-    };
+    environmentFiles = [ config.age.secrets.tandoor.path ];
+    volumes = [
+      "${svc.appPath}/staticfiles:/opt/recipes/staticfiles"
+      "${svc.appPath}/mediafiles:/opt/recipes/mediafiles"
+    ];
   };
 }
