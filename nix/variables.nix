@@ -180,7 +180,7 @@
     vikunja = {
       ip      = "192.168.20.238";
       image   = "vikunja/vikunja";
-      version = "2.3.0";
+      version = "2.7.1";
       uid     = 960;
     };
   };
