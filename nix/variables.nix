@@ -42,7 +42,7 @@
     homer = {
       ip      = "192.168.20.223";
       image   = "b4bz/homer";
-      version = "v24.12.1";
+      version = "v26.08.3";
       uid     = 986;
     };
 
