@@ -70,7 +70,7 @@
     minecraft-java = {
       ip      = "192.168.20.230";
       image   = "itzg/minecraft-server";
-      version = "2025.12.1-java21";
+      version = "2026.10.1-java21";
       uid     = 968;
     };
 
