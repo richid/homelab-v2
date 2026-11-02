@@ -1,11 +1,13 @@
 { config, ... }:
 let
-  vars = import ../variables.nix;
-  svc  = config.homelab.services.tunarr;
+  svc = config.homelab.services.tunarr;
 in
 {
   homelab.services.tunarr = {
-    inherit (vars.services.tunarr) image version ip uid;
+    image       = "ghcr.io/chrisbenincasa/tunarr";
+    version     = "1.3.15";
+    ip          = "192.168.20.235";
+    uid         = 964;
     group       = "media";
     caddyHost   = "tunarr.fatsch.us";
     caddyPort   = 8000;

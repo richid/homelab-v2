@@ -1,14 +1,8 @@
 { config, lib, ... }:
 let
   inherit (lib) mkOption types;
-  vars = import ../variables.nix;
   cfg  = config.homelab.services;
-
-  gids = {
-    services = vars.services.base_gid;
-    media    = vars.services.media_gid;
-    family   = vars.services.family_gid;
-  };
+  gids = config.homelab.gids;
 
   serviceOptions = { name, ... }: {
     options = {
@@ -28,21 +22,21 @@ let
       uid = mkOption {
         type        = types.nullOr types.int;
         default     = null;
-        description = "User ID that the container runs as. Null keeps the image user.";
+        description = "User ID of the service. Null keeps the image user.";
       };
       group = mkOption {
         type        = types.enum (builtins.attrNames gids);
         default     = "services";
         description = "Group that the container runs as.";
       };
-      uidEnv = mkOption {
-        type        = types.bool;
-        default     = false;
-        description = "Pass uid and group as the PUID and PGID environment variables instead of --user. LinuxServer images use this.";
+      uidMode = mkOption {
+        type        = types.enum [ "user" "env" "none" ];
+        default     = "user";
+        description = "How the container gets uid and group: \"user\" sets --user, \"env\" sets the PUID and PGID environment variables (LinuxServer images), \"none\" sets neither.";
       };
       network = mkOption {
         type        = types.str;
-        default     = vars.services.network;
+        default     = config.homelab.network;
         description = "Docker network.";
       };
       caddyHost = mkOption {
@@ -72,7 +66,7 @@ let
       };
       appPath = mkOption {
         type        = types.nullOr types.str;
-        default     = "${vars.services.rootPath}/${name}";
+        default     = "${config.homelab.rootPath}/${name}";
         description = "App data path. The container unit waits for this mount. Null adds no mount dependency.";
       };
       volumes = mkOption {
@@ -121,8 +115,8 @@ let
 
   container = _: svc: {
     image            = "${svc.image}:${svc.version}";
-    user             = lib.mkIf (svc.uid != null && !svc.uidEnv) "${toString svc.uid}:${toString gids.${svc.group}}";
-    environment      = svc.environment // lib.optionalAttrs (svc.uid != null && svc.uidEnv) {
+    user             = lib.mkIf (svc.uid != null && svc.uidMode == "user") "${toString svc.uid}:${toString gids.${svc.group}}";
+    environment      = svc.environment // lib.optionalAttrs (svc.uid != null && svc.uidMode == "env") {
       PUID = toString svc.uid;
       PGID = toString gids.${svc.group};
     };
@@ -137,10 +131,31 @@ let
   };
 in
 {
-  options.homelab.services = mkOption {
-    type        = types.attrsOf (types.submodule serviceOptions);
-    default     = { };
-    description = "Containers that the homelab runs.";
+  options.homelab = {
+    rootPath = mkOption {
+      type        = types.str;
+      default     = "/mnt/app-data";
+      description = "Parent folder of the service app data.";
+    };
+    network = mkOption {
+      type        = types.str;
+      default     = "services";
+      description = "Default Docker network.";
+    };
+    gids = mkOption {
+      type        = types.attrsOf types.int;
+      default     = {
+        services = 990;
+        media    = 991;
+        family   = 994;
+      };
+      description = "Group IDs by group name.";
+    };
+    services = mkOption {
+      type        = types.attrsOf (types.submodule serviceOptions);
+      default     = { };
+      description = "Containers that the homelab runs.";
+    };
   };
 
   config = {

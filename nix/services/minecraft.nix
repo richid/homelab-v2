@@ -1,17 +1,20 @@
 { config, ... }:
 let
-  vars = import ../variables.nix;
-  svc  = config.homelab.services.minecraft-java;
+  svc = config.homelab.services.minecraft-java;
 in
 {
   homelab.services.minecraft-java = {
-    inherit (vars.services.minecraft-java) image version ip;
-    appPath     = "${vars.services.rootPath}/minecraft";
+    image       = "itzg/minecraft-server";
+    version     = "2026.10.1-java21";
+    ip          = "192.168.20.230";
+    uid         = 968;
+    uidMode     = "none";
+    appPath     = "${config.homelab.rootPath}/minecraft";
     environment = {
       EULA             = "true";
       TYPE             = "PAPER";
-      UID              = toString vars.services.minecraft-java.uid;
-      GID              = toString vars.services.base_gid;
+      UID              = toString svc.uid;
+      GID              = toString config.homelab.gids.${svc.group};
       MEMORY           = "4G";
       PLUGINS          = "https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot\nhttps://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot";
       SPIGET_RESOURCES = "28140";

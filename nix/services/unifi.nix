@@ -1,12 +1,14 @@
 { config, ... }:
 let
-  vars = import ../variables.nix;
-  svc  = config.homelab.services.unifi;
+  svc = config.homelab.services.unifi;
 in
 {
   homelab.services.unifi = {
-    inherit (vars.services.unifi) image version ip uid;
-    uidEnv      = true;
+    image       = "lscr.io/linuxserver/unifi-network-application";
+    version     = "10.6.109";
+    ip          = "192.168.10.10";
+    uid         = 975;
+    uidMode     = "env";
     network     = "mgmt";
     environment = {
       MEM_LIMIT    = "4096";

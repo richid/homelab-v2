@@ -1,11 +1,13 @@
 { config, ... }:
 let
-  vars = import ../variables.nix;
-  svc  = config.homelab.services.audiobookshelf;
+  svc = config.homelab.services.audiobookshelf;
 in
 {
   homelab.services.audiobookshelf = {
-    inherit (vars.services.audiobookshelf) image version ip uid;
+    image       = "ghcr.io/advplyr/audiobookshelf";
+    version     = "2.37.2";
+    ip          = "192.168.20.234";
+    uid         = 965;
     group       = "media";
     caddyHost   = "books.fatsch.us";
     caddyCors   = true;

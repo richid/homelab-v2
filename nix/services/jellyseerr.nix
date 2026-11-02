@@ -1,11 +1,13 @@
 { config, ... }:
 let
-  vars = import ../variables.nix;
-  svc  = config.homelab.services.jellyseerr;
+  svc = config.homelab.services.jellyseerr;
 in
 {
   homelab.services.jellyseerr = {
-    inherit (vars.services.jellyseerr) image version ip uid;
+    image        = "fallenbagel/jellyseerr";
+    version      = "2.7.3";
+    ip           = "192.168.20.222";
+    uid          = 978;
     caddyHost    = "requests.fatsch.us";
     caddyAliases = [ "jellyseerr.fatsch.us" ];
     caddyCors    = true;

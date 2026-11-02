@@ -1,11 +1,12 @@
 { config, ... }:
 let
-  vars = import ../variables.nix;
-  svc  = config.homelab.services.scrutiny;
+  svc = config.homelab.services.scrutiny;
 in
 {
   homelab.services.scrutiny = {
-    inherit (vars.services.scrutiny) image version ip;
+    image     = "ghcr.io/analogj/scrutiny";
+    version   = "v0.7.1-omnibus";
+    ip        = "192.168.20.210";
     caddyHost = "disks.fatsch.us";
     caddyPort = 8080;
     caddyCors = true;

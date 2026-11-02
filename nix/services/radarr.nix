@@ -1,12 +1,14 @@
 { config, ... }:
 let
-  vars = import ../variables.nix;
-  svc  = config.homelab.services.radarr;
+  svc = config.homelab.services.radarr;
 in
 {
   homelab.services.radarr = {
-    inherit (vars.services.radarr) image version ip uid;
-    uidEnv      = true;
+    image       = "lscr.io/linuxserver/radarr";
+    version     = "6.4.4";
+    ip          = "192.168.20.220";
+    uid         = 982;
+    uidMode     = "env";
     group       = "media";
     caddyHost   = "radarr.fatsch.us";
     caddyCors   = true;

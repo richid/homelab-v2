@@ -1,12 +1,14 @@
 { config, ... }:
 let
-  vars = import ../variables.nix;
-  svc  = config.homelab.services.syncthing;
+  svc = config.homelab.services.syncthing;
 in
 {
   homelab.services.syncthing = {
-    inherit (vars.services.syncthing) image version ip uid;
-    uidEnv      = true;
+    image       = "lscr.io/linuxserver/syncthing";
+    version     = "2.1.7";
+    ip          = "192.168.20.236";
+    uid         = 1000; # rich;
+    uidMode     = "env";
     group       = "family";
     appPath     = "/mnt/dozer/Sync";
     caddyHost   = "files.fatsch.us";
