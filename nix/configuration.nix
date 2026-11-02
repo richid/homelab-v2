@@ -314,11 +314,6 @@
       };
 
       outputs = {
-        file = {
-          data_format = "influx";
-          files = [ "stdout" ];
-          namepass = [ "docker_log*" ];
-        };
         influxdb_v2 = {
           urls = [ "https://influx.fatsch.us" ];
           organization = "temple";
