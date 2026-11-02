@@ -16,8 +16,5 @@ in
       "${svc.appPath}/data:/app/data"
       "/var/run/docker.sock:/var/run/docker.sock"
     ];
-    extraOptions = [
-      "--pull=always"
-    ];
   };
 }
