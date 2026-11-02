@@ -98,7 +98,7 @@
     prowlarr = {
       ip      = "192.168.20.217";
       image   = "lscr.io/linuxserver/prowlarr";
-      version = "1.37.0";
+      version = "2.7.0";
       uid     = 989;
     };
 
