@@ -125,7 +125,7 @@
     sonarr = {
       ip      = "192.168.20.221";
       image   = "lscr.io/linuxserver/sonarr";
-      version = "4.0.15";
+      version = "4.0.20";
       uid     = 981;
     };
 
