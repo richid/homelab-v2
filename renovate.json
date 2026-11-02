@@ -5,6 +5,7 @@
   ],
   "dependencyDashboard": true,
   "minimumReleaseAge": "3 days",
+  "minimumReleaseAgeBehaviour": "timestamp-optional",
   "major": {
     "dependencyDashboardApproval": true
   },
