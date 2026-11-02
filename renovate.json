@@ -31,7 +31,7 @@
         "ghcr.io/gotify/server",
         "ghcr.io/richid/caddy-docker-proxy-r53-dns",
         "ghcr.io/richid/trackage",
-        "grafana/grafana-oss",
+        "grafana/grafana",
         "louislam/uptime-kuma",
         "lscr.io/linuxserver/prowlarr",
         "lscr.io/linuxserver/radarr",
