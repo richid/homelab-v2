@@ -139,7 +139,7 @@
     tandoor = {
       ip      = "192.168.20.233";
       image   = "vabene1111/recipes";
-      version = "1.5.35";
+      version = "2.7.2";
       uid     = 966;
     };
 
