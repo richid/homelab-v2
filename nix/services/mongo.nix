@@ -11,8 +11,5 @@ in
     volumes = [
       "${svc.appPath}/data:/data/db"
     ];
-    extraOptions = [
-      "--pull=always"
-    ];
   };
 }
