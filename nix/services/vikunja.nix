@@ -1,38 +1,23 @@
-{ config, pkgs, lib, ... }:
+{ config, ... }:
 let
-  vars    = import ../variables.nix;
-  appPath = "${vars.services.rootPath}/vikunja";
+  vars = import ../variables.nix;
+  svc  = config.homelab.services.vikunja;
 in
 {
-  virtualisation.oci-containers.containers = {
-    vikunja = {
-      image = "${vars.services.vikunja.image}:${vars.services.vikunja.version}";
-      user  = "${toString vars.services.vikunja.uid}:${toString vars.services.base_gid}";
-      environment = {
-        VIKUNJA_DATABASE_PATH  = "/db/vikunja.db";
-        VIKUNJA_CORS_ENABLE    = "false";
-        VIKUNJA_FILES_BASEPATH = "/files";
-        TZ = "America/New_York";
-      };
-      volumes = [
-        "${appPath}/db:/db"
-        "${appPath}/files:/files"
-      ];
-      extraOptions = [
-        "--network=services"
-        "--ip=${vars.services.vikunja.ip}"
-        "--label=caddy=*.fatsch.us"
-        "--label=caddy.@todo=host todo.fatsch.us"
-        "--label=caddy.handle=@todo"
-        "--label=caddy.handle.reverse_proxy={{upstreams 3456}}"
-        "--label=caddy.handle.import=cors"
-      ];
+  homelab.services.vikunja = {
+    inherit (vars.services.vikunja) image version ip uid;
+    caddyHost   = "todo.fatsch.us";
+    caddyPort   = 3456;
+    caddyCors   = true;
+    environment = {
+      VIKUNJA_DATABASE_PATH  = "/db/vikunja.db";
+      VIKUNJA_CORS_ENABLE    = "false";
+      VIKUNJA_FILES_BASEPATH = "/files";
+      TZ                     = "America/New_York";
     };
-  };
-
-  systemd.services.docker-vikunja = {
-    unitConfig = {
-      RequiresMountsFor = appPath;
-    };
+    volumes = [
+      "${svc.appPath}/db:/db"
+      "${svc.appPath}/files:/files"
+    ];
   };
 }
