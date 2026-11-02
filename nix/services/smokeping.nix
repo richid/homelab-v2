@@ -1,36 +1,20 @@
-{ config, pkgs, lib, ... }:
+{ config, ... }:
 let
-  vars    = import ../variables.nix;
-  appPath = "${vars.services.rootPath}/smokeping";
+  vars = import ../variables.nix;
+  svc  = config.homelab.services.smokeping;
 in
 {
-  virtualisation.oci-containers.containers = {
-    smokeping = {
-      image = "${vars.services.smokeping.image}:${vars.services.smokeping.version}";
-      environment = {
-        PUID = toString vars.services.smokeping.uid;
-        PGID = toString vars.services.base_gid;
-        TZ   = "America/New_York";
-      };
-      volumes = [
-        "${appPath}/config:/config"
-        "${appPath}/data:/data"
-      ];
-      extraOptions = [
-        "--network=services"
-        "--ip=${vars.services.smokeping.ip}"
-        "--label=caddy=*.fatsch.us"
-        "--label=caddy.@smokeping=host smokeping.fatsch.us"
-        "--label=caddy.handle=@smokeping"
-        "--label=caddy.handle.reverse_proxy={{upstreams}}"
-        "--label=caddy.handle.import=cors"
-      ];
+  homelab.services.smokeping = {
+    inherit (vars.services.smokeping) image version ip uid;
+    uidEnv      = true;
+    caddyHost   = "smokeping.fatsch.us";
+    caddyCors   = true;
+    environment = {
+      TZ = "America/New_York";
     };
-  };
-
-  systemd.services.docker-smokeping = {
-    unitConfig = {
-      RequiresMountsFor = appPath;
-    };
+    volumes = [
+      "${svc.appPath}/config:/config"
+      "${svc.appPath}/data:/data"
+    ];
   };
 }

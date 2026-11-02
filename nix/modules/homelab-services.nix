@@ -35,6 +35,11 @@ let
         default     = "services";
         description = "Group that the container runs as.";
       };
+      uidEnv = mkOption {
+        type        = types.bool;
+        default     = false;
+        description = "Pass uid and group as the PUID and PGID environment variables instead of --user. LinuxServer images use this.";
+      };
       network = mkOption {
         type        = types.str;
         default     = vars.services.network;
@@ -99,8 +104,11 @@ let
 
   container = _: svc: {
     image            = "${svc.image}:${svc.version}";
-    user             = lib.mkIf (svc.uid != null) "${toString svc.uid}:${toString gids.${svc.group}}";
-    environment      = svc.environment;
+    user             = lib.mkIf (svc.uid != null && !svc.uidEnv) "${toString svc.uid}:${toString gids.${svc.group}}";
+    environment      = svc.environment // lib.optionalAttrs (svc.uid != null && svc.uidEnv) {
+      PUID = toString svc.uid;
+      PGID = toString gids.${svc.group};
+    };
     environmentFiles = svc.environmentFiles;
     volumes          = svc.volumes;
     extraOptions     =
