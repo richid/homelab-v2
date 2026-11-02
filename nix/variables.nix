@@ -49,7 +49,7 @@
     influxdb = {
       ip      = "192.168.20.228";
       image   = "influxdb";
-      version = "2.7.12";
+      version = "2.9.1";
       uid     = 970;
     };
 
