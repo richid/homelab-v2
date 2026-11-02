@@ -1,11 +1,13 @@
 { config, ... }:
 let
-  vars = import ../variables.nix;
-  svc  = config.homelab.services.mosquitto;
+  svc = config.homelab.services.mosquitto;
 in
 {
   homelab.services.mosquitto = {
-    inherit (vars.services.mosquitto) image version ip uid;
+    image   = "eclipse-mosquitto";
+    version = "2.0.22";
+    ip      = "192.168.20.212";
+    uid     = 988;
     volumes = [
       "${svc.appPath}/config/mosquitto.conf:/mosquitto/config/mosquitto.conf"
       "${svc.appPath}/data:/mosquitto/data"

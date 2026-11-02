@@ -13,7 +13,7 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
-        "/^nix/variables\\.nix$/"
+        "/^nix/services/.+\\.nix$/"
       ],
       "matchStrings": [
         "image\\s*=\\s*\"(?<depName>[^\"]+)\";\\s*version\\s*=\\s*\"(?<currentValue>[^\"]+)\";"

@@ -1,11 +1,13 @@
 { config, ... }:
 let
-  vars = import ../variables.nix;
-  svc  = config.homelab.services.homer;
+  svc = config.homelab.services.homer;
 in
 {
   homelab.services.homer = {
-    inherit (vars.services.homer) image version ip uid;
+    image       = "b4bz/homer";
+    version     = "v26.08.3";
+    ip          = "192.168.20.223";
+    uid         = 986;
     caddyHost   = "home.fatsch.us";
     environment = {
       PORT = "80";

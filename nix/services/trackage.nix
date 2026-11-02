@@ -1,11 +1,13 @@
 { config, ... }:
 let
-  vars = import ../variables.nix;
-  svc  = config.homelab.services.trackage;
+  svc = config.homelab.services.trackage;
 in
 {
   homelab.services.trackage = {
-    inherit (vars.services.trackage) image version ip uid;
+    image       = "ghcr.io/richid/trackage";
+    version     = "0.4.0";
+    ip          = "192.168.20.237";
+    uid         = 961;
     caddyHost   = "trackage.fatsch.us";
     caddyPort   = 3000;
     caddyCors   = true;

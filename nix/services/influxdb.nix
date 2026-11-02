@@ -1,11 +1,13 @@
 { config, ... }:
 let
-  vars = import ../variables.nix;
-  svc  = config.homelab.services.influxdb;
+  svc = config.homelab.services.influxdb;
 in
 {
   homelab.services.influxdb = {
-    inherit (vars.services.influxdb) image version ip uid;
+    image     = "influxdb";
+    version   = "2.9.1";
+    ip        = "192.168.20.228";
+    uid       = 970;
     caddyHost = "influx.fatsch.us";
     caddyPort = 8086;
     caddyCors = true;

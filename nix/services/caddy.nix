@@ -1,11 +1,14 @@
 { config, ... }:
 let
-  vars = import ../variables.nix;
-  svc  = config.homelab.services.caddy;
+  svc = config.homelab.services.caddy;
 in
 {
   homelab.services.caddy = {
-    inherit (vars.services.caddy) image version ip;
+    image       = "ghcr.io/richid/caddy-docker-proxy-r53-dns";
+    version     = "2.8.4";
+    ip          = "192.168.20.200";
+    uid         = 977;
+    uidMode     = "none";
     environment = {
       CADDY_DOCKER_CADDYFILE_PATH = "/etc/caddy/Caddyfile";
       TZ                          = "America/New_York";

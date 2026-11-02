@@ -1,12 +1,14 @@
 { config, ... }:
 let
-  vars = import ../variables.nix;
-  svc  = config.homelab.services.sonarr;
+  svc = config.homelab.services.sonarr;
 in
 {
   homelab.services.sonarr = {
-    inherit (vars.services.sonarr) image version ip uid;
-    uidEnv      = true;
+    image       = "lscr.io/linuxserver/sonarr";
+    version     = "4.0.20";
+    ip          = "192.168.20.221";
+    uid         = 981;
+    uidMode     = "env";
     group       = "media";
     caddyHost   = "sonarr.fatsch.us";
     caddyCors   = true;

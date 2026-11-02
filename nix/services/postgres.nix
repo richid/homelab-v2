@@ -1,12 +1,14 @@
 { config, ... }:
 let
-  vars = import ../variables.nix;
-  svc  = config.homelab.services.postgres16;
+  svc = config.homelab.services.postgres16;
 in
 {
   homelab.services.postgres16 = {
-    inherit (vars.services.postgres16) image version ip uid;
-    appPath     = "${vars.services.rootPath}/postgres";
+    image       = "postgres";
+    version     = "16.15";
+    ip          = "192.168.20.224";
+    uid         = 983;
+    appPath     = "${config.homelab.rootPath}/postgres";
     environment = {
       POSTGRES_PASSWORD = "postgres";
       POSTGRES_USER     = "postgres";

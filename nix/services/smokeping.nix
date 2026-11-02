@@ -1,12 +1,14 @@
 { config, ... }:
 let
-  vars = import ../variables.nix;
-  svc  = config.homelab.services.smokeping;
+  svc = config.homelab.services.smokeping;
 in
 {
   homelab.services.smokeping = {
-    inherit (vars.services.smokeping) image version ip uid;
-    uidEnv      = true;
+    image       = "lscr.io/linuxserver/smokeping";
+    version     = "2.9.0";
+    ip          = "192.168.20.211";
+    uid         = 993;
+    uidMode     = "env";
     caddyHost   = "smokeping.fatsch.us";
     caddyCors   = true;
     environment = {

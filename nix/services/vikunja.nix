@@ -1,11 +1,13 @@
 { config, ... }:
 let
-  vars = import ../variables.nix;
-  svc  = config.homelab.services.vikunja;
+  svc = config.homelab.services.vikunja;
 in
 {
   homelab.services.vikunja = {
-    inherit (vars.services.vikunja) image version ip uid;
+    image       = "vikunja/vikunja";
+    version     = "2.7.1";
+    ip          = "192.168.20.238";
+    uid         = 960;
     caddyHost   = "todo.fatsch.us";
     caddyPort   = 3456;
     caddyCors   = true;

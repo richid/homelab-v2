@@ -1,12 +1,14 @@
 { config, ... }:
 let
-  vars = import ../variables.nix;
-  svc  = config.homelab.services.transmission;
+  svc = config.homelab.services.transmission;
 in
 {
   homelab.services.transmission = {
-    inherit (vars.services.transmission) image version ip uid;
-    uidEnv      = true;
+    image       = "lscr.io/linuxserver/transmission";
+    version     = "4.1.4";
+    ip          = "192.168.20.216";
+    uid         = 990;
+    uidMode     = "env";
     group       = "media";
     caddyHost   = "transmission.fatsch.us";
     caddyCors   = true;

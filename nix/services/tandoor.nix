@@ -1,11 +1,13 @@
 { config, ... }:
 let
-  vars = import ../variables.nix;
-  svc  = config.homelab.services.tandoor;
+  svc = config.homelab.services.tandoor;
 in
 {
   homelab.services.tandoor = {
-    inherit (vars.services.tandoor) image version ip uid;
+    image       = "vabene1111/recipes";
+    version     = "2.7.2";
+    ip          = "192.168.20.233";
+    uid         = 966;
     caddyHost   = "recipes.fatsch.us";
     caddyPort   = 80;
     caddyCors   = true;

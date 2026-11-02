@@ -1,10 +1,8 @@
-{ lib, ... }:
+{ config, lib, ... }:
 let
-  vars = import ./variables.nix;
-
   dupesOf = field:
     let
-      having = lib.filterAttrs (_: svc: builtins.isAttrs svc && svc ? ${field}) vars.services;
+      having = lib.filterAttrs (_: svc: svc.${field} != null) config.homelab.services;
       byVal  = lib.groupBy (name: toString having.${name}.${field}) (builtins.attrNames having);
       dupes  = lib.filterAttrs (_: names: builtins.length names > 1) byVal;
     in
@@ -17,11 +15,11 @@ in
   assertions = [
     {
       assertion = ipDupes == [ ];
-      message   = "Duplicate service IPs in variables.nix: ${lib.concatStringsSep "; " ipDupes}";
+      message   = "Duplicate homelab.services IPs: ${lib.concatStringsSep "; " ipDupes}";
     }
     {
       assertion = uidDupes == [ ];
-      message   = "Duplicate service UIDs in variables.nix: ${lib.concatStringsSep "; " uidDupes}";
+      message   = "Duplicate homelab.services UIDs: ${lib.concatStringsSep "; " uidDupes}";
     }
   ];
 }

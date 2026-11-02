@@ -1,10 +1,8 @@
 { config, ... }:
-let
-  vars = import ../variables.nix;
-in
 {
   homelab.services.aws-dyndns = {
-    inherit (vars.services.aws-dyndns) image version;
+    image       = "sjmayotte/route53-dynamic-dns";
+    version     = "v1.4.5";
     appPath     = null;
     environment = {
       AWS_REGION       = "us-east-1";

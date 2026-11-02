@@ -3,8 +3,8 @@
 # Usage: ./new-service.sh <name> <image> <version> [quota=1G] [group=services]
 #
 # group: "services" (default) or "media"
-#   services - standard user:group container, uses base_gid
-#   media    - linuxserver.io PUID/PGID pattern, uses media_gid, mounts /mnt/tank
+#   services - standard user:group container
+#   media    - linuxserver.io PUID/PGID pattern, uses the media group, mounts /mnt/tank
 
 set -euo pipefail
 
@@ -15,8 +15,8 @@ QUOTA="${4:-1G}"
 GROUP="${5:-services}"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-VARS_FILE="$SCRIPT_DIR/nix/variables.nix"
-SERVICE_FILE="$SCRIPT_DIR/nix/services/${NAME}.nix"
+SERVICES_DIR="$SCRIPT_DIR/nix/services"
+SERVICE_FILE="$SERVICES_DIR/${NAME}.nix"
 
 if [[ "$GROUP" != "services" && "$GROUP" != "media" ]]; then
   echo "Error: group must be 'services' or 'media'" >&2
@@ -28,17 +28,17 @@ if [[ -f "$SERVICE_FILE" ]]; then
   exit 1
 fi
 
-if grep -qE "^\s+${NAME}\s*=\s*\{" "$VARS_FILE"; then
-  echo "Error: '${NAME}' already exists in variables.nix" >&2
+if grep -qE "homelab\.services\.${NAME}\s*=" "$SERVICES_DIR"/*.nix; then
+  echo "Error: homelab.services.${NAME} already exists" >&2
   exit 1
 fi
 
 # Next UID: lowest existing uid minus 1
-NEXT_UID=$(grep -oE 'uid\s*=\s*[0-9]+' "$VARS_FILE" | grep -oE '[0-9]+' | sort -n | head -1)
+NEXT_UID=$(cat "$SERVICES_DIR"/*.nix | grep -oE '^\s+uid\s*=\s*[0-9]+' | grep -oE '[0-9]+' | sort -n | head -1)
 NEXT_UID=$((NEXT_UID - 1))
 
 # Next IP: lowest free address in the service range
-USED_IPS=$(grep -oE '192\.168\.20\.[0-9]+' "$VARS_FILE" | grep -oE '[0-9]+$' | sort -n)
+USED_IPS=$(cat "$SERVICES_DIR"/*.nix | grep -oE '^\s+ip\s*=\s*"192\.168\.20\.[0-9]+"' | grep -oE '[0-9]+"$' | tr -d '"' | sort -n)
 NEXT_IP_LAST=""
 for octet in $(seq 200 254); do
   if ! grep -qx "$octet" <<< "$USED_IPS"; then
@@ -52,104 +52,53 @@ if [[ -z "$NEXT_IP_LAST" ]]; then
 fi
 NEXT_IP="192.168.20.${NEXT_IP_LAST}"
 
-# Insert new service block into variables.nix before the closing `  };` of services = { ... }
-TMPFILE=$(mktemp "${TMPDIR:-/tmp}/new-service.XXXXXX")
-ENTRY_FILE=$(mktemp "${TMPDIR:-/tmp}/new-service-entry.XXXXXX")
-
-cat > "$ENTRY_FILE" << EOF
-
-    ${NAME} = {
-      ip      = "${NEXT_IP}";
-      image   = "${IMAGE}";
-      version = "${VERSION}";
-      uid     = ${NEXT_UID};
-    };
-EOF
-
-awk -v entryfile="$ENTRY_FILE" '
-  /^  \};$/ && !inserted {
-    while ((getline line < entryfile) > 0) print line
-    inserted = 1
-  }
-  { print }
-' "$VARS_FILE" > "$TMPFILE"
-mv "$TMPFILE" "$VARS_FILE"
-rm -f "$ENTRY_FILE"
-
 # Generate service .nix file
 if [[ "$GROUP" == "media" ]]; then
   cat > "$SERVICE_FILE" << EOF
-{ config, pkgs, lib, ... }:
+{ config, ... }:
 let
-  vars    = import ../variables.nix;
-  appPath = "\${vars.services.rootPath}/${NAME}";
+  svc = config.homelab.services.${NAME};
 in
 {
-  virtualisation.oci-containers.containers = {
-    ${NAME} = {
-      image = "${IMAGE}:\${vars.services.${NAME}.version}";
-      environment = {
-        PUID = toString vars.services.${NAME}.uid;
-        PGID = toString vars.services.media_gid;
-        TZ   = "America/New_York";
-      };
-      volumes = [
-        "\${appPath}/config:/config"
-        "/mnt/tank:/tank"
-      ];
-      extraOptions = [
-        "--network=services"
-        "--ip=\${vars.services.${NAME}.ip}"
-        "--label=caddy=*.fatsch.us"
-        "--label=caddy.@${NAME}=host ${NAME}.fatsch.us"
-        "--label=caddy.handle=@${NAME}"
-        "--label=caddy.handle.reverse_proxy={{upstreams}}"
-        "--label=caddy.handle.import=cors"
-      ];
+  homelab.services.${NAME} = {
+    image       = "${IMAGE}";
+    version     = "${VERSION}";
+    ip          = "${NEXT_IP}";
+    uid         = ${NEXT_UID};
+    uidMode     = "env";
+    group       = "media";
+    caddyHost   = "${NAME}.fatsch.us";
+    caddyCors   = true;
+    environment = {
+      TZ = "America/New_York";
     };
-  };
-
-  systemd.services.docker-${NAME} = {
-    unitConfig = {
-      RequiresMountsFor = appPath;
-    };
+    volumes = [
+      "\${svc.appPath}/config:/config"
+      "/mnt/tank:/tank"
+    ];
   };
 }
 EOF
 else
   cat > "$SERVICE_FILE" << EOF
-{ config, pkgs, lib, ... }:
+{ config, ... }:
 let
-  vars    = import ../variables.nix;
-  appPath = "\${vars.services.rootPath}/${NAME}";
+  svc = config.homelab.services.${NAME};
 in
 {
-  virtualisation.oci-containers.containers = {
-    ${NAME} = {
-      image = "${IMAGE}:\${vars.services.${NAME}.version}";
-      user  = "\${toString vars.services.${NAME}.uid}:\${toString vars.services.base_gid}";
-      environment = {
-        TZ = "America/New_York";
-      };
-      volumes = [
-        "\${appPath}/data:/data"
-      ];
-      extraOptions = [
-        "--network=services"
-        "--ip=\${vars.services.${NAME}.ip}"
-        "--label=caddy=*.fatsch.us"
-        "--label=caddy.@${NAME}=host ${NAME}.fatsch.us"
-        "--label=caddy.handle=@${NAME}"
-        "--label=caddy.handle.reverse_proxy={{upstreams}}"
-        "--label=caddy.handle.import=cors"
-      ];
+  homelab.services.${NAME} = {
+    image       = "${IMAGE}";
+    version     = "${VERSION}";
+    ip          = "${NEXT_IP}";
+    uid         = ${NEXT_UID};
+    caddyHost   = "${NAME}.fatsch.us";
+    caddyCors   = true;
+    environment = {
+      TZ = "America/New_York";
     };
-  };
-
-  systemd.services.docker-${NAME} = {
-    unitConfig = {
-      RequiresMountsFor = appPath;
-    };
+    volumes = [
+      "\${svc.appPath}/data:/data"
+    ];
   };
 }
 EOF
@@ -168,8 +117,7 @@ echo " Service '${NAME}' scaffolded"
 echo "=========================================="
 echo ""
 echo "Files written:"
-echo "  nix/variables.nix          (updated — IP: ${NEXT_IP}, UID: ${NEXT_UID})"
-echo "  nix/services/${NAME}.nix   (created)"
+echo "  nix/services/${NAME}.nix   (created — IP: ${NEXT_IP}, UID: ${NEXT_UID})"
 echo ""
 echo "--- 1. Add to configuration.nix users block ---"
 echo ""

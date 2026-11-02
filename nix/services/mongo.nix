@@ -1,11 +1,13 @@
 { config, ... }:
 let
-  vars = import ../variables.nix;
-  svc  = config.homelab.services.mongo;
+  svc = config.homelab.services.mongo;
 in
 {
   homelab.services.mongo = {
-    inherit (vars.services.mongo) image version ip uid;
+    image   = "mongo";
+    version = "4.4.30";
+    ip      = "192.168.20.225";
+    uid     = 984;
     volumes = [
       "${svc.appPath}/v4.4/data:/data/db"
     ];

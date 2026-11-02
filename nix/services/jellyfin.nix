@@ -1,12 +1,14 @@
 { config, ... }:
 let
-  vars = import ../variables.nix;
-  svc  = config.homelab.services.jellyfin;
+  svc = config.homelab.services.jellyfin;
 in
 {
   homelab.services.jellyfin = {
-    inherit (vars.services.jellyfin) image version ip uid;
-    uidEnv       = true;
+    image        = "lscr.io/linuxserver/jellyfin";
+    version      = "10.11.11";
+    ip           = "192.168.20.218";
+    uid          = 985;
+    uidMode      = "env";
     group        = "media";
     caddyHost    = "jellyfin.fatsch.us";
     caddyAliases = [ "watch.fatsch.us" ];
