@@ -9,6 +9,8 @@ in
       image = "${vars.services.tandoor.image}:${vars.services.tandoor.version}";
       user  = "${toString vars.services.tandoor.uid}:${toString vars.services.base_gid}";
       environment = {
+        ALLOWED_HOSTS        = "recipes.fatsch.us";
+        CSRF_TRUSTED_ORIGINS = "https://recipes.fatsch.us";
         DB_ENGINE         = "django.db.backends.postgresql";
         GUNICORN_MEDIA    = "1";
         POSTGRES_DB       = "tandoor";
