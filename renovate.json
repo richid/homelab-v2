@@ -77,12 +77,6 @@
         "itzg/minecraft-server"
       ],
       "allowedVersions": "/^\\d{4}\\.\\d+\\.\\d+-java21$/"
-    },
-    {
-      "matchPackageNames": [
-        "lscr.io/linuxserver/jellyfin"
-      ],
-      "dependencyDashboardApproval": true
     }
   ]
 }
