@@ -74,7 +74,7 @@
       uid     = 968;
     };
 
-    mongo44 = {
+    mongo = {
       ip      = "192.168.20.225";
       image   = "mongo";
       version = "4.4.30";
