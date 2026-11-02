@@ -70,7 +70,7 @@
     minecraft-java = {
       ip      = "192.168.20.230";
       image   = "itzg/minecraft-server";
-      version = "java21";
+      version = "2025.12.0-java21";
       uid     = 968;
     };
 
@@ -132,7 +132,7 @@
     syncthing = {
       ip      = "192.168.20.236";
       image   = "lscr.io/linuxserver/syncthing";
-      version = "v2.0.13-ls206";
+      version = "2.0.13";
       uid     = 1000; # rich
     };
 
