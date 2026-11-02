@@ -167,7 +167,7 @@
     unifi = {
       ip      = "192.168.10.10";
       image   = "lscr.io/linuxserver/unifi-network-application";
-      version = "9.3.45";
+      version = "10.6.109";
       uid     = 975;
     };
 
