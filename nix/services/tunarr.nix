@@ -11,6 +11,7 @@ in
       environment = {
         TUNARR_SERVER_ADMIN_MODE = "true";
         LOG_LEVEL = "debug";
+        MEILI_DUMP_DIR = "/config/tunarr/ms-dumps";
         TZ = "America/New_York";
       };
       volumes = [
