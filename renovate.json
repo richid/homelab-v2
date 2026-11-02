@@ -1,6 +1,8 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended"],
+  "extends": [
+    "config:recommended"
+  ],
   "dependencyDashboard": true,
   "minimumReleaseAge": "3 days",
   "major": {
@@ -9,7 +11,9 @@
   "customManagers": [
     {
       "customType": "regex",
-      "managerFilePatterns": ["/^nix/variables\\.nix$/"],
+      "managerFilePatterns": [
+        "/^nix/variables\\.nix$/"
+      ],
       "matchStrings": [
         "image\\s*=\\s*\"(?<depName>[^\"]+)\";\\s*version\\s*=\\s*\"(?<currentValue>[^\"]+)\";"
       ],
@@ -18,55 +22,33 @@
   ],
   "packageRules": [
     {
-      "matchManagers": ["custom.regex"],
-      "enabled": false
-    },
-    {
-      "matchManagers": ["custom.regex"],
-      "matchPackageNames": [
-        "b4bz/homer",
-        "eclipse-mosquitto",
-        "fallenbagel/jellyseerr",
-        "ghcr.io/advplyr/audiobookshelf",
-        "ghcr.io/analogj/scrutiny",
-        "ghcr.io/chrisbenincasa/tunarr",
-        "ghcr.io/gotify/server",
-        "ghcr.io/richid/caddy-docker-proxy-r53-dns",
-        "ghcr.io/richid/trackage",
-        "grafana/grafana",
-        "itzg/minecraft-server",
-        "louislam/uptime-kuma",
-        "lscr.io/linuxserver/prowlarr",
-        "lscr.io/linuxserver/radarr",
-        "lscr.io/linuxserver/smokeping",
-        "lscr.io/linuxserver/sonarr",
-        "lscr.io/linuxserver/syncthing",
-        "lscr.io/linuxserver/transmission",
-        "lscr.io/linuxserver/unifi-network-application",
-        "sjmayotte/route53-dynamic-dns",
-        "vabene1111/recipes",
-        "vikunja/vikunja"
+      "matchUpdateTypes": [
+        "major"
       ],
-      "enabled": true
-    },
-    {
-      "matchUpdateTypes": ["major"],
       "dependencyDashboardApproval": true
     },
     {
-      "matchPackageNames": ["postgres"],
+      "matchPackageNames": [
+        "postgres"
+      ],
       "allowedVersions": "<17"
     },
     {
-      "matchPackageNames": ["mongo"],
+      "matchPackageNames": [
+        "mongo"
+      ],
       "allowedVersions": "<5"
     },
     {
-      "matchPackageNames": ["influxdb"],
+      "matchPackageNames": [
+        "influxdb"
+      ],
       "allowedVersions": "<3"
     },
     {
-      "matchPackageNames": ["b4bz/homer"],
+      "matchPackageNames": [
+        "b4bz/homer"
+      ],
       "allowedVersions": "/^v\\d+\\.\\d+\\.\\d+$/"
     },
     {
@@ -79,12 +61,22 @@
       "allowedVersions": "/^\\d+\\.\\d+\\.\\d+$/"
     },
     {
-      "matchPackageNames": ["ghcr.io/analogj/scrutiny"],
+      "matchPackageNames": [
+        "ghcr.io/analogj/scrutiny"
+      ],
       "allowedVersions": "/^v\\d+\\.\\d+\\.\\d+-omnibus$/"
     },
     {
-      "matchPackageNames": ["itzg/minecraft-server"],
+      "matchPackageNames": [
+        "itzg/minecraft-server"
+      ],
       "allowedVersions": "/^\\d{4}\\.\\d+\\.\\d+-java21$/"
+    },
+    {
+      "matchPackageNames": [
+        "lscr.io/linuxserver/jellyfin"
+      ],
+      "dependencyDashboardApproval": true
     }
   ]
 }
