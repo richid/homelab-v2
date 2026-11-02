@@ -1,34 +1,19 @@
-{ config, pkgs, lib, ... }:
+{ config, ... }:
 let
-  vars    = import ../variables.nix;
-  appPath = "${vars.services.rootPath}/trackage";
+  vars = import ../variables.nix;
+  svc  = config.homelab.services.trackage;
 in
 {
-  virtualisation.oci-containers.containers = {
-    trackage = {
-      image = "${vars.services.trackage.image}:${vars.services.trackage.version}";
-      user  = "${toString vars.services.trackage.uid}:${toString vars.services.base_gid}";
-      environment = {
-        TZ = "America/New_York";
-      };
-      volumes = [
-        "${appPath}/config:/config"
-      ];
-      extraOptions = [
-        "--network=services"
-        "--ip=${vars.services.trackage.ip}"
-        "--label=caddy=*.fatsch.us"
-        "--label=caddy.@trackage=host trackage.fatsch.us"
-        "--label=caddy.handle=@trackage"
-        "--label=caddy.handle.reverse_proxy={{upstreams 3000}}"
-        "--label=caddy.handle.import=cors"
-      ];
+  homelab.services.trackage = {
+    inherit (vars.services.trackage) image version ip uid;
+    caddyHost   = "trackage.fatsch.us";
+    caddyPort   = 3000;
+    caddyCors   = true;
+    environment = {
+      TZ = "America/New_York";
     };
-  };
-
-  systemd.services.docker-trackage = {
-    unitConfig = {
-      RequiresMountsFor = appPath;
-    };
+    volumes = [
+      "${svc.appPath}/config:/config"
+    ];
   };
 }
