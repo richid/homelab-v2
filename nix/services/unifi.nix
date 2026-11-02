@@ -14,7 +14,7 @@ in
         MEM_LIMIT    = "4096";
         MEM_STARTUP  = "4096";
         MONGO_USER   = "unifi";
-        MONGO_HOST   = "mongo44.fatschu.us";
+        MONGO_HOST   = "mongo.fatsch.us";
         MONGO_PORT   = "27017";
         MONGO_DBNAME = "unifi";
         TZ           = "America/New_York";
