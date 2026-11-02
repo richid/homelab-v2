@@ -35,7 +35,7 @@
     grafana = {
       ip      = "192.168.20.226";
       image   = "grafana/grafana";
-      version = "12.4.3";
+      version = "12.4.14";
       uid     = 971;
     };
 
