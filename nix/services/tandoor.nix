@@ -12,9 +12,8 @@ in
         ALLOWED_HOSTS        = "recipes.fatsch.us";
         CSRF_TRUSTED_ORIGINS = "https://recipes.fatsch.us";
         DB_ENGINE            = "django.db.backends.postgresql";
-        GUNICORN_MEDIA       = "1";
         POSTGRES_DB          = "tandoor";
-        POSTGRES_HOST        = "${vars.services.postgres16.ip}";
+        POSTGRES_HOST        = "postgres16";
         POSTGRES_PORT        = "5432";
         POSTGRES_USER        = "tandoor";
       };
