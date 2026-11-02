@@ -41,6 +41,12 @@
     },
     {
       "matchPackageNames": [
+        "lscr.io/linuxserver/unifi-network-application"
+      ],
+      "allowedVersions": "<11"
+    },
+    {
+      "matchPackageNames": [
         "influxdb"
       ],
       "allowedVersions": "<3"
