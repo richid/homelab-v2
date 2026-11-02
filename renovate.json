@@ -3,6 +3,9 @@
   "extends": ["config:recommended"],
   "dependencyDashboard": true,
   "minimumReleaseAge": "3 days",
+  "major": {
+    "dependencyDashboardApproval": true
+  },
   "customManagers": [
     {
       "customType": "regex",
@@ -22,8 +25,20 @@
       "matchManagers": ["custom.regex"],
       "matchPackageNames": [
         "b4bz/homer",
+        "fallenbagel/jellyseerr",
+        "ghcr.io/advplyr/audiobookshelf",
+        "ghcr.io/chrisbenincasa/tunarr",
         "ghcr.io/gotify/server",
-        "louislam/uptime-kuma"
+        "ghcr.io/richid/caddy-docker-proxy-r53-dns",
+        "ghcr.io/richid/trackage",
+        "grafana/grafana-oss",
+        "louislam/uptime-kuma",
+        "lscr.io/linuxserver/prowlarr",
+        "lscr.io/linuxserver/radarr",
+        "lscr.io/linuxserver/smokeping",
+        "lscr.io/linuxserver/sonarr",
+        "sjmayotte/route53-dynamic-dns",
+        "vikunja/vikunja"
       ],
       "enabled": true
     },
@@ -46,6 +61,14 @@
     {
       "matchPackageNames": ["b4bz/homer"],
       "allowedVersions": "/^v\\d+\\.\\d+\\.\\d+$/"
+    },
+    {
+      "matchPackageNames": [
+        "ghcr.io/advplyr/audiobookshelf",
+        "ghcr.io/richid/trackage",
+        "lscr.io/linuxserver/prowlarr"
+      ],
+      "allowedVersions": "/^\\d+\\.\\d+\\.\\d+$/"
     }
   ]
 }
