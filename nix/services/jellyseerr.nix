@@ -4,8 +4,8 @@ let
 in
 {
   homelab.services.jellyseerr = {
-    image        = "fallenbagel/jellyseerr";
-    version      = "2.7.3";
+    image        = "ghcr.io/seerr-team/seerr";
+    version      = "v3.5.1";
     ip           = "192.168.20.222";
     uid          = 978;
     caddyHost    = "requests.fatsch.us";
@@ -17,6 +17,9 @@ in
     };
     volumes = [
       "${svc.appPath}/config:/app/config"
+    ];
+    extraOptions = [
+      "--init"
     ];
   };
 }
