@@ -9,7 +9,7 @@
     audiobookshelf = {
       ip      = "192.168.20.234";
       image   = "ghcr.io/advplyr/audiobookshelf";
-      version = "2.27.0";
+      version = "2.37.2";
       uid     = 965;
     };
 
