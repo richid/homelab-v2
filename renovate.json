@@ -38,7 +38,7 @@
       "matchPackageNames": [
         "mongo"
       ],
-      "allowedVersions": "<5"
+      "allowedVersions": "/^8\\.0\\./"
     },
     {
       "matchPackageNames": [
