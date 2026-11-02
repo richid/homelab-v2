@@ -1,34 +1,19 @@
-{ config, pkgs, lib, ... }:
+{ config, ... }:
 let
-  vars    = import ../variables.nix;
-  appPath = "${vars.services.rootPath}/grafana";
+  vars = import ../variables.nix;
+  svc  = config.homelab.services.grafana;
 in
 {
-  virtualisation.oci-containers.containers = {
-    grafana = {
-      image = "${vars.services.grafana.image}:${vars.services.grafana.version}";
-      user  = "${toString vars.services.grafana.uid}:${toString vars.services.base_gid}";
-      environment = {
-        TZ = "America/New_York";
-      };
-      volumes = [
-        "${appPath}/data:/var/lib/grafana"
-      ];
-      extraOptions = [
-        "--network=services"
-        "--ip=${vars.services.grafana.ip}"
-        "--label=caddy=*.fatsch.us"
-        "--label=caddy.@grafana=host grafana.fatsch.us"
-        "--label=caddy.handle=@grafana"
-        "--label=caddy.handle.reverse_proxy={{upstreams 3000}}"
-        "--label=caddy.handle.import=cors"
-      ];
+  homelab.services.grafana = {
+    inherit (vars.services.grafana) image version ip uid;
+    caddyHost   = "grafana.fatsch.us";
+    caddyPort   = 3000;
+    caddyCors   = true;
+    environment = {
+      TZ = "America/New_York";
     };
-  };
-
-  systemd.services.docker-grafana = {
-    unitConfig = {
-      RequiresMountsFor = appPath;
-    };
+    volumes = [
+      "${svc.appPath}/data:/var/lib/grafana"
+    ];
   };
 }
