@@ -1,31 +1,19 @@
-{ config, pkgs, lib, ... }:
+{ config, ... }:
 let
-  vars     = import ../variables.nix;
-  appPath = "${vars.services.rootPath}/postgres";
+  vars = import ../variables.nix;
+  svc  = config.homelab.services.postgres16;
 in
 {
-  virtualisation.oci-containers.containers = {
-    postgres16 = {
-      image = "${vars.services.postgres16.image}:${vars.services.postgres16.version}";
-      user  = "${toString vars.services.postgres16.uid}:${toString vars.services.base_gid}";
-      environment = {
-        POSTGRES_PASSWORD = "postgres";
-        POSTGRES_USER     = "postgres";
-        TZ                = "America/New_York";
-      };
-      volumes = [
-        "${appPath}/v16/data:/var/lib/postgresql/data"
-      ];
-      extraOptions = [
-        "--network=services"
-        "--ip=${vars.services.postgres16.ip}"
-      ];
+  homelab.services.postgres16 = {
+    inherit (vars.services.postgres16) image version ip uid;
+    appPath     = "${vars.services.rootPath}/postgres";
+    environment = {
+      POSTGRES_PASSWORD = "postgres";
+      POSTGRES_USER     = "postgres";
+      TZ                = "America/New_York";
     };
-  };
-
-  systemd.services.docker-postgres16 = {
-    unitConfig = {
-      RequiresMountsFor = appPath;
-    };
+    volumes = [
+      "${svc.appPath}/v16/data:/var/lib/postgresql/data"
+    ];
   };
 }

@@ -1,40 +1,28 @@
-{ config, pkgs, lib, ... }:
+{ config, ... }:
 let
-  vars     = import ../variables.nix;
-  appPath = "${vars.services.rootPath}/tunarr";
+  vars = import ../variables.nix;
+  svc  = config.homelab.services.tunarr;
 in
 {
-  virtualisation.oci-containers.containers = {
-    tunarr = {
-      image = "${vars.services.tunarr.image}:${vars.services.tunarr.version}";
-      user  = "${toString vars.services.tunarr.uid}:${toString vars.services.media_gid}";
-      environment = {
-        TUNARR_SERVER_ADMIN_MODE = "true";
-        LOG_LEVEL                = "debug";
-        MEILI_DUMP_DIR           = "/config/tunarr/ms-dumps";
-        TZ                       = "America/New_York";
-      };
-      volumes = [
-        "${appPath}/data:/config/tunarr"
-        "${appPath}/streams:/streams"
-        "${appPath}/root:/root"
-      ];
-      extraOptions = [
-        "--device=/dev/dri:/dev/dri"
-        "--network=services"
-        "--ip=${vars.services.tunarr.ip}"
-        "--label=caddy=*.fatsch.us"
-        "--label=caddy.@tunarr=host tunarr.fatsch.us"
-        "--label=caddy.handle=@tunarr"
-        "--label=caddy.handle.reverse_proxy={{upstreams 8000}}"
-        "--label=caddy.handle.import=cors"
-      ];
+  homelab.services.tunarr = {
+    inherit (vars.services.tunarr) image version ip uid;
+    group       = "media";
+    caddyHost   = "tunarr.fatsch.us";
+    caddyPort   = 8000;
+    caddyCors   = true;
+    environment = {
+      TUNARR_SERVER_ADMIN_MODE = "true";
+      LOG_LEVEL                = "debug";
+      MEILI_DUMP_DIR           = "/config/tunarr/ms-dumps";
+      TZ                       = "America/New_York";
     };
-  };
-
-  systemd.services.docker-tunarr = {
-    unitConfig = {
-      RequiresMountsFor = appPath;
-    };
+    volumes = [
+      "${svc.appPath}/data:/config/tunarr"
+      "${svc.appPath}/streams:/streams"
+      "${svc.appPath}/root:/root"
+    ];
+    preOptions = [
+      "--device=/dev/dri:/dev/dri"
+    ];
   };
 }

@@ -1,35 +1,22 @@
-{ config, pkgs, lib, ... }:
+{ config, ... }:
 let
-  vars     = import ../variables.nix;
-  appPath = "${vars.services.rootPath}/uptime-kuma";
+  vars = import ../variables.nix;
+  svc  = config.homelab.services.uptime-kuma;
 in
 {
-  virtualisation.oci-containers.containers = {
-    uptime-kuma = {
-      image = "${vars.services.uptime-kuma.image}:${vars.services.uptime-kuma.version}";
-      environment = {
-        PORT = "80";
-      };
-      volumes = [
-        "${appPath}/data:/app/data"
-        "/var/run/docker.sock:/var/run/docker.sock"
-      ];
-      extraOptions = [
-        "--network=services"
-        "--ip=${vars.services.uptime-kuma.ip}"
-        "--label=caddy=*.fatsch.us"
-        "--label=caddy.@status=host status.fatsch.us"
-        "--label=caddy.handle=@status"
-        "--label=caddy.handle.reverse_proxy={{upstreams}}"
-        "--label=caddy.handle.import=cors"
-        "--pull=always"
-      ];
+  homelab.services.uptime-kuma = {
+    inherit (vars.services.uptime-kuma) image version ip;
+    caddyHost   = "status.fatsch.us";
+    caddyCors   = true;
+    environment = {
+      PORT = "80";
     };
-  };
-
-  systemd.services.docker-uptime-kuma = {
-    unitConfig = {
-      RequiresMountsFor = appPath;
-    };
+    volumes = [
+      "${svc.appPath}/data:/app/data"
+      "/var/run/docker.sock:/var/run/docker.sock"
+    ];
+    extraOptions = [
+      "--pull=always"
+    ];
   };
 }
