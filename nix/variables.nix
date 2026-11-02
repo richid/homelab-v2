@@ -153,7 +153,7 @@
     transmission = {
       ip      = "192.168.20.216";
       image   = "lscr.io/linuxserver/transmission";
-      version = "4.0.4";
+      version = "4.1.4";
       uid     = 990;
     };
 
