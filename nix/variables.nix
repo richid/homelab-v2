@@ -91,7 +91,7 @@
     postgres16 = {
       ip      = "192.168.20.224";
       image   = "postgres";
-      version = "16.14";
+      version = "16.15";
       uid     = 983;
     };
 
