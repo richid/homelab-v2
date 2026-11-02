@@ -9,6 +9,7 @@
       ./hardware-configuration.nix
       ./filesystems.nix
       ./auto-upgrade.nix
+      ./assertions.nix
     ] ++ lib.pipe ./services [
       builtins.readDir
       (lib.filterAttrs (name: _: lib.hasSuffix ".nix" name))
