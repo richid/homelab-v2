@@ -9,7 +9,7 @@ in
     ip      = "192.168.20.225";
     uid     = 984;
     volumes = [
-      "${svc.appPath}/v4.4/data:/data/db"
+      "${svc.appPath}/data:/data/db"
     ];
     extraOptions = [
       "--pull=always"
