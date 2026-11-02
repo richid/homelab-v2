@@ -174,7 +174,7 @@
     uptime-kuma = {
       ip      = "192.168.20.215";
       image   = "louislam/uptime-kuma";
-      version = "1.23.17";
+      version = "2.5.8";
     };
 
     vikunja = {
