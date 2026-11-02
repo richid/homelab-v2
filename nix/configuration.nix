@@ -10,6 +10,7 @@
       ./filesystems.nix
       ./auto-upgrade.nix
       ./assertions.nix
+      ./modules/homelab-services.nix
     ] ++ lib.pipe ./services [
       builtins.readDir
       (lib.filterAttrs (name: _: lib.hasSuffix ".nix" name))
