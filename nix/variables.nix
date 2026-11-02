@@ -132,7 +132,7 @@
     syncthing = {
       ip      = "192.168.20.236";
       image   = "lscr.io/linuxserver/syncthing";
-      version = "2.0.13";
+      version = "2.1.7";
       uid     = 1000; # rich
     };
 
