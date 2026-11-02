@@ -56,7 +56,7 @@
     jellyfin = {
       ip      = "192.168.20.218";
       image   = "lscr.io/linuxserver/jellyfin";
-      version = "10.10.7";
+      version = "10.11.11";
       uid     = 985;
     };
 
