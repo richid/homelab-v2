@@ -27,7 +27,7 @@ in
         "--label=caddy=*.fatsch.us"
         "--label=caddy.@recipes=host recipes.fatsch.us"
         "--label=caddy.handle=@recipes"
-        "--label=caddy.handle.reverse_proxy={{upstreams 8080}}"
+        "--label=caddy.handle.reverse_proxy={{upstreams 80}}"
         "--label=caddy.handle.import=cors"
       ];
     };
