@@ -1,34 +1,18 @@
-{ config, pkgs, lib, ... }:
+{ config, ... }:
 let
-  vars    = import ../variables.nix;
-  appPath = "${vars.services.rootPath}/homer";
+  vars = import ../variables.nix;
+  svc  = config.homelab.services.homer;
 in
 {
-  virtualisation.oci-containers.containers = {
-    homer = {
-      image = "${vars.services.homer.image}:${vars.services.homer.version}";
-      user  = "${toString vars.services.homer.uid}:${toString vars.services.base_gid}";
-      environment = {
-        PORT = "80";
-        TZ   = "America/New_York";
-      };
-      volumes = [
-        "${appPath}/config:/www/assets"
-      ];
-      extraOptions = [
-        "--network=services"
-        "--ip=${vars.services.homer.ip}"
-        "--label=caddy=*.fatsch.us"
-        "--label=caddy.@home=host home.fatsch.us"
-        "--label=caddy.handle=@home"
-        "--label=caddy.handle.reverse_proxy={{upstreams}}"
-      ];
+  homelab.services.homer = {
+    inherit (vars.services.homer) image version ip uid;
+    caddyHost   = "home.fatsch.us";
+    environment = {
+      PORT = "80";
+      TZ   = "America/New_York";
     };
-  };
-
-  systemd.services.docker-homer = {
-    unitConfig = {
-      RequiresMountsFor = appPath;
-    };
+    volumes = [
+      "${svc.appPath}/config:/www/assets"
+    ];
   };
 }

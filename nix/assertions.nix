@@ -1,16 +1,27 @@
 { lib, ... }:
 let
-  vars     = import ./variables.nix;
-  withIp   = lib.filterAttrs (_: svc: builtins.isAttrs svc && svc ? ip) vars.services;
-  byIp     = lib.groupBy (name: withIp.${name}.ip) (builtins.attrNames withIp);
-  dupes    = lib.filterAttrs (_: names: builtins.length names > 1) byIp;
-  dupeList = lib.mapAttrsToList (ip: names: "${ip} (${lib.concatStringsSep ", " names})") dupes;
+  vars = import ./variables.nix;
+
+  dupesOf = field:
+    let
+      having = lib.filterAttrs (_: svc: builtins.isAttrs svc && svc ? ${field}) vars.services;
+      byVal  = lib.groupBy (name: toString having.${name}.${field}) (builtins.attrNames having);
+      dupes  = lib.filterAttrs (_: names: builtins.length names > 1) byVal;
+    in
+    lib.mapAttrsToList (val: names: "${val} (${lib.concatStringsSep ", " names})") dupes;
+
+  ipDupes  = dupesOf "ip";
+  uidDupes = dupesOf "uid";
 in
 {
   assertions = [
     {
-      assertion = dupes == { };
-      message   = "Duplicate service IPs in variables.nix: ${lib.concatStringsSep "; " dupeList}";
+      assertion = ipDupes == [ ];
+      message   = "Duplicate service IPs in variables.nix: ${lib.concatStringsSep "; " ipDupes}";
+    }
+    {
+      assertion = uidDupes == [ ];
+      message   = "Duplicate service UIDs in variables.nix: ${lib.concatStringsSep "; " uidDupes}";
     }
   ];
 }
