@@ -10,6 +10,7 @@ in
     uid         = 1000; # rich;
     uidMode     = "env";
     group       = "family";
+    createUser  = false;
     appPath     = "/mnt/dozer/Sync";
     caddyHost   = "files.fatsch.us";
     caddyPort   = 8384;

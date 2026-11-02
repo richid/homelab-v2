@@ -104,13 +104,6 @@ in
 EOF
 fi
 
-# Determine user entry for configuration.nix
-if [[ "$GROUP" == "media" ]]; then
-  USER_ENTRY="        \"${NAME}\" = commonSvcCfg // { group = \"media\"; extraGroups = [ \"services\" ]; };"
-else
-  USER_ENTRY="        \"${NAME}\" = commonSvcCfg;"
-fi
-
 echo ""
 echo "=========================================="
 echo " Service '${NAME}' scaffolded"
@@ -119,20 +112,16 @@ echo ""
 echo "Files written:"
 echo "  nix/services/${NAME}.nix   (created — IP: ${NEXT_IP}, UID: ${NEXT_UID})"
 echo ""
-echo "--- 1. Add to configuration.nix users block ---"
-echo ""
-echo "  ${USER_ENTRY}"
-echo ""
-echo "--- 2. Run on gibson (after nixos-rebuild switch) ---"
+echo "--- 1. Run on gibson (after nixos-rebuild switch) ---"
 echo ""
 echo "  zfs create -o quota=${QUOTA} -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/${NAME} app-data/${NAME}"
 echo "  chown -R ${NAME}:${GROUP} /mnt/app-data/${NAME}/"
 echo ""
-echo "--- 3. Add to README.md ---"
+echo "--- 2. Add to README.md ---"
 echo ""
 printf "  | %-14s |    ✅    |   ✅    |     ✅      |     ✅      |    ✅     |                                                         |\n" "${NAME}"
 echo ""
-echo "--- 4. Rebuild ---"
+echo "--- 3. Rebuild ---"
 echo ""
 echo "  nixos-rebuild switch"
 echo ""

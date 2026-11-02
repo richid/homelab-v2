@@ -9,6 +9,7 @@ in
     ip          = "192.168.20.230";
     uid         = 968;
     uidMode     = "none";
+    user        = "minecraft";
     appPath     = "${config.homelab.rootPath}/minecraft";
     environment = {
       EULA             = "true";

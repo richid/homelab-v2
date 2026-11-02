@@ -8,6 +8,7 @@ in
     version     = "16.15";
     ip          = "192.168.20.224";
     uid         = 983;
+    user        = "postgres";
     appPath     = "${config.homelab.rootPath}/postgres";
     environment = {
       POSTGRES_PASSWORD = "postgres";

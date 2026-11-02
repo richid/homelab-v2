@@ -172,29 +172,7 @@
         "emma"   = commonCfg;
         "lucas"  = commonCfg;
 
-        "audiobookshelf" = commonSvcCfg // { group = "media"; extraGroups = [ "services" ]; };
-        "backups"        = commonSvcCfg;
-        "caddy"          = commonSvcCfg;
-        "gotify"         = commonSvcCfg;
-        "grafana"        = commonSvcCfg;
-        "homer"          = commonSvcCfg;
-        "influxdb"       = commonSvcCfg;
-        "jellyfin"       = commonSvcCfg // { group = "media"; extraGroups = [ "services" ]; };
-        "minecraft"      = commonSvcCfg;
-        "mongo"          = commonSvcCfg;
-        "mosquitto"      = commonSvcCfg;
-        "jellyseerr"     = commonSvcCfg;
-        "postgres"       = commonSvcCfg;
-        "prowlarr"       = commonSvcCfg;
-        "radarr"         = commonSvcCfg // { group = "media"; extraGroups = [ "services" ]; };
-        "smokeping"      = commonSvcCfg;
-        "sonarr"         = commonSvcCfg // { group = "media"; extraGroups = [ "services" ]; };
-        "tandoor"        = commonSvcCfg;
-        "trackage"       = commonSvcCfg;
-        "transmission"   = commonSvcCfg // { group = "media"; extraGroups = [ "services" ]; };
-        "tunarr"         = commonSvcCfg // { group = "media"; extraGroups = [ "services" ]; };
-        "unifi"          = commonSvcCfg;
-        "vikunja"        = commonSvcCfg;
+        "backups" = commonSvcCfg;
       };
 
   security.sudo.extraRules= [{

@@ -1,10 +1,11 @@
 { config, lib, ... }:
 let
   inherit (lib) mkOption types;
+  top  = config;
   cfg  = config.homelab.services;
   gids = config.homelab.gids;
 
-  serviceOptions = { name, ... }: {
+  serviceOptions = { name, config, ... }: {
     options = {
       image = mkOption {
         type        = types.str;
@@ -34,9 +35,19 @@ let
         default     = "user";
         description = "How the container gets uid and group: \"user\" sets --user, \"env\" sets the PUID and PGID environment variables (LinuxServer images), \"none\" sets neither.";
       };
+      user = mkOption {
+        type        = types.str;
+        default     = name;
+        description = "Name of the system user for uid.";
+      };
+      createUser = mkOption {
+        type        = types.bool;
+        default     = config.uid != null;
+        description = "Create the system user with uid and group.";
+      };
       network = mkOption {
         type        = types.str;
-        default     = config.homelab.network;
+        default     = top.homelab.network;
         description = "Docker network.";
       };
       caddyHost = mkOption {
@@ -66,7 +77,7 @@ let
       };
       appPath = mkOption {
         type        = types.nullOr types.str;
-        default     = "${config.homelab.rootPath}/${name}";
+        default     = "${top.homelab.rootPath}/${name}";
         description = "App data path. The container unit waits for this mount. Null adds no mount dependency.";
       };
       volumes = mkOption {
@@ -165,5 +176,13 @@ in
       lib.nameValuePair "docker-${name}" {
         unitConfig.RequiresMountsFor = svc.appPath;
       }) (lib.filterAttrs (_: svc: svc.appPath != null) cfg);
+
+    users.users = lib.mapAttrs' (_: svc:
+      lib.nameValuePair svc.user {
+        inherit (svc) uid group;
+        isSystemUser = true;
+        createHome   = false;
+        extraGroups  = lib.optional (svc.group != "services") "services";
+      }) (lib.filterAttrs (_: svc: svc.createUser) cfg);
   };
 }
