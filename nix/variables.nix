@@ -63,7 +63,7 @@
     jellyseerr = {
       ip      = "192.168.20.222";
       image   = "fallenbagel/jellyseerr";
-      version = "2.7.2";
+      version = "2.7.3";
       uid     = 978;
     };
 
