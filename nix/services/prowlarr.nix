@@ -1,35 +1,19 @@
-{ config, pkgs, lib, ... }:
+{ config, ... }:
 let
-  vars     = import ../variables.nix;
-  appPath = "${vars.services.rootPath}/prowlarr";
+  vars = import ../variables.nix;
+  svc  = config.homelab.services.prowlarr;
 in
 {
-  virtualisation.oci-containers.containers = {
-    prowlarr = {
-      image = "${vars.services.prowlarr.image}:${vars.services.prowlarr.version}";
-      environment = {
-        PUID = toString vars.services.prowlarr.uid;
-        PGID = toString vars.services.base_gid;
-        TZ   = "America/New_York";
-      };
-      volumes = [
-        "${appPath}/config:/config"
-      ];
-      extraOptions = [
-        "--network=services"
-        "--ip=${vars.services.prowlarr.ip}"
-        "--label=caddy=*.fatsch.us"
-        "--label=caddy.@prowlarr=host prowlarr.fatsch.us"
-        "--label=caddy.handle=@prowlarr"
-        "--label=caddy.handle.reverse_proxy={{upstreams}}"
-        "--label=caddy.handle.import=cors"
-      ];
+  homelab.services.prowlarr = {
+    inherit (vars.services.prowlarr) image version ip uid;
+    uidEnv      = true;
+    caddyHost   = "prowlarr.fatsch.us";
+    caddyCors   = true;
+    environment = {
+      TZ = "America/New_York";
     };
-  };
-
-  systemd.services.docker-prowlarr = {
-    unitConfig = {
-      RequiresMountsFor = appPath;
-    };
+    volumes = [
+      "${svc.appPath}/config:/config"
+    ];
   };
 }

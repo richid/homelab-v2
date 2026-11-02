@@ -1,36 +1,21 @@
-{ config, pkgs, lib, ... }:
+{ config, ... }:
 let
-  vars     = import ../variables.nix;
-  appPath = "${vars.services.rootPath}/sonarr";
+  vars = import ../variables.nix;
+  svc  = config.homelab.services.sonarr;
 in
 {
-  virtualisation.oci-containers.containers = {
-    sonarr = {
-      image = "${vars.services.sonarr.image}:${vars.services.sonarr.version}";
-      environment = {
-        PUID = toString vars.services.sonarr.uid;
-        PGID = toString vars.services.media_gid;
-        TZ   = "America/New_York";
-      };
-      volumes = [
-        "${appPath}/config:/config"
-        "/mnt/tank:/tank"
-      ];
-      extraOptions = [
-        "--network=services"
-        "--ip=${vars.services.sonarr.ip}"
-        "--label=caddy=*.fatsch.us"
-        "--label=caddy.@sonarr=host sonarr.fatsch.us"
-        "--label=caddy.handle=@sonarr"
-        "--label=caddy.handle.reverse_proxy={{upstreams}}"
-        "--label=caddy.handle.import=cors"
-      ];
+  homelab.services.sonarr = {
+    inherit (vars.services.sonarr) image version ip uid;
+    uidEnv      = true;
+    group       = "media";
+    caddyHost   = "sonarr.fatsch.us";
+    caddyCors   = true;
+    environment = {
+      TZ = "America/New_York";
     };
-  };
-
-  systemd.services.docker-sonarr = {
-    unitConfig = {
-      RequiresMountsFor = appPath;
-    };
+    volumes = [
+      "${svc.appPath}/config:/config"
+      "/mnt/tank:/tank"
+    ];
   };
 }
