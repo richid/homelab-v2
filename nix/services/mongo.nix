@@ -5,21 +5,21 @@ let
 in
 {
   virtualisation.oci-containers.containers = {
-    mongo44 = {
-      image = "${vars.services.mongo44.image}:${vars.services.mongo44.version}";
-      user  = "${toString vars.services.mongo44.uid}:${toString vars.services.base_gid}";
+    mongo = {
+      image = "${vars.services.mongo.image}:${vars.services.mongo.version}";
+      user  = "${toString vars.services.mongo.uid}:${toString vars.services.base_gid}";
       volumes = [
         "${appPath}/v4.4/data:/data/db"
       ];
       extraOptions = [
         "--network=services"
-        "--ip=${vars.services.mongo44.ip}"
+        "--ip=${vars.services.mongo.ip}"
         "--pull=always"
       ];
     };
   };
 
-  systemd.services.docker-mongo44 = {
+  systemd.services.docker-mongo = {
     unitConfig = {
       RequiresMountsFor = appPath;
     };

@@ -272,7 +272,7 @@
         };
         mem = { };
         mongodb = {
-          servers = [ "mongodb://mongo44.fatsch.us:27017/?connect=direct" ];
+          servers = [ "mongodb://mongo.fatsch.us:27017/?connect=direct" ];
           tags = {
             bucket = "database_metrics";
           };
