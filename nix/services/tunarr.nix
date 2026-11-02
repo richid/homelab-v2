@@ -10,8 +10,9 @@ in
       user  = "${toString vars.services.tunarr.uid}:${toString vars.services.media_gid}";
       environment = {
         TUNARR_SERVER_ADMIN_MODE = "true";
-        LOG_LEVEL = "debug";
-        TZ = "America/New_York";
+        LOG_LEVEL                = "debug";
+        MEILI_DUMP_DIR           = "/config/tunarr/ms-dumps";
+        TZ                       = "America/New_York";
       };
       volumes = [
         "${appPath}/data:/config/tunarr"
