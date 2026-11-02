@@ -28,7 +28,7 @@
     gotify = {
       ip      = "192.168.20.213";
       image   = "ghcr.io/gotify/server";
-      version = "2.6.3";
+      version = "2.9.1";
       uid     = 987;
     };
 
