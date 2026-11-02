@@ -3,18 +3,23 @@ let
   notify = pkgs.writeShellScript "gibson-notify" ''
     set -a
     . ${config.age.secrets.gotify-gibson.path}
+    . ${config.age.secrets.ha-webhook.path}
     set +a
     title=$1
     message=$(${pkgs.coreutils}/bin/cat)
     message=''${message:-No details.}
-    exec ${pkgs.curl}/bin/curl -fsS -X POST -H "X-Gotify-Key: $GOTIFY_TOKEN" --form-string "title=$title" --form-string "message=$message" --form-string "priority=8" https://gotify.fatsch.us/message
+    rc=0
+    ${pkgs.curl}/bin/curl -fsS -X POST -H "X-Gotify-Key: $GOTIFY_TOKEN" --form-string "title=$title" --form-string "message=$message" --form-string "priority=8" https://gotify.fatsch.us/message || rc=1
+    ${pkgs.jq}/bin/jq -n --arg title "$title" --arg message "$message" '{source: "gibson", title: $title, message: $message}' | ${pkgs.curl}/bin/curl -fsS -X POST -H "Content-Type: application/json" --data-binary @- "$HA_WEBHOOK_URL" || rc=1
+    exit $rc
   '';
 in
 {
   age.secrets.gotify-gibson.file = ../secrets/gotify-gibson.env.age;
+  age.secrets.ha-webhook.file    = ../secrets/ha-webhook.env.age;
 
   systemd.services."notify-gotify@" = {
-    description = "Send a Gotify message when %i fails";
+    description = "Send a Gotify message and a Home Assistant push when %i fails";
     serviceConfig.Type = "oneshot";
     scriptArgs = "%i";
     script = ''
