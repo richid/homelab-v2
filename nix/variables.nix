@@ -160,7 +160,7 @@
     tunarr = {
       ip      = "192.168.20.235";
       image   = "ghcr.io/chrisbenincasa/tunarr";
-      version = "0.22.2";
+      version = "0.22.18";
       uid     = 964;
     };
 
