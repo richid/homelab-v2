@@ -31,6 +31,7 @@ in
   power.ups.upsmon.settings = {
     NOTIFYCMD  = "${upsNotify}";
     NOTIFYFLAG = map (event: [ event "SYSLOG+WALL+EXEC" ]) [ "ONBATT" "ONLINE" "LOWBATT" "FSD" "COMMBAD" "REPLBATT" ];
+    RBWARNTIME = 1209600;
   };
 
   systemd.services."notify-gotify@" = {
