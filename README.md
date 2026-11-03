@@ -29,13 +29,13 @@ On `gibson`, `gibson-notify` in `nix/notify.nix` sends urgent alerts. Units use 
 
 ## Backups
 
-`nix/backups.nix` backs up every `app-data` dataset and `/mnt/dozer/Sync` with restic, every night, to S3 (Intelligent-Tiering). The backup reads from a `@restic` ZFS snapshot, so database files are consistent. Monitoring history (InfluxDB, Smokeping data), caches, generated files and logs are excluded. A failure sends an urgent alert.
+`nix/backups.nix` backs up every `app-data` dataset and `/mnt/dozer/Sync` with restic, every night, to S3 (Intelligent-Tiering). The backup takes a `@restic` ZFS snapshot and mounts it read-only under `/run/restic-snap`, so database files are consistent. It does not use `.zfs/snapshot`, because the automount there can deadlock. Monitoring history (InfluxDB, Smokeping data), caches, generated files and logs are excluded. A failure sends an urgent alert.
 
 The `restic-s3` command on `gibson` has the repository and the credentials set:
 
 ```
 restic-s3 snapshots
-restic-s3 restore latest --target /tmp/restore --include /mnt/app-data/<service>/.zfs/snapshot/restic
+restic-s3 restore latest --target /tmp/restore --include /run/restic-snap/app-data/<service>
 ```
 
 ## Hardware
