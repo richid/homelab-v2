@@ -5,7 +5,7 @@ in
 {
   homelab.services.jellyfin = {
     image        = "lscr.io/linuxserver/jellyfin";
-    version      = "12.4ubu2604-ls57";
+    version      = "12.4ubu2604-ls58";
     ip           = "192.168.20.218";
     uid          = 985;
     uidMode      = "env";
