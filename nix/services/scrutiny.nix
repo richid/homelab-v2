@@ -1,6 +1,22 @@
 { config, ... }:
 let
   svc = config.homelab.services.scrutiny;
+  disks = [
+    { name = "sda"; id = "ata-ST10000NM0016-1TT101_ZA21BXT1"; }
+    { name = "sdb"; id = "ata-ST10000NM0016-1TT101_ZA218QZ0"; }
+    { name = "sdc"; id = "ata-WDC_WD40PURX-64NZ6Y0_WD-WCC7K1CZK8JC"; }
+    { name = "sdd"; id = "ata-WDC_WD40PURX-64NZ6Y0_WD-WCC7K2JYLLHL"; }
+    { name = "sde"; id = "ata-WDC_WD40PURX-64NZ6Y0_WD-WCC7K2LD2NTR"; }
+    { name = "sdf"; id = "ata-WDC_WD40PURX-64NZ6Y0_WD-WCC7K4FEACY1"; }
+    { name = "sdg"; id = "ata-WDC_WD40EURX-64WRWY0_WD-WCC4E2056001"; }
+    { name = "sdh"; id = "ata-WDC_WD40EURX-64WRWY0_WD-WCC4E1745891"; }
+    { name = "sdi"; id = "ata-WDC_WD40EURX-64WRWY0_WD-WCC4E2036120"; }
+    { name = "sdj"; id = "ata-ST3500630AS_9QG1ATWD"; }
+    { name = "sdk"; id = "ata-HUH721010ALE601_7PK1UM0G"; }
+    { name = "sdl"; id = "ata-ST3500630AS_9QG1ATEN"; }
+    { name = "sdm"; id = "ata-ST3500630AS_9QG1BZDG"; }
+    { name = "sdn"; id = "ata-ST3500630AS_9QG1C94E"; }
+  ];
 in
 {
   homelab.services.scrutiny = {
@@ -21,19 +37,6 @@ in
       "--device=/dev/nvme0"
       "--device=/dev/nvme1"
       "--device=/dev/nvme2"
-      "--device=/dev/sda"
-      "--device=/dev/sdb"
-      "--device=/dev/sdd"
-      "--device=/dev/sde"
-      "--device=/dev/sdf"
-      "--device=/dev/sdg"
-      "--device=/dev/sdh"
-      "--device=/dev/sdi"
-      "--device=/dev/sdj"
-      "--device=/dev/sdk"
-      "--device=/dev/sdl"
-      "--device=/dev/sdm"
-      "--device=/dev/sdn"
-    ];
+    ] ++ map (d: "--device=/dev/disk/by-id/${d.id}:/dev/${d.name}") disks;
   };
 }
