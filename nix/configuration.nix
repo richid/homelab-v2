@@ -10,6 +10,7 @@
       ./filesystems.nix
       ./auto-upgrade.nix
       ./notify.nix
+      ./backups.nix
       ./assertions.nix
       ./modules/homelab-services.nix
     ] ++ lib.pipe ./services [

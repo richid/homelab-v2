@@ -27,6 +27,17 @@ The timer switches back to `main` within 5 minutes. To keep a branch running, st
 
 On `gibson`, `gibson-notify` in `nix/notify.nix` sends urgent alerts. Units use it through `onFailure = [ "notify-gotify@%n.service" ]`. ZED uses it as its mail program. Uptime Kuma ("Phone (urgent)", opt-in per monitor) and Scrutiny send to the webhook directly.
 
+## Backups
+
+`nix/backups.nix` backs up every `app-data` dataset and `/mnt/dozer/Sync` with restic, every night, to S3 (Intelligent-Tiering). The backup reads from a `@restic` ZFS snapshot, so database files are consistent. Monitoring history (InfluxDB, Smokeping data), caches, generated files and logs are excluded. A failure sends an urgent alert.
+
+The `restic-s3` command on `gibson` has the repository and the credentials set:
+
+```
+restic-s3 snapshots
+restic-s3 restore latest --target /tmp/restore --include /mnt/app-data/<service>/.zfs/snapshot/restic
+```
+
 ## Hardware
 
 ## Services
