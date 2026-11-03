@@ -10,6 +10,16 @@
       fsType = "zfs";
     };
 
+    "/mnt/dozer/Backups" = {
+      device = "dozer/backups";
+      fsType = "zfs";
+    };
+
+    "/mnt/dozer/Sync" = {
+      device = "dozer/sync";
+      fsType = "zfs";
+    };
+
     "/mnt/parity0" = {
       device = "/dev/disk/by-id/ata-ST10000NM0016-1TT101_ZA218QZ0";
       fsType = "ext4";
