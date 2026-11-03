@@ -18,8 +18,9 @@
       (lib.mapAttrsToList (name: _: ./services + "/${name}"))
     ];
 
-  boot.loader.systemd-boot.enable      = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.systemd-boot.enable             = true;
+  boot.loader.systemd-boot.configurationLimit = 20;
+  boot.loader.efi.canTouchEfiVariables        = true;
 
   boot.supportedFilesystems = [ "zfs" ];
   boot.zfs.forceImportRoot  = false;
@@ -101,6 +102,14 @@
   nixpkgs.config.allowUnfree = true;
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  nix.gc = {
+    automatic = true;
+    dates     = "weekly";
+    options   = "--delete-older-than 30d";
+  };
+
+  nix.optimise.automatic = true;
 
   age.secrets = {
     aws-dyndns.file      = ../secrets/aws-dyndns.env.age;
