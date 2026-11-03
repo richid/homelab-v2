@@ -8,7 +8,7 @@ Infrastructure, configuration, and documentation for v2 of the homelab.
 
 Changes go to `main` through a squash-merged pull request. The `check` workflow must build `gibson` first.
 
-A merge to `main` deploys automatically: `nixos-upgrade.timer` checks every 5 minutes and switches when the commit changes. A failure sends a Gotify message.
+A merge to `main` deploys automatically: `nixos-upgrade.timer` checks every 5 minutes and switches when the commit changes. A failure sends an urgent alert (see [Alerts](#alerts)).
 
 | Task | Command on `gibson` | Use |
 |---|---|---|
@@ -19,6 +19,13 @@ A merge to `main` deploys automatically: `nixos-upgrade.timer` checks every 5 mi
 Each task uses `--refresh --flake github:richid/homelab-v2/<ref>#gibson`. The default ref is `main`. To test a branch: `task test REF=<branch>`.
 
 The timer switches back to `main` within 5 minutes. To keep a branch running, stop the timer first: `systemctl stop nixos-upgrade.timer`. Start it again when done.
+
+## Alerts
+
+- **Urgent**: goes to Gotify and to the Home Assistant webhook. The Home Assistant automation "Homelab Urgent Alert" sends the phone push and selects the devices. Payload: `{"source", "title", "message"}`.
+- **Feed**: goes to Gotify only.
+
+On `gibson`, `gibson-notify` in `nix/notify.nix` sends urgent alerts. Units use it through `onFailure = [ "notify-gotify@%n.service" ]`. ZED uses it as its mail program. Uptime Kuma ("Phone (urgent)", opt-in per monitor) and Scrutiny send to the webhook directly.
 
 ## Hardware
 
