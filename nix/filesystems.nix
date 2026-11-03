@@ -133,6 +133,23 @@
     zed.enableMail = false;
   };
 
+  services.sanoid = {
+    enable = true;
+
+    templates.apps = {
+      autoprune = true;
+      autosnap  = true;
+      daily     = 14;
+      hourly    = 24;
+      monthly   = 0;
+    };
+
+    datasets."app-data" = {
+      recursive   = true;
+      useTemplate = [ "apps" ];
+    };
+  };
+
   services.snapraid = {
     enable = true;
 
