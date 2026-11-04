@@ -20,6 +20,7 @@ in
     dates       = "*:0/5";
     flags       = [ "--refresh" ];
     operation   = "switch";
+    upgrade     = false;
     allowReboot = false;
   };
 
