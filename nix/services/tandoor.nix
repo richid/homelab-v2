@@ -19,6 +19,7 @@ in
       POSTGRES_HOST        = "postgres16";
       POSTGRES_PORT        = "5432";
       POSTGRES_USER        = "tandoor";
+      TZ                   = "America/New_York";
     };
     environmentFiles = [ config.age.secrets.tandoor.path ];
     volumes = [
