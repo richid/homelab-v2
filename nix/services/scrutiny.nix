@@ -20,13 +20,16 @@ let
 in
 {
   homelab.services.scrutiny = {
-    image     = "ghcr.io/analogj/scrutiny";
-    version   = "v0.10.0-omnibus";
-    ip        = "192.168.20.210";
-    caddyHost = "disks.fatsch.us";
-    caddyPort = 8080;
-    caddyCors = true;
-    volumes   = [
+    image       = "ghcr.io/analogj/scrutiny";
+    version     = "v0.10.0-omnibus";
+    ip          = "192.168.20.210";
+    caddyHost   = "disks.fatsch.us";
+    caddyPort   = 8080;
+    caddyCors   = true;
+    environment = {
+      TZ = "America/New_York";
+    };
+    volumes     = [
       "${svc.appPath}/config:/opt/scrutiny/config"
       "${svc.appPath}/influxdb:/opt/scrutiny/influxdb"
       "/run/udev:/run/udev:ro"

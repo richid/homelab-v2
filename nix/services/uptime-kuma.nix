@@ -11,6 +11,7 @@ in
     caddyCors   = true;
     environment = {
       PORT = "80";
+      TZ   = "America/New_York";
     };
     volumes = [
       "${svc.appPath}/data:/app/data"
