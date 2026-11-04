@@ -1,3 +1,4 @@
+{ config, lib, ... }:
 {
   fileSystems = {
     "/mnt/app-data" = {
@@ -73,7 +74,7 @@
     # PFRD chooses a branch at random with the likelihood of selection based on a branch's
     # available space relative to the total.
     "/mnt/tank" = {
-      device  = "/mnt/data*";
+      device  = lib.concatStringsSep ":" (lib.attrValues config.services.snapraid.dataDisks);
       fsType  = "fuse.mergerfs";
       options = [
         "defaults"
