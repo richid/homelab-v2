@@ -186,13 +186,22 @@
         "backups" = commonSvcCfg;
       };
 
-  security.sudo.extraRules= [{
-    users = [ "rich" "telegraf" ];
-    commands = [{
-      command = "ALL" ;
-      options = [ "NOPASSWD" ];
-    }];
-  }];
+  security.sudo.extraRules= [
+    {
+      users    = [ "rich" ];
+      commands = [{
+        command = "ALL" ;
+        options = [ "NOPASSWD" ];
+      }];
+    }
+    {
+      users    = [ "telegraf" ];
+      commands = map (command: { inherit command; options = [ "NOPASSWD" ]; }) [
+        "${pkgs.nvme-cli}/bin/nvme"
+        "${pkgs.smartmontools}/bin/smartctl"
+      ];
+    }
+  ];
 
   services.journald.extraConfig = ''
     SystemMaxUse=1G
