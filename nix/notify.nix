@@ -1,5 +1,7 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 let
+  watchedJobs = [ "restic-backups-s3" "sanoid" "snapraid-scrub" "snapraid-sync" ];
+
   notify = pkgs.writeShellScript "gibson-notify" ''
     set -a
     . ${config.age.secrets.gotify-gibson.path}
@@ -25,8 +27,9 @@ let
   };
 in
 {
-  age.secrets.gotify-gibson = notifySecret ../secrets/gotify-gibson.env.age;
-  age.secrets.ha-webhook    = notifySecret ../secrets/ha-webhook.env.age;
+  age.secrets.gotify-gibson  = notifySecret ../secrets/gotify-gibson.env.age;
+  age.secrets.ha-webhook     = notifySecret ../secrets/ha-webhook.env.age;
+  age.secrets.kuma-push.file = ../secrets/kuma-push.env.age;
 
   power.ups.upsmon.settings = {
     NOTIFYCMD  = "${upsNotify}";
@@ -34,19 +37,38 @@ in
     RBWARNTIME = 1209600;
   };
 
-  systemd.services."notify-gotify@" = {
-    description = "Send a Gotify message and a Home Assistant push when %i fails";
-    serviceConfig.Type = "oneshot";
-    scriptArgs = "%i";
-    script = ''
-      log=$(${config.systemd.package}/bin/journalctl -u "$1" -n 20 --no-pager -o cat)
-      printf '%s' "''${log:-No log lines for $1.}" | ${notify} "gibson: $1 failed"
-    '';
-  };
+  systemd.services = lib.genAttrs watchedJobs (_: {
+    onFailure = [ "notify-gotify@%n.service" ];
+    onSuccess = [ "kuma-push@%n.service" ];
+  }) // {
+    "kuma-push@" = {
+      description   = "Send an Uptime Kuma push when %i succeeds";
+      script        = ''
+        var=KUMA_PUSH_$(printf '%s' "''${1%.service}" | tr 'a-z-' 'A-Z_')
+        token=''${!var:-}
+        if [ -z "$token" ]; then
+          echo "No Uptime Kuma push token in $var" >&2
+          exit 1
+        fi
+        printf 'url = "https://status.fatsch.us/api/push/%s?status=up&msg=OK&ping="\n' "$token" | ${pkgs.curl}/bin/curl -fsS --max-time 30 --retry 3 -o /dev/null -K -
+      '';
+      scriptArgs    = "%i";
+      serviceConfig = {
+        EnvironmentFile = config.age.secrets.kuma-push.path;
+        Type            = "oneshot";
+      };
+    };
 
-  systemd.services.sanoid.onFailure         = [ "notify-gotify@%n.service" ];
-  systemd.services.snapraid-sync.onFailure  = [ "notify-gotify@%n.service" ];
-  systemd.services.snapraid-scrub.onFailure = [ "notify-gotify@%n.service" ];
+    "notify-gotify@" = {
+      description = "Send a Gotify message and a Home Assistant push when %i fails";
+      serviceConfig.Type = "oneshot";
+      scriptArgs = "%i";
+      script = ''
+        log=$(${config.systemd.package}/bin/journalctl -u "$1" -n 20 --no-pager -o cat)
+        printf '%s' "''${log:-No log lines for $1.}" | ${notify} "gibson: $1 failed"
+      '';
+    };
+  };
 
   services.zfs.zed.settings = {
     ZED_EMAIL_ADDR = "root";

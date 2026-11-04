@@ -76,8 +76,5 @@ in
     };
   };
 
-  systemd.services.restic-backups-s3 = {
-    onFailure                = [ "notify-gotify@%n.service" ];
-    serviceConfig.PrivateTmp = lib.mkForce false;
-  };
+  systemd.services.restic-backups-s3.serviceConfig.PrivateTmp = lib.mkForce false;
 }
