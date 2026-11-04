@@ -21,7 +21,7 @@ in
 {
   homelab.services.scrutiny = {
     image     = "ghcr.io/analogj/scrutiny";
-    version   = "v0.7.1-omnibus";
+    version   = "v0.10.0-omnibus";
     ip        = "192.168.20.210";
     caddyHost = "disks.fatsch.us";
     caddyPort = 8080;
