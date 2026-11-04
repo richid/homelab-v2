@@ -123,9 +123,9 @@
   environment.variables.EDITOR = "vim";
   environment.systemPackages = with pkgs; [
     croc
-    du-dust
     dua
     duf
+    dust
     htop
     jdupes
     jq
