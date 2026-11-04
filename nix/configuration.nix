@@ -123,9 +123,9 @@
   environment.variables.EDITOR = "vim";
   environment.systemPackages = with pkgs; [
     croc
-    du-dust
     dua
     duf
+    dust
     htop
     jdupes
     jq
@@ -330,6 +330,7 @@
     autoPrune.dates  = "weekly";
     autoPrune.flags  = [ "--all" "--filter" "until=720h" ];
     enableOnBoot     = true;
+    package          = pkgs.docker_29;
   };
 
   virtualisation.oci-containers.backend = "docker";
