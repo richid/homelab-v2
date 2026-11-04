@@ -73,7 +73,7 @@
     # PFRD chooses a branch at random with the likelihood of selection based on a branch's
     # available space relative to the total.
     "/mnt/tank" = {
-      device  = "/mnt/data*";
+      device  = "/mnt/data[1-8]";
       fsType  = "fuse.mergerfs";
       options = [
         "defaults"
