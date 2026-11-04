@@ -33,6 +33,15 @@
   "packageRules": [
     {
       "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "digest",
+        "lockFileMaintenance"
+      ],
+      "automerge": true
+    },
+    {
+      "matchUpdateTypes": [
         "major"
       ],
       "dependencyDashboardApproval": true
