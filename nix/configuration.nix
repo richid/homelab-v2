@@ -244,9 +244,8 @@
           name_templates = [ "$ID_FS_LABEL" ];
         };
         docker = {
-          perdevice = false;
           perdevice_include = [ "blkio" "cpu" "network" ];
-          total = false;
+          total_include = [ ];
         };
         docker_log = {
           from_beginning = false;
