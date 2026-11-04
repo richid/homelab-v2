@@ -31,6 +31,7 @@
   networking = {
     hostId   = "deadbeef";
     hostName = "gibson";
+    useDHCP  = false;
     firewall.enable = false;
 
     bonds = {
@@ -89,11 +90,6 @@
       interface = "bond0";
       mode      = "bridge";
     };
-  };
-
-  # https://github.com/NixOS/nixpkgs/issues/162260
-  systemd.services.network-addresses-services-bridge = {
-    after = [ "dhcpcd.service" ];
   };
 
   time.timeZone = "America/New_York";
