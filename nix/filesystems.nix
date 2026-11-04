@@ -86,7 +86,8 @@
     };
 
     "/export/Media" = {
-      device = "/mnt/tank/Media";
+      device  = "/mnt/tank/Media";
+      fsType  = "none";
       options = [ "bind" ];
     };
   };
