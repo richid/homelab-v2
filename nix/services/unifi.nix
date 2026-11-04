@@ -23,5 +23,8 @@ in
     volumes = [
       "${svc.appPath}/config:/config"
     ];
+    extraOptions = [
+      "--stop-timeout=60"
+    ];
   };
 }
