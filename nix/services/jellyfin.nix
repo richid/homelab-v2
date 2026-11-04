@@ -24,5 +24,8 @@ in
     preOptions = [
       "--device=/dev/dri:/dev/dri"
     ];
+    extraOptions = [
+      "--stop-timeout=60"
+    ];
   };
 }

@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 let
-  flakeRepo = "github:richid/homelab-v2";
+  flakeRepo    = "github:richid/homelab-v2";
+  upgradeState = "/var/lib/nixos-upgrade";
 
   watver = pkgs.writeShellApplication {
     name          = "watver";
@@ -25,11 +26,25 @@ in
   };
 
   systemd.services.nixos-upgrade = {
-    onFailure = [ "notify-gotify@%n.service" ];
-    serviceConfig.ExecCondition = pkgs.writeShellScript "nixos-upgrade-changed" ''
-      remote=$(${config.nix.package}/bin/nix --extra-experimental-features 'nix-command flakes' flake metadata --refresh --json ${flakeRepo} | ${pkgs.jq}/bin/jq -r .revision)
-      current=$(/run/current-system/sw/bin/nixos-version --configuration-revision)
-      [ -z "$remote" ] || [ "$remote" != "$current" ]
-    '';
+    onFailure     = [ "notify-gotify@%n.service" ];
+    serviceConfig = {
+      ExecCondition = pkgs.writeShellScript "nixos-upgrade-changed" ''
+        ${pkgs.coreutils}/bin/mkdir -p ${upgradeState}
+        ${pkgs.coreutils}/bin/rm -f ${upgradeState}/candidate
+        remote=$(${config.nix.package}/bin/nix --extra-experimental-features 'nix-command flakes' flake metadata --refresh --json ${flakeRepo} | ${pkgs.jq}/bin/jq -r .revision)
+        current=$(/run/current-system/sw/bin/nixos-version --configuration-revision)
+        [ -n "$remote" ] || exit 0
+        [ "$remote" != "$current" ] || exit 1
+        [ "$remote" != "$(${pkgs.coreutils}/bin/cat ${upgradeState}/failed-rev 2>/dev/null)" ] || exit 1
+        printf '%s\n' "$remote" > ${upgradeState}/candidate
+      '';
+      ExecStopPost  = pkgs.writeShellScript "nixos-upgrade-record" ''
+        case "$SERVICE_RESULT" in
+          success) ${pkgs.coreutils}/bin/rm -f ${upgradeState}/failed-rev ;;
+          exec-condition) ;;
+          *) [ ! -f ${upgradeState}/candidate ] || ${pkgs.coreutils}/bin/cp ${upgradeState}/candidate ${upgradeState}/failed-rev ;;
+        esac
+      '';
+    };
   };
 }
