@@ -44,6 +44,7 @@ in
     '';
   };
 
+  systemd.services.sanoid.onFailure         = [ "notify-gotify@%n.service" ];
   systemd.services.snapraid-sync.onFailure  = [ "notify-gotify@%n.service" ];
   systemd.services.snapraid-scrub.onFailure = [ "notify-gotify@%n.service" ];
 
