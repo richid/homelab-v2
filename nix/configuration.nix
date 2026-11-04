@@ -194,6 +194,10 @@
     }];
   }];
 
+  services.journald.extraConfig = ''
+    SystemMaxUse=1G
+  '';
+
   services.openssh = {
     enable = true;
     settings = {
@@ -324,6 +328,7 @@
   virtualisation.docker = {
     autoPrune.enable = true;
     autoPrune.dates  = "weekly";
+    autoPrune.flags  = [ "--all" "--filter" "until=720h" ];
     enableOnBoot     = true;
   };
 
