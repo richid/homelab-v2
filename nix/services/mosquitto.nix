@@ -12,7 +12,7 @@ in
       TZ = "America/New_York";
     };
     volumes     = [
-      "${svc.appPath}/config/mosquitto.conf:/mosquitto/config/mosquitto.conf"
+      "${./mosquitto/mosquitto.conf}:/mosquitto/config/mosquitto.conf:ro"
       "${svc.appPath}/data:/mosquitto/data"
       "${svc.appPath}/log:/mosquitto/log"
     ];
