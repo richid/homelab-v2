@@ -22,5 +22,9 @@ in
       "${svc.appPath}/config:/config"
       "${svc.appPath}/data:/data"
     ];
+    extraOptions     = [
+      "--label=caddy=*.fatsch.us"
+      "--label=caddy.handle.respond=\"Not found\" 404"
+    ];
   };
 }
