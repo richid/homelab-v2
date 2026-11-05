@@ -16,6 +16,11 @@
       fsType = "zfs";
     };
 
+    "/mnt/dozer/Photos" = {
+      device = "dozer/photos";
+      fsType = "zfs";
+    };
+
     "/mnt/dozer/Sync" = {
       device = "dozer/sync";
       fsType = "zfs";
@@ -158,6 +163,10 @@
 
     datasets."app-data" = {
       recursive   = true;
+      useTemplate = [ "apps" ];
+    };
+
+    datasets."dozer/photos" = {
       useTemplate = [ "apps" ];
     };
   };

@@ -110,6 +110,7 @@
 
   age.secrets = {
     aws-dyndns.file      = ../secrets/aws-dyndns.env.age;
+    immich.file          = ../secrets/immich.env.age;
     tandoor.file         = ../secrets/tandoor.env.age;
     telegraf.file        = ../secrets/telegraf.env.age;
     unifi.file           = ../secrets/unifi.env.age;
