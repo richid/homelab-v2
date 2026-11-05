@@ -50,7 +50,7 @@ zfs create -o compression=lz4 -o canmount=on -o mountpoint=/mnt/dozer/Backups do
 zfs create -o compression=lz4 -o canmount=on -o mountpoint=legacy dozer/photos
 zfs create -o compression=lz4 -o canmount=on -o mountpoint=/mnt/dozer/Sync dozer/sync
 chown -R rich:family /mnt/dozer/Sync
-chown -R immich-server:services /mnt/dozer/Photos
+chown -R immich:services /mnt/dozer/Photos
 
 ##### MergerFS / Snapraid #####
 mkfs.ext4 -m 0 -T largefile4 -L parity0 /dev/disk/by-id/ata-ST10000NM0016-1TT101_ZA218QZ0
@@ -80,10 +80,7 @@ chown -R gotify:services /mnt/app-data/gotify/
 chown -R grafana:services /mnt/app-data/grafana/
 chown -R homer:services /mnt/app-data/homer/
 mkdir -p /mnt/app-data/immich/{encoded-video,model-cache,postgres,thumbs,valkey}
-chown immich-server:services /mnt/app-data/immich/ /mnt/app-data/immich/encoded-video /mnt/app-data/immich/thumbs
-chown immich-machine-learning:services /mnt/app-data/immich/model-cache
-chown immich-postgres:services /mnt/app-data/immich/postgres
-chown immich-valkey:services /mnt/app-data/immich/valkey
+chown -R immich:services /mnt/app-data/immich/
 chown -R influxdb:services /mnt/app-data/influxdb/
 chown -R jellyfin:media /mnt/app-data/jellyfin/
 chown -R minecraft:services /mnt/app-data/minecraft/
