@@ -21,6 +21,7 @@ let
       ${umount} "$m"
     done
     ${destroySnapshot "-r" "app-data"}
+    ${destroySnapshot "" "dozer/photos"}
     ${destroySnapshot "" "dozer/sync"}
   '';
 
@@ -43,6 +44,7 @@ in
       ${cleanup}
       ${mountSnapshot}
       ${zfs} snapshot -r app-data@${snap}
+      ${zfs} snapshot dozer/photos@${snap}
       ${zfs} snapshot dozer/sync@${snap}
       ${zfs} list -H -o name -d 1 app-data | while read -r ds; do
         case "$ds" in
@@ -50,6 +52,7 @@ in
           *) mount_snapshot "$ds" "${base}/$ds" ;;
         esac
       done
+      mount_snapshot dozer/photos "${base}/photos"
       mount_snapshot dozer/sync "${base}/sync"
     '';
     checkOpts            = [ "--with-cache" ];
@@ -58,6 +61,9 @@ in
       "${base}/app-data/**/*.log"
       "${base}/app-data/**/log"
       "${base}/app-data/**/logs"
+      "${base}/app-data/immich/encoded-video"
+      "${base}/app-data/immich/model-cache"
+      "${base}/app-data/immich/thumbs"
       "${base}/app-data/jellyfin/config/cache"
       "${base}/app-data/jellyfin/config/data/transcodes"
       "${base}/app-data/smokeping/data"

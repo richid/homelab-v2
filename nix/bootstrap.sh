@@ -14,6 +14,7 @@ zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-
 zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/caddy app-data/caddy
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/gotify app-data/gotify
 zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/homer app-data/homer
+zfs create -o quota=75G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/immich app-data/immich
 zfs create -o quota=25G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/influxdb app-data/influxdb
 zfs create -o quota=10G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/grafana app-data/grafana
 zfs create -o quota=50G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/jellyfin app-data/jellyfin
@@ -46,8 +47,10 @@ zpool add -o ashift=12 dozer mirror \
 
 ###  Datasets
 zfs create -o compression=lz4 -o canmount=on -o mountpoint=/mnt/dozer/Backups dozer/backups
+zfs create -o compression=lz4 -o canmount=on -o mountpoint=legacy dozer/photos
 zfs create -o compression=lz4 -o canmount=on -o mountpoint=/mnt/dozer/Sync dozer/sync
 chown -R rich:family /mnt/dozer/Sync
+chown -R immich-server:services /mnt/dozer/Photos
 
 ##### MergerFS / Snapraid #####
 mkfs.ext4 -m 0 -T largefile4 -L parity0 /dev/disk/by-id/ata-ST10000NM0016-1TT101_ZA218QZ0
@@ -76,6 +79,11 @@ chown -R caddy:services /mnt/app-data/caddy/
 chown -R gotify:services /mnt/app-data/gotify/
 chown -R grafana:services /mnt/app-data/grafana/
 chown -R homer:services /mnt/app-data/homer/
+mkdir -p /mnt/app-data/immich/{encoded-video,model-cache,postgres,thumbs,valkey}
+chown immich-server:services /mnt/app-data/immich/ /mnt/app-data/immich/encoded-video /mnt/app-data/immich/thumbs
+chown immich-machine-learning:services /mnt/app-data/immich/model-cache
+chown immich-postgres:services /mnt/app-data/immich/postgres
+chown immich-valkey:services /mnt/app-data/immich/valkey
 chown -R influxdb:services /mnt/app-data/influxdb/
 chown -R jellyfin:media /mnt/app-data/jellyfin/
 chown -R minecraft:services /mnt/app-data/minecraft/

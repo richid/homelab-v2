@@ -29,7 +29,7 @@ On `gibson`, `gibson-notify` in `nix/notify.nix` sends urgent alerts. Units use 
 
 ## Backups
 
-`nix/backups.nix` backs up every `app-data` dataset and `/mnt/dozer/Sync` with restic, every night, to S3 (Intelligent-Tiering). The backup takes a `@restic` ZFS snapshot and mounts it read-only under `/run/restic-snap`, so database files are consistent. It does not use `.zfs/snapshot`, because the automount there can deadlock. Monitoring history (InfluxDB, Smokeping data), caches, generated files and logs are excluded. A failure sends an urgent alert.
+`nix/backups.nix` backs up every `app-data` dataset, `/mnt/dozer/Photos` and `/mnt/dozer/Sync` with restic, every night, to S3 (Intelligent-Tiering). The backup takes a `@restic` ZFS snapshot and mounts it read-only under `/run/restic-snap`, so database files are consistent. It does not use `.zfs/snapshot`, because the automount there can deadlock. Monitoring history (InfluxDB, Smokeping data), caches, generated files (Immich thumbnails, encoded video and ML models) and logs are excluded. A failure sends an urgent alert.
 
 The `restic-s3` command on `gibson` has the repository and the credentials set:
 
@@ -52,6 +52,7 @@ Rootless: the service process runs as a non-root UID. LinuxServer and `itzg` ima
 | Gotify         |    ✅    |   ✅    |    N/A     |    ✅     |                                                         |
 | Grafana        |    ✅    |   ✅    |     ✅      |    ✅     |                                                         |
 | Homer          |    ✅    |   ✅    |     ✅      |    ✅     |                                                         |
+| Immich         |    ✅    |   ✅    |     🚫      |    ✅     | Originals on `/mnt/dozer/Photos`, iGPU for ML and video |
 | InfluxDB       |    ✅    |   ✅    |     ✅      |    ✅     |                                                         |
 | Jellyfin       |    ✅    |   ✅    |     ✅      |    ✅     |                                                         |
 | Jellyseerr     |    ✅    |   ✅    |     ✅      |    ✅     |                                                         |
