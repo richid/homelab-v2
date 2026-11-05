@@ -1,0 +1,46 @@
+{
+    admin 192.168.20.200:2019
+    #debug
+    #acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
+}
+
+(cors) {
+        @cors_preflight method OPTIONS
+
+        handle @cors_preflight {
+                header {
+                        Access-Control-Allow-Origin *
+                        Access-Control-Allow-Methods "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+                        Access-Control-Allow-Headers *
+                        Access-Control-Max-Age "3600"
+                        defer
+                }
+                respond "" 204
+        }
+
+        handle {
+                header {
+                        Access-Control-Allow-Origin *
+                        Access-Control-Expose-Headers *
+                        defer
+                }
+        }
+}
+
+*.fatsch.us {
+    @dns host dns.fatsch.us
+    tls {
+        dns route53 {
+            max_retries 10
+            region "us-east-1"
+            wait_for_propagation true
+            hosted_zone_id "Z0914419QSU4KXH8VJ9F"
+        }
+    }
+
+    handle @dns {
+        import cors
+        reverse_proxy 192.168.20.10
+    }
+}
+
