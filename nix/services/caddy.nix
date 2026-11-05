@@ -21,10 +21,13 @@ in
       "${svc.appPath}/Caddyfile:/etc/caddy/Caddyfile"
       "${svc.appPath}/config:/config"
       "${svc.appPath}/data:/data"
+      "${./caddy/404.html}:/srv/404/404.html:ro"
     ];
     extraOptions     = [
       "--label=caddy=*.fatsch.us"
-      "--label=caddy.handle.respond=\"Not found\" 404"
+      "--label=caddy.handle.root=* /srv/404"
+      "--label=caddy.handle.rewrite=* /404.html"
+      "--label=caddy.handle.file_server.status=404"
     ];
   };
 }

@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>404 · Not on the network</title>
+<style>
+  :root {
+    --bg: #07090c;
+    --fg: #c8ffd4;
+    --dim: #4f7a5b;
+    --hot: #ff3df2;
+    --cool: #2ef2ff;
+    --warn: #ffd23f;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body {
+    background: radial-gradient(ellipse at center, #0d1a12 0%, var(--bg) 70%);
+    color: var(--fg);
+    font: 16px/1.5 ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(to bottom, rgba(0,0,0,0) 0, rgba(0,0,0,0) 2px, rgba(0,0,0,.28) 3px);
+    z-index: 10;
+  }
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    box-shadow: inset 0 0 160px rgba(0,0,0,.9);
+    z-index: 11;
+  }
+  main { width: 100%; max-width: 720px; position: relative; }
+  .glitch {
+    position: relative;
+    font-size: clamp(96px, 28vw, 200px);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -.04em;
+    margin: 0 0 4px;
+    color: var(--fg);
+    text-shadow: 0 0 18px rgba(46,242,255,.35);
+  }
+  .glitch::before, .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+  .glitch::before { color: var(--hot); transform: translate(-3px, 0); mix-blend-mode: screen; animation: slice 2.6s infinite steps(1); }
+  .glitch::after { color: var(--cool); transform: translate(3px, 0); mix-blend-mode: screen; animation: slice 3.1s infinite reverse steps(1); }
+  @keyframes slice {
+    0%   { clip-path: inset(0 0 85% 0); }
+    10%  { clip-path: inset(40% 0 35% 0); transform: translate(-6px, 0); }
+    20%  { clip-path: inset(80% 0 2% 0); }
+    30%  { clip-path: inset(10% 0 70% 0); transform: translate(5px, 0); }
+    40%  { clip-path: inset(55% 0 20% 0); }
+    50%  { clip-path: inset(0 0 100% 0); }
+    100% { clip-path: inset(0 0 100% 0); }
+  }
+  h1 { font-size: clamp(18px, 4.5vw, 24px); margin: 0 0 20px; font-weight: 700; }
+  h1 .host { color: var(--warn); word-break: break-all; }
+  .term {
+    background: rgba(0,0,0,.55);
+    border: 1px solid #1d3325;
+    border-radius: 8px;
+    padding: 14px 16px;
+    min-height: 15em;
+    font-size: 14px;
+    white-space: pre-wrap;
+    word-break: break-word;
+    box-shadow: 0 0 40px rgba(46,242,255,.06);
+  }
+  .term .p { color: var(--cool); }
+  .term .o { color: var(--dim); }
+  .term .e { color: var(--hot); }
+  .cursor { display: inline-block; width: .6em; background: var(--fg); animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .excuse {
+    margin: 20px 0 0;
+    padding-left: 12px;
+    border-left: 3px solid var(--hot);
+    min-height: 3em;
+  }
+  .excuse b { color: var(--hot); }
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+  .btn {
+    font: inherit;
+    font-size: 14px;
+    color: var(--bg);
+    background: var(--fg);
+    border: 0;
+    border-radius: 6px;
+    padding: 10px 14px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .btn.ghost { background: transparent; color: var(--fg); outline: 1px solid var(--dim); }
+  .btn:hover, .btn:focus-visible { background: var(--warn); color: var(--bg); outline: none; }
+  footer { margin-top: 26px; font-size: 12px; color: var(--dim); }
+  @media (prefers-reduced-motion: reduce) {
+    .glitch::before, .glitch::after, .cursor { animation: none; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <div class="glitch" data-text="404" aria-hidden="true">404</div>
+  <h1><span class="host" id="host">This host</span> is not on the network.</h1>
+  <div class="term" id="term" aria-live="polite"></div>
+  <p class="excuse" id="excuse"></p>
+  <div class="actions">
+    <a class="btn" href="https://home.fatsch.us/">Take me home</a>
+    <button class="btn ghost" id="again" type="button">Blame something else</button>
+  </div>
+  <footer>HTTP 404 · served with love and mild panic by Caddy</footer>
+</main>
+<script>
+  (function () {
+    var host = location.hostname || "this host";
+    var name = host.split(".")[0] || "it";
+    document.getElementById("host").textContent = host;
+
+    var lines = [
+      ["p", "root@gibson:~#", "docker ps --filter name=" + name],
+      ["o", "", "CONTAINER ID   IMAGE   STATUS   NAMES\n(tumbleweed)"],
+      ["p", "root@gibson:~#", "zfs list | grep " + name],
+      ["o", "", "(also tumbleweed)"],
+      ["p", "root@gibson:~#", "sudo make " + name],
+      ["e", "", "make: *** No rule to make target '" + name + "'.  Stop."],
+      ["p", "root@gibson:~#", "sudo make me a sandwich"],
+      ["o", "", "okay."]
+    ];
+
+    var excuses = [
+      "Renovate automerged it into the void.",
+      "Somebody tripped over the macvlan.",
+      "It's in the backlog, right behind the other 131 issues.",
+      "SnapRAID can rebuild a dead disk. It cannot rebuild a service that never existed.",
+      "Sanoid has an hourly snapshot of nothing, if that helps.",
+      "The UPS says \"replace battery\". This page says \"replace URL\".",
+      "Pi-hole blocked it. Pi-hole blocks everything. Pi-hole is drunk on power.",
+      "Hack the planet. Just not this subdomain.",
+      "The container is rootless, homeless and also nonexistent.",
+      "Have you tried turning the internet off and on again?",
+      "It was deployed to prod. Prod is a Raspberry Pi in a drawer.",
+      "The hamster that powers the NVMe mirror is on its union-mandated break.",
+      "DNS. It's always DNS. Even when it isn't DNS, it's DNS.",
+      "Nix rebuilt the universe from scratch and this wasn't in the flake."
+    ];
+
+    var term = document.getElementById("term");
+    var excuseEl = document.getElementById("excuse");
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var last = -1;
+
+    function excuse() {
+      var i;
+      do { i = Math.floor(Math.random() * excuses.length); } while (i === last && excuses.length > 1);
+      last = i;
+      excuseEl.innerHTML = "";
+      var b = document.createElement("b");
+      b.textContent = "Probable cause: ";
+      excuseEl.appendChild(b);
+      excuseEl.appendChild(document.createTextNode(excuses[i]));
+    }
+
+    function span(cls, text) {
+      var s = document.createElement("span");
+      s.className = cls;
+      s.textContent = text;
+      return s;
+    }
+
+    var cursor = span("cursor", " ");
+
+    function finish() {
+      term.appendChild(span("p", "root@gibson:~#"));
+      term.appendChild(cursor);
+      excuse();
+    }
+
+    if (reduce) {
+      lines.forEach(function (l) {
+        term.appendChild(span(l[0] === "p" ? "p" : l[0], l[1]));
+        term.appendChild(span(l[0] === "p" ? "" : l[0], l[2] + "\n"));
+      });
+      finish();
+    } else {
+      var li = 0;
+      var step = function () {
+        if (li >= lines.length) { finish(); return; }
+        var l = lines[li++];
+        if (l[0] === "p") {
+          term.appendChild(span("p", l[1]));
+          var cmd = span("", "");
+          term.appendChild(cmd);
+          term.appendChild(cursor);
+          var ci = 0;
+          var type = function () {
+            if (ci < l[2].length) {
+              cmd.textContent += l[2].charAt(ci++);
+              setTimeout(type, 28 + Math.random() * 60);
+            } else {
+              term.removeChild(cursor);
+              cmd.textContent += "\n";
+              setTimeout(step, 260);
+            }
+          };
+          setTimeout(type, 350);
+        } else {
+          term.appendChild(span(l[0], l[2] + "\n"));
+          setTimeout(step, 420);
+        }
+      };
+      step();
+    }
+
+    document.getElementById("again").addEventListener("click", excuse);
+  })();
+</script>
+</body>
+</html>
