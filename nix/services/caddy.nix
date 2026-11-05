@@ -18,7 +18,7 @@ in
     environmentFiles = [ config.age.secrets.caddy.path ];
     volumes          = [
       "/var/run/docker.sock:/var/run/docker.sock"
-      "${svc.appPath}/Caddyfile:/etc/caddy/Caddyfile"
+      "${./caddy/Caddyfile}:/etc/caddy/Caddyfile:ro"
       "${svc.appPath}/config:/config"
       "${svc.appPath}/data:/data"
       "${./caddy/404.html}:/srv/404/404.html:ro"
