@@ -15,6 +15,7 @@ in
     appPath     = appPath;
     caddyHost   = "photos.fatsch.us";
     caddyPort   = 2283;
+    caddyCors   = true;
     environment = {
       DB_DATABASE_NAME            = "immich";
       DB_HOSTNAME                 = "immich-postgres";
