@@ -112,6 +112,12 @@
     },
     {
       "matchPackageNames": [
+        "ghcr.io/chrisbenincasa/tunarr"
+      ],
+      "maxMajorIncrement": 0
+    },
+    {
+      "matchPackageNames": [
         "lscr.io/linuxserver/jellyfin"
       ],
       "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)ubu(?<compatibility>\\d+)-ls(?<patch>\\d+)$"
