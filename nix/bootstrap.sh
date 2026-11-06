@@ -31,7 +31,7 @@ zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/tandoor app-data/tandoor
 zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/trackage app-data/trackage
 zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/transmission app-data/transmission
-zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/tunarr app-data/tunarr
+zfs create -o quota=25G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/tunarr app-data/tunarr
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/unifi app-data/unifi
 zfs create -o quota=5G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/uptime-kuma app-data/uptime-kuma
 zfs create -o quota=1G -o compression=lz4 -o canmount=on -o mountpoint=/mnt/app-data/vikunja app-data/vikunja
