@@ -5,7 +5,7 @@ in
 {
   homelab.services.tunarr = {
     image       = "ghcr.io/chrisbenincasa/tunarr";
-    version     = "1.3.15";
+    version     = "2026.11.1";
     ip          = "192.168.20.235";
     uid         = 964;
     group       = "media";
