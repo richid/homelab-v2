@@ -15,6 +15,8 @@ in
     };
     volumes = [
       "${svc.appPath}/config:/www/assets"
+      "${./homer/config.yml}:/www/assets/config.yml:ro"
+      "${./homer/cyberpunk.css}:/www/assets/cyberpunk.css:ro"
     ];
   };
 }
