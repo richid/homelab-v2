@@ -135,14 +135,54 @@ body::after {
   font-family: var(--cp-font);
 }
 
-.status.online::before, .status.enabled::before {
-  background-color: var(--cp-cool);
+.status.online::before, .status.enabled::before, .status.good::before {
+  background-color: var(--cp-cool) !important;
+  border-color: var(--cp-cool) !important;
   box-shadow: 0 0 8px var(--cp-cool);
 }
 
-.status.offline::before, .status.disabled::before {
-  background-color: var(--cp-hot);
+.status.warn::before {
+  background-color: var(--cp-warn) !important;
+  border-color: var(--cp-warn) !important;
+  box-shadow: 0 0 8px var(--cp-warn);
+}
+
+.status.offline::before, .status.disabled::before, .status.bad::before {
+  background-color: var(--cp-hot) !important;
+  border-color: var(--cp-hot) !important;
   box-shadow: 0 0 8px var(--cp-hot);
+}
+
+.notifs .notif {
+  color: var(--cp-bg) !important;
+  font-family: var(--cp-font);
+  font-weight: 800;
+  border-radius: 3px !important;
+  background-color: var(--cp-dim) !important;
+}
+
+.notifs .notif.passed, .notifs .notif.activity {
+  background-color: var(--cp-cool) !important;
+  box-shadow: 0 0 8px rgba(46, 242, 255, 0.55);
+}
+
+.notifs .notif.missing {
+  background-color: #9b7bff !important;
+  box-shadow: 0 0 8px rgba(155, 123, 255, 0.55);
+}
+
+.notifs .notif.warnings, .notifs .notif.warning, .notifs .notif.unknown {
+  background-color: var(--cp-warn) !important;
+  box-shadow: 0 0 8px rgba(255, 210, 63, 0.55);
+}
+
+.notifs .notif.failed, .notifs .notif.errors, .notifs .notif.error {
+  background-color: var(--cp-hot) !important;
+  box-shadow: 0 0 8px rgba(255, 61, 242, 0.6);
+}
+
+.card .error {
+  color: var(--cp-hot) !important;
 }
 
 a {
