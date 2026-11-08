@@ -5,7 +5,7 @@ in
 {
   homelab.services.vikunja = {
     image       = "vikunja/vikunja";
-    version     = "2.7.1";
+    version     = "2.8.0";
     ip          = "192.168.20.238";
     uid         = 960;
     caddyHost   = "todo.fatsch.us";
