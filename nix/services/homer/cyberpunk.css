@@ -101,6 +101,31 @@ body::after {
   color: var(--cp-cool);
 }
 
+.group-title {
+  cursor: pointer;
+  user-select: none;
+}
+
+.group-title:focus-visible {
+  outline: 1px dashed var(--cp-cool);
+  outline-offset: 4px;
+}
+
+.group-title.cp-collapsed {
+  opacity: 0.6;
+}
+
+.group-title.cp-collapsed::after {
+  content: " [+]";
+  color: var(--cp-dim);
+  text-shadow: none;
+}
+
+.column.cp-group-collapsed > :not(.group-title),
+.cp-hidden {
+  display: none !important;
+}
+
 .card {
   background: rgba(12, 17, 22, 0.88);
   border: 1px solid rgba(46, 242, 255, 0.28);
