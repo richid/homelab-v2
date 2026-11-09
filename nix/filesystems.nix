@@ -1,4 +1,28 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
+let
+  deleteLimit = 500;
+
+  diffGuard = pkgs.writeShellScript "snapraid-diff-guard" ''
+    rc=0
+    out=$(${pkgs.snapraid}/bin/snapraid diff) || rc=$?
+    if [ "$rc" -ne 0 ] && [ "$rc" -ne 2 ]; then
+      printf '%s\n' "$out" | ${pkgs.coreutils}/bin/tail -n 20
+      echo "snapraid diff failed with exit code $rc" >&2
+      exit 1
+    fi
+    printf '%s\n' "$out" | ${pkgs.gnugrep}/bin/grep -E '^ *[0-9]+ (equal|added|removed|updated|moved|copied|restored)$' || true
+    removed=$(printf '%s\n' "$out" | ${pkgs.gawk}/bin/awk '$2 == "removed" { print $1 }')
+    if [ -z "$removed" ]; then
+      printf '%s\n' "$out" | ${pkgs.coreutils}/bin/tail -n 20
+      echo "Sync skipped: no 'removed' count in the snapraid diff output" >&2
+      exit 1
+    fi
+    if [ "$removed" -gt ${toString deleteLimit} ]; then
+      echo "Sync skipped: $removed files removed, the limit is ${toString deleteLimit}. Check with 'snapraid diff', then run 'sudo snapraid sync' by hand." >&2
+      exit 1
+    fi
+  '';
+in
 {
   fileSystems = {
     "/mnt/app-data" = {
@@ -86,6 +110,8 @@
         "minfreespace=50G"
         "category.create=pfrd"
         "func.getattr=newest"
+        "inodecalc=path-hash"
+        "noforget"
         "fsname=tank"
       ];
     };
@@ -187,6 +213,7 @@
       "/mnt/data1/snapraid.content"
       "/mnt/data2/snapraid.content"
       "/mnt/data3/snapraid.content"
+      "/var/lib/snapraid/snapraid.content"
     ];
 
     dataDisks = {
@@ -215,4 +242,11 @@
       olderThan = 10;
     };
   };
+
+  systemd.services.snapraid-sync.serviceConfig.ExecStartPre = lib.mkAfter [ "${diffGuard}" ];
+
+  systemd.tmpfiles.rules = [
+    "d /var/lib/snapraid 0700 root root -"
+    "L+ /usr/bin/smartctl - - - - ${pkgs.smartmontools}/bin/smartctl"
+  ];
 }
