@@ -251,7 +251,7 @@
         };
         docker = {
           perdevice_include = [ "blkio" "cpu" "network" ];
-          total_include = [ ];
+          total_include = [ "cpu" ];
         };
         docker_log = {
           from_beginning = false;
