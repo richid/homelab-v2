@@ -15,6 +15,11 @@ let
         type        = types.str;
         description = "Container image tag.";
       };
+      autoStart = mkOption {
+        type        = types.bool;
+        default     = true;
+        description = "Start the container at boot. False keeps the unit, start it with systemctl.";
+      };
       ip = mkOption {
         type        = types.nullOr types.str;
         default     = null;
@@ -126,6 +131,7 @@ let
 
   container = _: svc: {
     image            = "${svc.image}:${svc.version}";
+    autoStart        = svc.autoStart;
     user             = lib.mkIf (svc.uid != null && svc.uidMode == "user") "${toString svc.uid}:${toString gids.${svc.group}}";
     environment      = svc.environment // lib.optionalAttrs (svc.uid != null && svc.uidMode == "env") {
       PUID = toString svc.uid;
