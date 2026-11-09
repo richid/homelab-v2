@@ -23,6 +23,7 @@ let
     ${destroySnapshot "-r" "app-data"}
     ${destroySnapshot "" "dozer/photos"}
     ${destroySnapshot "" "dozer/sync"}
+    ${destroySnapshot "" "dozer/backups"}
   '';
 
   mountSnapshot = ''
@@ -46,6 +47,7 @@ in
       ${zfs} snapshot -r app-data@${snap}
       ${zfs} snapshot dozer/photos@${snap}
       ${zfs} snapshot dozer/sync@${snap}
+      ${zfs} snapshot dozer/backups@${snap}
       ${zfs} list -H -o name -d 1 app-data | while read -r ds; do
         case "$ds" in
           ${skipCases}) ;;
@@ -54,6 +56,7 @@ in
       done
       mount_snapshot dozer/photos "${base}/photos"
       mount_snapshot dozer/sync "${base}/sync"
+      mount_snapshot dozer/backups "${base}/backups"
     '';
     checkOpts            = [ "--with-cache" ];
     environmentFile      = config.age.secrets.restic-s3.path;
@@ -70,6 +73,7 @@ in
       "${base}/app-data/tandoor/staticfiles"
       "${base}/app-data/tunarr/streams"
     ];
+    extraBackupArgs      = [ "--exclude-caches" "--exclude-if-present=.nobackup" ];
     extraOptions         = [ "s3.storage-class=INTELLIGENT_TIERING" ];
     initialize           = true;
     passwordFile         = config.age.secrets.restic-password.path;
