@@ -6,7 +6,7 @@ let
   base   = "/run/restic-snap";
   snap   = "restic";
 
-  skipDatasets = [ "influxdb" "watchstate" ];
+  skipDatasets = [ "influxdb" ];
 
   skipCases = lib.concatStringsSep "|" ([ "app-data" ] ++ map (d: "app-data/${d}") skipDatasets);
 
