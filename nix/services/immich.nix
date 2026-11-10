@@ -8,7 +8,7 @@ in
 {
   homelab.services.immich-server = {
     image       = "ghcr.io/immich-app/immich-server";
-    version     = "v3.3.6";
+    version     = "v3.4.0";
     ip          = "192.168.20.239";
     uid         = 959;
     user        = "immich";
@@ -37,7 +37,7 @@ in
 
   homelab.services.immich-machine-learning = {
     image       = "ghcr.io/immich-app/immich-machine-learning";
-    version     = "v3.3.6-openvino";
+    version     = "v3.4.0-openvino";
     ip          = "192.168.20.240";
     appPath     = appPath;
     environment = {
