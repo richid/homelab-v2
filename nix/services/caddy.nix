@@ -7,7 +7,7 @@ in
 
   homelab.services.caddy = {
     image            = "ghcr.io/richid/caddy-docker-proxy-r53-dns";
-    version          = "2.11.8";
+    version          = "2.11.9";
     ip               = "192.168.20.200";
     uid              = 977;
     uidMode          = "none";
