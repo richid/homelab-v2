@@ -5,7 +5,7 @@ in
 {
   homelab.services.postgres16 = {
     image       = "postgres";
-    version     = "16.15";
+    version     = "16.16";
     ip          = "192.168.20.224";
     uid         = 983;
     user        = "postgres";
