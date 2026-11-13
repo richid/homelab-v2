@@ -9,7 +9,7 @@ in
 {
   homelab.services.homer = {
     image       = "b4bz/homer";
-    version     = "v26.08.3";
+    version     = "v26.11.1";
     ip          = "192.168.20.223";
     uid         = 986;
     caddyHost   = "home.fatsch.us";
