@@ -5,7 +5,7 @@ in
 {
   homelab.services.grafana = {
     image       = "grafana/grafana";
-    version     = "13.3.0";
+    version     = "13.3.1";
     ip          = "192.168.20.226";
     uid         = 971;
     caddyHost   = "grafana.fatsch.us";
