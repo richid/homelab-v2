@@ -5,7 +5,7 @@ in
 {
   homelab.services.mongo = {
     image       = "mongo";
-    version     = "8.0.34";
+    version     = "8.0.38";
     ip          = "192.168.20.225";
     uid         = 984;
     environment = {
