@@ -180,8 +180,16 @@ in
 
     systemd.services = lib.mapAttrs' (name: svc:
       lib.nameValuePair "docker-${name}" {
-        unitConfig.RequiresMountsFor = svc.appPath;
-      }) (lib.filterAttrs (_: svc: svc.appPath != null) cfg);
+        startLimitIntervalSec = 0;
+        unitConfig            = lib.optionalAttrs (svc.appPath != null) {
+          RequiresMountsFor = svc.appPath;
+        };
+        serviceConfig         = {
+          RestartSec         = "10s";
+          RestartSteps       = 6;
+          RestartMaxDelaySec = "10min";
+        };
+      }) cfg;
 
     users.users = lib.mapAttrs' (_: svc:
       lib.nameValuePair svc.user {
