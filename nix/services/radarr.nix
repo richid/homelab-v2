@@ -5,7 +5,7 @@ in
 {
   homelab.services.radarr = {
     image       = "lscr.io/linuxserver/radarr";
-    version     = "6.4.4";
+    version     = "7.0.3";
     ip          = "192.168.20.220";
     uid         = 982;
     uidMode     = "env";
