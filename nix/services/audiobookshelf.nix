@@ -5,7 +5,7 @@ in
 {
   homelab.services.audiobookshelf = {
     image       = "ghcr.io/advplyr/audiobookshelf";
-    version     = "2.37.2";
+    version     = "2.38.0";
     ip          = "192.168.20.234";
     uid         = 965;
     group       = "media";
