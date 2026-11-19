@@ -5,7 +5,7 @@ in
 {
   homelab.services.mosquitto = {
     image       = "eclipse-mosquitto";
-    version     = "2.0.22";
+    version     = "2.0.23";
     ip          = "192.168.20.212";
     uid         = 988;
     environment = {
