@@ -8,7 +8,7 @@ in
 {
   homelab.services.immich-server = {
     image       = "ghcr.io/immich-app/immich-server";
-    version     = "v3.4.1";
+    version     = "v3.4.2";
     ip          = "192.168.20.239";
     uid         = 959;
     user        = "immich";
