@@ -5,7 +5,7 @@ in
 {
   homelab.services.tandoor = {
     image       = "vabene1111/recipes";
-    version     = "2.7.2";
+    version     = "2.7.3";
     ip          = "192.168.20.233";
     uid         = 966;
     caddyHost   = "recipes.fatsch.us";
