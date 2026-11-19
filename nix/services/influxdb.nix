@@ -5,7 +5,7 @@ in
 {
   homelab.services.influxdb = {
     image       = "influxdb";
-    version     = "2.9.1";
+    version     = "2.10.1";
     ip          = "192.168.20.228";
     uid         = 970;
     caddyHost   = "influx.fatsch.us";
