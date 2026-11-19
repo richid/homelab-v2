@@ -77,7 +77,7 @@ in
 
   homelab.services.immich-valkey = {
     image       = "valkey/valkey";
-    version     = "9.1.3";
+    version     = "9.2.0";
     ip          = "192.168.20.242";
     appPath     = appPath;
     environment = {
