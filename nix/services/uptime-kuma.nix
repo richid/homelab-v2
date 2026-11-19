@@ -5,7 +5,7 @@ in
 {
   homelab.services.uptime-kuma = {
     image       = "louislam/uptime-kuma";
-    version     = "2.5.11";
+    version     = "2.5.12";
     ip          = "192.168.20.215";
     caddyHost   = "status.fatsch.us";
     caddyCors   = true;
