@@ -5,7 +5,7 @@ in
 {
   homelab.services.prowlarr = {
     image       = "lscr.io/linuxserver/prowlarr";
-    version     = "3.0.2";
+    version     = "3.1.0";
     ip          = "192.168.20.217";
     uid         = 989;
     uidMode     = "env";
