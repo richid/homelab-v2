@@ -29,6 +29,7 @@
 
 *.fatsch.us {
     @dns host dns.fatsch.us
+    @unifi host unifi.fatsch.us
     tls {
         dns route53 {
             max_retries 10
@@ -41,6 +42,15 @@
     handle @dns {
         import cors
         reverse_proxy 192.168.20.10
+    }
+
+    handle @unifi {
+        reverse_proxy https://192.168.10.10:8443 {
+            header_up -Origin
+            transport http {
+                tls_insecure_skip_verify
+            }
+        }
     }
 }
 
