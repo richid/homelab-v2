@@ -152,6 +152,6 @@ services:
         url: "https://dns.fatsch.us"
       - name: "UniFi"
         logo: "assets/tools/unifi.svg"
-        url: "https://192.168.10.10/"
+        url: "https://unifi.fatsch.us"
         subtitle: "Network controller"
         target: "_blank"
