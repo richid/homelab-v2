@@ -47,6 +47,7 @@
     handle @unifi {
         reverse_proxy https://192.168.10.10 {
             header_up -Origin
+            header_up Host {host}
             transport http {
                 tls_insecure_skip_verify
             }
