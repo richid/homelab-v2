@@ -129,7 +129,6 @@
     mergerfs
     mergerfs-tools
     nvme-cli
-    rclone
     screen
     smartmontools
     snapraid
