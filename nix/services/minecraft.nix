@@ -5,7 +5,7 @@ in
 {
   homelab.services.minecraft-java = {
     image       = "itzg/minecraft-server";
-    version     = "2026.11.0-java21";
+    version     = "2026.11.1-java21";
     autoStart   = false;
     ip          = "192.168.20.230";
     uid         = 968;
